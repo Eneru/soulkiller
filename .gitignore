@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Soulkiller: outillage et secrets locaux
+node_modules/
+.env.*
+!.env.example
+.soulkiller-local/

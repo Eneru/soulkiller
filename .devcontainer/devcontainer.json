@@ -1,0 +1,22 @@
+{
+  "name": "Soulkiller",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/soulkiller,type=bind",
+  "workspaceFolder": "/workspaces/soulkiller",
+  "containerUser": "ubuntu",
+  "remoteUser": "ubuntu",
+  "updateRemoteUserUID": true,
+  "init": true,
+  "overrideCommand": false,
+  "shutdownAction": "stopContainer",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+schema: spec-driven
+
+context: |
+  Soulkiller est un projet d'application en plusieurs stages, inspiré de Cyberpunk 2077.
+  Les stages fonctionnels et l'architecture restent à définir avec le mainteneur.
+  Le socle utilise Ubuntu 24.04, Node.js et OpenSpec dans un devcontainer non-root.
+  Python, .NET, Angular et OmniRoute sont des pistes non encore adoptées.
+  Tout développement et toute vérification se font dans le conteneur.
+  Seuls la construction et le lancement du conteneur sont autorisés sur l'hôte.
+  Aucun dossier hôte autre que Soulkiller ne doit être modifié ou monté.
+  GitHub Flow : branche depuis main, PR draft, review humaine, fusion manuelle.
+  LICENSE reste inchangé. Aucun secret, appel LLM payant automatique ou CI initiale.
+  La documentation est en français ; conserver les mots-clés de validation OpenSpec.
+
+rules:
+  proposal:
+    - Distinguer besoins confirmés, hypothèses et éléments hors périmètre.
+  specs:
+    - Décrire des résultats observables et des scénarios nominaux et d'échec pertinents.
+  design:
+    - Justifier les dépendances ajoutées et préciser les conséquences pour le devcontainer.
+  tasks:
+    - Inclure les vérifications dans le devcontainer et la mise à jour de la documentation.
+    - Ne cocher que les tâches effectivement accomplies et vérifiées.
