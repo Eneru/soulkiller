@@ -20,4 +20,4 @@
 
 ## 4. Livrer
 
-- [ ] 4.1 Publier uniquement feature/initialize-repo et ouvrir une PR draft vers main.
+- [x] 4.1 Publier uniquement feature/initialize-repo et ouvrir une PR draft vers main.
