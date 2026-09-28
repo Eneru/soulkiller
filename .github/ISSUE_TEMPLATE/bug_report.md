@@ -1,34 +1,34 @@
 ---
-name: Bug
-about: Signaler un problème reproductible sans impact de sécurité
+name: Bug report
+about: Report a reproducible problem without a security impact
 title: "[Bug] "
 labels: ""
 assignees: ""
 ---
 
-## Problème
+## Problem
 
-<!-- Pour une vulnérabilité, suivre SECURITY.md sans publier de détails ici. -->
+<!-- Write this report in English. For vulnerabilities, follow SECURITY.md without publishing details here. -->
 
-## Reproduction
+## Steps to reproduce
 
 1.
 2.
 
-## Résultat attendu
+## Expected result
 
-## Résultat observé
+## Actual result
 
-## Environnement
+## Environment
 
-- Commit ou version :
-- Système hôte / Docker :
-- Devcontainer utilisé :
+- Commit or version:
+- Host operating system / Docker:
+- Devcontainer used:
 
-## Vérifications et journaux
+## Checks and logs
 
-<!-- Retirer les secrets et données personnelles. -->
+<!-- Remove secrets and personal data. -->
 
-## Références
+## References
 
-- Changement OpenSpec, si existant :
+- OpenSpec change, if one exists:

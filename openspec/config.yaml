@@ -1,24 +1,26 @@
 schema: spec-driven
 
 context: |
-  Soulkiller est un projet d'application en plusieurs stages, inspiré de Cyberpunk 2077.
-  Les stages fonctionnels et l'architecture restent à définir avec le mainteneur.
-  Le socle utilise Ubuntu 24.04, Node.js et OpenSpec dans un devcontainer non-root.
-  Python, .NET, Angular et OmniRoute sont des pistes non encore adoptées.
-  Tout développement et toute vérification se font dans le conteneur.
-  Seuls la construction et le lancement du conteneur sont autorisés sur l'hôte.
-  Aucun dossier hôte autre que Soulkiller ne doit être modifié ou monté.
-  GitHub Flow : branche depuis main, PR draft, review humaine, fusion manuelle.
-  LICENSE reste inchangé. Aucun secret, appel LLM payant automatique ou CI initiale.
-  La documentation est en français ; conserver les mots-clés de validation OpenSpec.
+  Soulkiller is a multi-stage application project inspired by Cyberpunk 2077.
+  Functional stages and architecture still need to be defined with the maintainer.
+  The foundation uses Ubuntu 24.04, Node.js and OpenSpec in a non-root devcontainer.
+  Python, .NET, Angular and OmniRoute are candidates, not adopted technologies.
+  Run all development and validation commands inside the container.
+  Only building and launching the container are allowed on the host.
+  Do not modify or mount host folders other than Soulkiller.
+  GitHub Flow: branch from main, draft PR, human review, manual merge.
+  Keep LICENSE unchanged. No secrets, automatic paid LLM calls or initial CI.
+  English is the working language for specifications, documentation, agent instructions,
+  code comments, issue and PR content, and new commit messages.
+  Preserve tool-defined identifiers and OpenSpec validation keywords.
 
 rules:
   proposal:
-    - Distinguer besoins confirmés, hypothèses et éléments hors périmètre.
+    - Write in English and distinguish confirmed needs, assumptions and exclusions.
   specs:
-    - Décrire des résultats observables et des scénarios nominaux et d'échec pertinents.
+    - Write requirements and scenarios in English, with observable outcomes and relevant success and failure cases.
   design:
-    - Justifier les dépendances ajoutées et préciser les conséquences pour le devcontainer.
+    - Write in English, justify added dependencies and explain their impact on the devcontainer.
   tasks:
-    - Inclure les vérifications dans le devcontainer et la mise à jour de la documentation.
-    - Ne cocher que les tâches effectivement accomplies et vérifiées.
+    - Write in English and include validation inside the devcontainer and documentation updates.
+    - Check off only tasks that have actually been completed and verified.

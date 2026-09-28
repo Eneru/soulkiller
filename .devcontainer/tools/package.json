@@ -2,7 +2,7 @@
   "name": "soulkiller-devcontainer-tools",
   "private": true,
   "version": "0.0.0",
-  "description": "Outillage du devcontainer, sans dépendance applicative",
+  "description": "Devcontainer tooling, without application dependencies",
   "dependencies": {
     "@fission-ai/openspec": "1.13.2"
   }

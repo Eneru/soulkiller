@@ -1,75 +1,74 @@
-# Travailler avec OpenSpec
+# Working with OpenSpec
 
-Le projet utilise [OpenSpec](https://openspec.dev/docs/cli), installé dans le
-devcontainer. Sa configuration est [openspec/config.yaml](../openspec/config.yaml).
-Le schéma retenu est `spec-driven`. L'initialisation a utilisé
-`openspec init --tools none` : les agents suivent [AGENTS.md](../AGENTS.md)
-et la CLI, sans dépendre de commandes propres à un assistant.
+The project uses [OpenSpec](https://openspec.dev/docs/cli), installed in the
+devcontainer. Its configuration is [openspec/config.yaml](../openspec/config.yaml).
+The selected schema is `spec-driven`. Initialization used
+`openspec init --tools none`: agents follow [AGENTS.md](../AGENTS.md)
+and the CLI without depending on assistant-specific commands.
 
-## Organisation
+## Organization
 
-- `openspec/specs/` contient les exigences de référence intégrées.
-- `openspec/changes/<nom>/` contient une évolution proposée, ses deltas
-  de spécifications, sa conception et ses tâches.
-- `openspec/changes/archive/` accueillera les changements archivés.
+- `openspec/specs/` contains integrated reference requirements.
+- `openspec/changes/<name>/` contains a proposed change, specification deltas,
+  design and tasks.
+- `openspec/changes/archive/` holds archived changes.
 
-Les répertoires de référence et d'archive peuvent être absents tant que le
-premier changement n'a pas été intégré. La proposition active
-[initialize-repo](../openspec/changes/initialize-repo/proposal.md) décrit le socle ;
-elle reste active pendant sa review.
+Reference and archive directories may be empty until the first change is
+integrated. The active [initialize-repo](../openspec/changes/initialize-repo/proposal.md)
+proposal describes the foundation and remains active during review.
 
-## Cycle de travail
+## Workflow
 
-Toutes les commandes suivantes s'exécutent dans le devcontainer.
+Run all commands below inside the devcontainer.
 
-1. Examiner l'existant avec `openspec list` et `openspec list --specs`.
-2. Créer un changement :
+1. Inspect existing work with `openspec list` and `openspec list --specs`.
+2. Create a change:
 
    ```sh
-   openspec new change nom-du-changement
-   openspec status --change nom-du-changement
-   openspec instructions proposal --change nom-du-changement
+   openspec new change change-name
+   openspec status --change change-name
+   openspec instructions proposal --change change-name
    ```
 
-3. Rédiger `proposal.md`, puis les deltas `specs/<capability>/spec.md`,
-   `design.md` et `tasks.md`. Consulter les instructions du schéma :
+3. Write `proposal.md`, then `specs/<capability>/spec.md` deltas,
+   `design.md` and `tasks.md`. Consult the schema instructions:
 
    ```sh
-   openspec instructions specs --change nom-du-changement
-   openspec instructions design --change nom-du-changement
-   openspec instructions tasks --change nom-du-changement
+   openspec instructions specs --change change-name
+   openspec instructions design --change change-name
+   openspec instructions tasks --change change-name
    ```
 
-4. Faire valider les décisions nécessaires, puis implémenter et vérifier.
-   Cocher les tâches uniquement sur preuve, et conserver les décisions dans
-   les artefacts versionnés.
-5. Valider avant de livrer la PR :
+4. Obtain approval for decisions that require it, then implement and validate.
+   Check off tasks only when supported by evidence, and record decisions in
+   versioned artifacts.
+5. Validate before delivering the PR:
 
    ```sh
-   openspec validate nom-du-changement --strict --no-interactive
+   openspec validate change-name --strict --no-interactive
    openspec validate --all --strict --no-interactive
    ```
 
-6. Après acceptation de l'implémentation, préparer son archivage sur une branche
-   soumise à review :
+6. After implementation is accepted, prepare archiving on a branch for review:
 
    ```sh
-   openspec archive nom-du-changement
+   openspec archive change-name
    openspec validate --all --strict --no-interactive
    ```
 
-   Examiner le diff : l'archivage met à jour les spécifications de référence et
-   déplace le changement dans l'archive. Il ne remplace pas la review GitHub et
-   ne justifie aucun push direct sur `main`.
+   Inspect the diff: archiving updates the reference specifications and moves
+   the change into the archive. It does not replace GitHub review or authorize
+   a direct push to `main`.
 
-## Rédaction et validation
+## Language and validation
 
-La prose est en français. Conserver les structures reconnues par le validateur,
-notamment `## ADDED Requirements`, `### Requirement:`, `#### Scenario:`,
-`SHALL`, `WHEN` et `THEN`. Chaque exigence décrit un comportement observable
-et possède au moins un scénario. La validation structurelle ne démontre pas
-que l'implémentation satisfait les exigences : joindre les résultats de tests.
+**English is the working language for all OpenSpec artifacts**, including
+proposals, requirements, scenarios, designs, tasks and configuration guidance.
+Use the validator's recognized structures, including `## ADDED Requirements`,
+`### Requirement:`, `#### Scenario:`, `SHALL`, `WHEN` and `THEN`.
+Each requirement describes observable behavior and has at least one scenario.
+Structural validation does not prove that the implementation satisfies the
+requirements: include actual test results.
 
-La télémétrie OpenSpec et la vérification automatique de mises à jour sont
-désactivées dans l'image. Les montées de version sont explicites et passent
-par une PR avec mise à jour du verrou npm.
+OpenSpec telemetry and automatic update checks are disabled in the image.
+Version upgrades are explicit and go through a PR with an updated npm lockfile.

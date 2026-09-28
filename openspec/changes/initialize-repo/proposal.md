@@ -2,33 +2,36 @@
 
 ## Why
 
-Soulkiller dispose seulement d'un README initial, d'une licence et d'exclusions Git.
-Un socle commun est nécessaire avant de définir les stages et de développer
-l'application, afin de rendre le travail reproductible et relisible.
+Soulkiller only has an initial README, a license and Git exclusions.
+A shared foundation is needed before defining stages and developing the
+application so that work is reproducible and reviewable.
 
 ## What Changes
 
-- Ajouter un devcontainer minimal Ubuntu avec utilisateur non-root, Git, Node.js et OpenSpec.
-- Initialiser le processus de spécification et les instructions de contribution.
-- Documenter le démarrage, la sécurité, les vérifications et les changements.
-- Fournir les templates de PR et d'issues ainsi qu'une feuille de route à relire.
-- Relier le workspace au dépôt et livrer sur une branche avec PR draft.
+- Add a minimal Ubuntu devcontainer with a non-root user, Git, Node.js and OpenSpec.
+- Initialize the specification process and contribution instructions.
+- Document startup, security, validation and changes.
+- Provide PR and issue templates and a roadmap for review.
+- Connect the workspace to the repository and deliver through a branch and draft PR.
+- Establish English as the working language for specifications, documentation,
+  agent instructions, code comments, contribution content and new commit messages.
 
-Hors périmètre : code applicatif, définition des stages, SDK Python/.NET/Angular,
-Docker-in-Docker, intégration active d'OmniRoute, CI et modification de LICENSE.
+Out of scope: application code, stage definitions, Python/.NET/Angular SDKs,
+Docker-in-Docker, active OmniRoute integration, CI and LICENSE changes.
 
 ## Capabilities
 
 ### New Capabilities
 
-- `development-foundation` : environnement conteneurisé, validation du socle et contribution guidée par OpenSpec.
+- `development-foundation`: containerized environment, foundation validation,
+  English-language project artifacts and OpenSpec-guided contribution.
 
 ### Modified Capabilities
 
-Aucune spécification de référence existante.
+No existing reference specifications.
 
 ## Impact
 
-Le dépôt reçoit des fichiers de documentation et de configuration. La construction
-requiert un accès aux registres Ubuntu, Node.js et npm. Aucune API applicative,
-migration de données ou consommation de fournisseur LLM n'est introduite.
+The repository receives documentation and configuration files. Building requires
+access to Ubuntu, Node.js and npm registries. No application API, data migration
+or LLM provider usage is introduced.

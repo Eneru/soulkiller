@@ -2,7 +2,7 @@ FROM ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffb
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Versions explicites : mettre à jour dans une PR puis reconstruire l'image.
+# Explicit versions: update in a PR, then rebuild the image.
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         ca-certificates=20260601~24.04.1 \
@@ -16,7 +16,7 @@ ARG NODE_VERSION=24.21.0
 RUN case "$(dpkg --print-architecture)" in \
         amd64) node_arch=x64; node_sha=fd8e59d5a511510f6a298afb548f18c7d2b1be404d8b4a27d94fbe49f56cb2d6 ;; \
         arm64) node_arch=arm64; node_sha=6ad1325edbdb5649c379b75a237147a666c95d4f9ae8d340fef2d1575d289ad2 ;; \
-        *) echo "Architecture Node.js non prise en charge" >&2; exit 1 ;; \
+        *) echo "Unsupported Node.js architecture" >&2; exit 1 ;; \
     esac \
     && curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-${node_arch}.tar.xz" -o /tmp/node.tar.xz \
     && echo "${node_sha}  /tmp/node.tar.xz" | sha256sum --check --strict \
@@ -35,7 +35,7 @@ RUN npm ci --prefix /opt/openspec --omit=dev --ignore-scripts --no-audit --no-fu
     && mkdir -p /workspaces/soulkiller \
     && chown ubuntu:ubuntu /workspaces/soulkiller
 
-# L'image Ubuntu fournit déjà cet utilisateur non-root (UID/GID 1000).
+# The Ubuntu image already provides this non-root user (UID/GID 1000).
 USER ubuntu
 WORKDIR /workspaces/soulkiller
 CMD ["sleep", "infinity"]

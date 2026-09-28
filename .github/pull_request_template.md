@@ -1,26 +1,26 @@
-## Objectif et résultat
+## Goal and outcome
 
-<!-- Décrire le problème et le comportement obtenu. -->
+<!-- Write this PR in English. Describe the problem and resulting behavior. -->
 
-## Références
+## References
 
-- Issue, si elle existe :
-- Changement OpenSpec (chemin ou identifiant), ou justification si non applicable :
+- Issue, if any:
+- OpenSpec change (path or identifier), or explanation if not applicable:
 
-## Vérifications
+## Validation
 
-<!-- Commandes exécutées dans le devcontainer, résultats et limites. -->
+<!-- Commands run inside the devcontainer, results and limitations. -->
 
 ## Checklist
 
-- [ ] Périmètre autorisé respecté ; LICENSE inchangé.
-- [ ] Spécifications et documentation à jour.
-- [ ] Tests adaptés exécutés ; aucun résultat supposé.
-- [ ] Validation OpenSpec et git diff --check réussis.
-- [ ] CHANGELOG mis à jour si nécessaire.
-- [ ] Aucun secret ou donnée personnelle ajouté.
+- [ ] Authorized scope respected; LICENSE unchanged.
+- [ ] Specifications and documentation are up to date and written in English.
+- [ ] Relevant tests executed; no assumed results.
+- [ ] OpenSpec validation and git diff --check passed.
+- [ ] CHANGELOG updated where needed.
+- [ ] No secrets or personal data added.
 
-## Points à relire
+## Review notes
 
-<!-- Décisions, limites connues et éventuelles suites. -->
-<!-- Garder la PR en draft tant qu'elle n'est pas prête. Fusion après review humaine. -->
+<!-- Decisions, known limitations and possible follow-up work. -->
+<!-- Keep this PR in draft until ready. Merge only after human review. -->

@@ -1,20 +1,22 @@
 # Changelog
 
-Les changements notables sont consignés ici selon
-[Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
-Aucune version n'est encore publiée.
+Notable changes are recorded here following
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+No version has been released yet.
 
 ## [Unreleased]
 
 ### Added
 
-- Devcontainer Ubuntu 24.04 avec utilisateur non-root, Git, Node.js et OpenSpec.
-- Configuration OpenSpec et changement décrivant l'initialisation du dépôt.
-- Documentation du projet, des contributions, de la sécurité et des vérifications.
-- Instructions agents et templates Markdown de PR, bug et fonctionnalité.
-- Feuille de route à relire, incluant l'évaluation d'OmniRoute.
+- Ubuntu 24.04 devcontainer with a non-root user, Git, Node.js and OpenSpec.
+- OpenSpec configuration and a change describing repository initialization.
+- Project, contribution, security and validation documentation.
+- Agent instructions and Markdown PR, bug and feature templates.
+- Roadmap for review, including an OmniRoute evaluation.
 
 ### Changed
 
-- README initial remplacé par le guide de démarrage et l'état réel du projet.
-- Exclusions Git complétées pour les outils et secrets locaux.
+- Replaced the initial README with a getting-started guide and current project status.
+- Extended Git exclusions for tools and local secrets.
+- Adopted English as the working language for specifications, documentation,
+  project instructions and contribution content; translated existing project text.

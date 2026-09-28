@@ -1,60 +1,74 @@
 ## ADDED Requirements
 
-### Requirement: Environnement de développement conteneurisé
-Le dépôt SHALL fournir un devcontainer Ubuntu 24.04 incluant Git, Node.js 24.21.0
-et OpenSpec 1.13.2, avec versions explicites et utilisateur non-root.
+### Requirement: Containerized development environment
+The repository SHALL provide an Ubuntu 24.04 devcontainer with Git,
+Node.js 24.21.0 and OpenSpec 1.13.2, explicit versions and a non-root user.
 
-#### Scenario: Démarrage depuis le dépôt
-- **WHEN** un contributeur construit et démarre l'environnement documenté
-- **THEN** il dispose d'un terminal non-root dans /workspaces/soulkiller et peut exécuter Git, Node.js et OpenSpec
+#### Scenario: Startup from the repository
+- **WHEN** a contributor builds and starts the documented environment
+- **THEN** a non-root terminal is available at /workspaces/soulkiller and Git, Node.js and OpenSpec can be executed
 
-#### Scenario: Persistance du workspace
-- **WHEN** le contributeur écrit un fichier dans le workspace puis recrée le conteneur
-- **THEN** le fichier conserve son contenu et reste modifiable par l'utilisateur de développement
+#### Scenario: Workspace persistence
+- **WHEN** the contributor writes a workspace file and recreates the container
+- **THEN** the file retains its content and remains writable by the development user
 
-#### Scenario: Archive Node.js incorrecte
-- **WHEN** l'empreinte de l'archive Node.js ne correspond pas à celle fixée
-- **THEN** la construction échoue avant l'installation de cette archive
+#### Scenario: Invalid Node.js archive
+- **WHEN** the Node.js archive checksum does not match the pinned value
+- **THEN** the build fails before installing that archive
 
-### Requirement: Périmètre minimal sans service implicite
-L'environnement SHALL démarrer sans service applicatif, fournisseur LLM, socket
-Docker monté ou privilèges Docker supplémentaires ; le dépôt SHALL ne pas ajouter
-de workflow GitHub Actions pendant l'initialisation.
+### Requirement: Minimal scope without implicit services
+The environment SHALL start without an application service, LLM provider,
+mounted Docker socket or additional Docker privileges; the repository SHALL
+not add a GitHub Actions workflow during initialization.
 
-#### Scenario: Démarrage du socle
-- **WHEN** le devcontainer démarre avec sa configuration versionnée
-- **THEN** aucun appel LLM ni service OmniRoute n'est déclenché et aucun secret fournisseur n'est requis
+#### Scenario: Foundation startup
+- **WHEN** the devcontainer starts with its versioned configuration
+- **THEN** no LLM call or OmniRoute service is triggered and no provider secret is required
 
-### Requirement: Processus OpenSpec et review
-Le dépôt SHALL fournir une configuration OpenSpec spec-driven, les artefacts du
-changement d'initialisation et des instructions de contribution imposant une
-review humaine avant fusion.
+### Requirement: OpenSpec and review workflow
+The repository SHALL provide a spec-driven OpenSpec configuration,
+initialization change artifacts and contribution instructions requiring human
+review before merge.
 
-#### Scenario: Vérification des spécifications
-- **WHEN** le contributeur lance openspec validate --all --strict --no-interactive
-- **THEN** les artefacts d'initialisation sont reconnus et valides
+#### Scenario: Specification validation
+- **WHEN** the contributor runs openspec validate --all --strict --no-interactive
+- **THEN** the initialization artifacts are recognized and valid
 
-#### Scenario: Livraison de l'initialisation
-- **WHEN** le changement est soumis au mainteneur
-- **THEN** une PR draft propose feature/initialize-repo vers main, sans fusion automatique
+#### Scenario: Initialization delivery
+- **WHEN** the change is submitted to the maintainer
+- **THEN** a draft PR proposes feature/initialize-repo against main without automatic merge
 
-### Requirement: Documentation et suivi
-Le dépôt SHALL documenter son état, le démarrage, les contributions, le signalement
-des bugs et vulnérabilités, les changements et la feuille de route ; il SHALL
-fournir des templates Markdown de PR et d'issues.
+### Requirement: Documentation and tracking
+The repository SHALL document its status, startup, contributions, bug and
+vulnerability reporting, changes and roadmap; it SHALL provide Markdown PR
+and issue templates.
 
-#### Scenario: Préparer les prochaines étapes
-- **WHEN** le mainteneur lit la feuille de route
-- **THEN** chaque proposition indique un objectif, des dépendances et des critères d'acceptation sans prétendre qu'une issue est déjà publiée
+#### Scenario: Planning the next steps
+- **WHEN** the maintainer reads the roadmap
+- **THEN** each proposal includes a goal, dependencies and acceptance criteria without claiming that an issue has already been published
 
-#### Scenario: Vulnérabilité suspectée
-- **WHEN** un contributeur consulte SECURITY.md
-- **THEN** il est orienté vers un canal privé disponible ou une demande de canal sans divulgation publique de détails sensibles
+#### Scenario: Suspected vulnerability
+- **WHEN** a contributor reads SECURITY.md
+- **THEN** they are directed to an available private channel or a request for one without publicly disclosing sensitive details
 
-### Requirement: Préservation de la licence
-L'initialisation SHALL conserver LICENSE octet pour octet et préserver l'historique
-du dépôt existant.
+### Requirement: English working language
+The project SHALL use English for specifications, documentation, agent
+instructions, code comments, issue and PR content, and new commit messages.
+The README, contribution guide, agent instructions and OpenSpec configuration
+SHALL explicitly state this policy.
 
-#### Scenario: Inspection du changement
-- **WHEN** le mainteneur compare la branche d'initialisation à sa base main
-- **THEN** LICENSE est inchangé et le commit de base demeure un ancêtre de la branche
+#### Scenario: Creating or updating project artifacts
+- **WHEN** a contributor or agent creates or updates project text or an OpenSpec artifact
+- **THEN** its authored content is in English and preserves tool-defined identifiers and validation keywords
+
+#### Scenario: Applying the policy to the existing foundation
+- **WHEN** the initialization change is reviewed
+- **THEN** its documentation, specifications, templates and configuration guidance are in English, with no remaining instruction to use French
+
+### Requirement: License preservation
+Initialization SHALL preserve LICENSE byte for byte and retain the existing
+repository history.
+
+#### Scenario: Change inspection
+- **WHEN** the maintainer compares the initialization branch with its main baseline
+- **THEN** LICENSE is unchanged and the base commit remains an ancestor of the branch

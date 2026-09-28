@@ -1,75 +1,84 @@
 # Soulkiller
 
-Soulkiller est un projet d'application en plusieurs stages, inspiré du Soulkiller
-de Cyberpunk 2077. Le premier objectif est de définir les usages et de construire
-progressivement une application faisant appel à des LLM. Les stages, les données
-et les comportements attendus restent à spécifier : aucune capacité de
-« numérisation de conscience » n'est aujourd'hui implémentée ou démontrée.
+Soulkiller is a multi-stage application project inspired by the Soulkiller from
+Cyberpunk 2077. The first goal is to define its use cases and progressively build
+an application that uses LLMs. Its stages, data and expected behavior still need
+to be specified: no "consciousness digitization" capability has been implemented
+or demonstrated.
 
-## État du projet
+## Project status
 
-Cette initialisation fournit un environnement de développement et des règles de
-contribution. Il n'y a encore ni code applicatif, ni serveur, ni suite de tests
-fonctionnels. Python, .NET et éventuellement Angular sont des pistes ; leur usage
-et leurs versions seront décidés dans les prochaines spécifications.
+This initial setup provides a development environment and contribution rules.
+There is no application code, server or functional test suite yet. Python, .NET
+and possibly Angular are candidates; their use and versions will be decided in
+future specifications.
 
-Le dépôt de référence est [Eneru/soulkiller](https://github.com/Eneru/soulkiller).
-Toute évolution passe par une branche et une PR relue par le mainteneur.
+The canonical repository is [Eneru/soulkiller](https://github.com/Eneru/soulkiller).
+Every change goes through a branch and a pull request reviewed by the maintainer.
 
-## Démarrer dans le devcontainer
+## Working language
 
-Prérequis sur l'hôte :
+**English is the project's working language.** Write specifications, documentation,
+agent instructions, code comments, issue and PR content, and new commit messages
+in English. Keep tool-defined identifiers and validation keywords unchanged.
+This policy is also recorded in [AGENTS.md](AGENTS.md), the
+[OpenSpec configuration](openspec/config.yaml) and the development foundation
+specification.
 
-- Docker avec des conteneurs Linux ; sous Windows, Docker Desktop et son
-  intégration WSL 2 activée pour Ubuntu.
-- Un éditeur compatible Dev Containers, par exemple VS Code avec l'extension
-  Dev Containers.
-- Un accès réseau aux registres Ubuntu, Node.js et npm pour la première construction.
+## Start the devcontainer
 
-Ouvrir le dossier Soulkiller dans l'éditeur puis choisir **Dev Containers: Reopen
-in Container**. Le dossier est monté dans `/workspaces/soulkiller` ; le terminal
-s'ouvre sous l'utilisateur non-root `ubuntu`. Le démarrage ne lance aucun service
-applicatif, appel LLM ou génération de fichiers dans le dépôt.
+Host prerequisites:
 
-Pour construire et lancer directement le même environnement depuis un terminal
-**hôte ouvert dans Soulkiller**, les seules commandes hôte nécessaires sont :
+- Docker running Linux containers; on Windows, Docker Desktop with WSL 2
+  integration enabled for Ubuntu.
+- A Dev Containers-compatible editor, such as VS Code with the Dev Containers
+  extension.
+- Network access to the Ubuntu, Node.js and npm registries for the first build.
+
+Open the Soulkiller folder in your editor and choose **Dev Containers: Reopen in
+Container**. The folder is mounted at `/workspaces/soulkiller`; the terminal runs
+as the non-root `ubuntu` user. Startup does not launch an application service,
+make LLM calls or generate repository files.
+
+To build and run the same environment directly from a **host terminal opened
+in Soulkiller**, the only required host commands are:
 
 ```sh
 docker build -t soulkiller-dev .devcontainer
 docker run --rm -it --init --mount "type=bind,source=${PWD},target=/workspaces/soulkiller" soulkiller-dev bash
 ```
 
-Ces exemples utilisent un shell POSIX, notamment Ubuntu sous WSL. Toutes les
-commandes de développement, y compris Git et OpenSpec, s'exécutent ensuite dans
-le conteneur. Les modifications du workspace persistent sur l'hôte ; les
-installations manuelles dans le conteneur disparaissent à sa reconstruction.
-Ne monter aucun autre dossier hôte ni le socket Docker pour ce socle.
+These examples use a POSIX shell, including Ubuntu on WSL. Run all subsequent
+development commands, including Git and OpenSpec, inside the container.
+Workspace changes persist on the host; manual installations inside the container
+are lost when it is rebuilt. Do not mount other host folders or the Docker socket
+for this initial setup.
 
-## Outils disponibles
+## Available tools
 
-| Élément | Version / choix |
+| Component | Version / choice |
 | --- | --- |
-| Système | Ubuntu 24.04, image fixée par digest |
-| Shell et recherche | Bash et ripgrep |
-| Git | 2.43.0, paquet Ubuntu fixé dans le Dockerfile |
-| Node.js | 24.21.0 LTS, archive vérifiée par SHA-256 |
-| npm | Version livrée avec Node.js |
-| OpenSpec | 1.13.2, dépendances verrouillées |
+| Operating system | Ubuntu 24.04, image pinned by digest |
+| Shell and search | Bash and ripgrep |
+| Git | 2.43.0, Ubuntu package pinned in the Dockerfile |
+| Node.js | 24.21.0 LTS, archive verified with SHA-256 |
+| npm | Version bundled with Node.js |
+| OpenSpec | 1.13.2, with locked dependencies |
 
-Les fichiers de [.devcontainer](.devcontainer/devcontainer.json) sont la source
-de vérité. Le [Dockerfile](.devcontainer/Dockerfile) fixe les paquets directs ;
-le [verrou npm](.devcontainer/tools/package-lock.json) fixe les dépendances
-OpenSpec. Les dépendances système transitives restent résolues par APT :
-ce socle ne promet pas une reconstruction bit à bit. Une version APT retirée
-des miroirs nécessite une mise à jour explicite dans une PR.
+The [.devcontainer configuration](.devcontainer/devcontainer.json) is the source
+of truth. The [Dockerfile](.devcontainer/Dockerfile) pins direct packages; the
+[npm lockfile](.devcontainer/tools/package-lock.json) pins OpenSpec dependencies.
+Transitive system dependencies are still resolved by APT: this setup does not
+guarantee bit-for-bit reproducibility. If a pinned APT version is removed from
+the mirrors, update it explicitly in a PR.
 
-Pour faire évoluer les outils, modifier leurs versions et empreintes, régénérer
-le verrou npm **dans le conteneur** si nécessaire, puis reconstruire et refaire
-les vérifications. Aucun Python, SDK .NET, Angular ou Docker imbriqué n'est installé.
+To update tools, change their versions and checksums, regenerate the npm lockfile
+**inside the container** if needed, then rebuild and repeat the checks.
+Python, the .NET SDK, Angular and nested Docker are not installed.
 
-## Vérifier le socle
+## Validate the foundation
 
-Dans le terminal du conteneur :
+In the container terminal:
 
 ```sh
 id
@@ -81,28 +90,28 @@ openspec validate --all --strict --no-interactive
 git diff --check
 ```
 
-La procédure complète et les critères attendus sont dans
-[docs/validation.md](docs/validation.md). Ces contrôles valident le socle ;
-ils ne remplacent pas les futurs tests applicatifs. Aucun workflow GitHub
-Actions n'est ajouté pour le moment.
+The complete procedure and expected results are in
+[docs/validation.md](docs/validation.md). These checks validate the foundation;
+they do not replace future application tests. No GitHub Actions workflow is
+included at this stage.
 
-## Spécifications et LLM
+## Specifications and LLMs
 
-[OpenSpec](https://openspec.dev/) structure les propositions, spécifications,
-décisions et tâches avant implémentation. Lire le
-[guide OpenSpec](docs/openspec.md) et les [instructions agents](AGENTS.md).
+[OpenSpec](https://openspec.dev/) structures proposals, specifications, decisions
+and tasks before implementation. Read the [OpenSpec guide](docs/openspec.md)
+and [agent instructions](AGENTS.md).
 
-[OmniRoute](https://github.com/NStambovsky/OmniRoute) est un candidat pour centraliser
-les appels LLM et explorer le routage entre fournisseurs. Son intégration est
-uniquement planifiée : aucun service, fournisseur ou compte n'est configuré.
-L'évaluation devra mesurer compatibilité, coûts, latence, confidentialité et
-comportement en cas d'échec avant adoption. Voir la [feuille de route](docs/roadmap.md).
+[OmniRoute](https://github.com/NStambovsky/OmniRoute) is a candidate for centralizing
+LLM calls and exploring routing between providers. Its integration is only
+planned: no service, provider or account is configured. Evaluation must measure
+compatibility, costs, latency, privacy and failure behavior before adoption.
+See the [roadmap](docs/roadmap.md).
 
-## Participer
+## Contribute
 
-- [CONTRIBUTING.md](CONTRIBUTING.md) : GitHub Flow, review et vérifications.
-- [SECURITY.md](SECURITY.md) : bugs et signalements de vulnérabilités.
-- [CHANGELOG.md](CHANGELOG.md) : changements non publiés et futures versions.
-- [Feuille de route](docs/roadmap.md) : propositions d'issues à relire avant publication.
+- [CONTRIBUTING.md](CONTRIBUTING.md): GitHub Flow, review and validation.
+- [SECURITY.md](SECURITY.md): bugs and vulnerability reporting.
+- [CHANGELOG.md](CHANGELOG.md): unreleased changes and future versions.
+- [Roadmap](docs/roadmap.md): proposed issues to review before publication.
 
-La licence existante est disponible dans [LICENSE](LICENSE).
+The existing license is available in [LICENSE](LICENSE).

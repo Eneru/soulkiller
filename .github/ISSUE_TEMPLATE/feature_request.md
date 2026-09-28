@@ -1,25 +1,27 @@
 ---
-name: Fonctionnalité
-about: Proposer un usage ou une amélioration à spécifier
+name: Feature request
+about: Propose a use case or improvement to specify
 title: "[Feature] "
 labels: ""
 assignees: ""
 ---
 
-## Besoin et public concerné
+<!-- Write this request in English. -->
 
-## Résultat attendu
+## Need and intended audience
 
-## Périmètre et exclusions
+## Expected outcome
 
-## Critères d'acceptation
+## Scope and exclusions
+
+## Acceptance criteria
 
 - [ ]
 
-## Vérifications envisagées
+## Proposed validation
 
-## Dépendances et alternatives
+## Dependencies and alternatives
 
-## Références
+## References
 
-- Changement OpenSpec, si existant :
+- OpenSpec change, if one exists:

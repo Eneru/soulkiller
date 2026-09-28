@@ -1,79 +1,79 @@
-# Feuille de route proposée
+# Proposed roadmap
 
-Ces éléments sont des **brouillons d'issues**, à relire dans la PR d'initialisation.
-Aucune issue n'est créée automatiquement. Après validation, les publier et
-remplacer leurs identifiants locaux par les liens GitHub. L'ordre ci-dessous
-exprime les dépendances ; il ne constitue pas une définition des stages produit.
+These entries are **issue drafts** to review in the initialization PR.
+No issues are created automatically. After approval, publish them in English
+and replace their local identifiers with GitHub links. The order below expresses
+dependencies; it does not define the product stages.
 
-## R1 — Définir les stages et le premier parcours
+## R1 — Define the stages and first user journey
 
-**Objectif :** préciser ce que Soulkiller doit faire, pour qui, avec quelles
-données d'entrée et quels résultats observables. Distinguer l'inspiration
-fictionnelle des capacités réellement visées.
+**Goal:** establish what Soulkiller should do, for whom, with which input data
+and observable outcomes. Distinguish the fictional inspiration from the actual
+capabilities being pursued.
 
-**Dépendances :** review du socle d'initialisation.
+**Dependencies:** review of the initial foundation.
 
-**Livrables et acceptation :**
+**Deliverables and acceptance criteria:**
 
-- [ ] Public, problème, premier parcours et exclusions validés par le mainteneur.
-- [ ] Stages nommés et décrits avec entrées, sorties et conditions de passage.
-- [ ] Besoins de stockage, confidentialité, consentement et suppression des données définis.
-- [ ] Exemples fictifs et critères observables documentés dans un changement OpenSpec.
+- [ ] Audience, problem, first journey and exclusions approved by the maintainer.
+- [ ] Stages named and described, including inputs, outputs and transition conditions.
+- [ ] Storage, privacy, consent and data deletion needs defined.
+- [ ] Synthetic examples and observable criteria documented in an OpenSpec change.
 
-## R2 — Choisir l'architecture et les langages
+## R2 — Choose the architecture and languages
 
-**Objectif :** choisir la structure minimale permettant le premier parcours.
+**Goal:** choose the smallest architecture that supports the first journey.
 
-**Dépendances :** R1.
+**Dependencies:** R1.
 
-**Livrables et acceptation :**
+**Deliverables and acceptance criteria:**
 
-- [ ] Responsabilités des composants et échanges définis.
-- [ ] Décision argumentée sur Python, .NET et l'éventuel frontend ; aucune pile imposée par avance.
-- [ ] Stockage et contrats nécessaires au parcours spécifiés.
-- [ ] Outils et versions ajoutés au devcontainer ; démarrage local documenté et vérifié.
+- [ ] Component responsibilities and interactions defined.
+- [ ] Reasoned decision on Python, .NET and any frontend; no stack imposed in advance.
+- [ ] Storage and contracts required by the journey specified.
+- [ ] Tools and versions added to the devcontainer; local startup documented and verified.
 
-## R3 — Établir la stratégie de tests reproductibles
+## R3 — Establish a reproducible testing strategy
 
-**Objectif :** rendre le premier parcours et ses erreurs testables depuis le devcontainer.
+**Goal:** make the first journey and its failure cases testable from the devcontainer.
 
-**Dépendances :** R1 et R2.
+**Dependencies:** R1 and R2.
 
-**Livrables et acceptation :**
+**Deliverables and acceptance criteria:**
 
-- [ ] Répartition des tests unitaires, d'intégration et de bout en bout définie.
-- [ ] Doublures LLM déterministes, jeux de données fictifs et isolation des tests définis.
-- [ ] Commande de test reproductible sans fournisseur externe ni coût LLM.
-- [ ] Décision explicite sur le besoin de Docker-in-Docker ; ajout uniquement si justifié.
-- [ ] Proposition éventuelle de CI minimale avec estimation de consommation Actions.
+- [ ] Responsibilities of unit, integration and end-to-end tests defined.
+- [ ] Deterministic LLM test doubles, synthetic fixtures and test isolation defined.
+- [ ] Reproducible test command requiring no external provider or LLM spending.
+- [ ] Explicit decision on Docker-in-Docker; add it only if justified.
+- [ ] Optional minimal CI proposal with an estimate of GitHub Actions usage.
 
-## R4 — Évaluer OmniRoute et les accès LLM
+## R4 — Evaluate OmniRoute and LLM access
 
-**Objectif :** décider si [OmniRoute](https://github.com/NStambovsky/OmniRoute)
-convient aux besoins identifiés.
+**Goal:** decide whether [OmniRoute](https://github.com/NStambovsky/OmniRoute)
+fits the identified needs.
 
-**Dépendances :** R1 et R2 ; les essais reproductibles s'appuient sur R3.
+**Dependencies:** R1 and R2; reproducible trials build on R3.
 
-**Livrables et acceptation :**
+**Deliverables and acceptance criteria:**
 
-- [ ] Version évaluée, licence et interfaces réellement compatibles documentées.
-- [ ] Comparaison avec l'accès direct à un fournisseur et critères d'adoption.
-- [ ] Mesures de latence, consommation et coûts sur un scénario représentatif.
-- [ ] Erreurs, limites de débit, délais, retries et bascule de fournisseur évalués.
-- [ ] Flux de données, journaux, stockage de secrets et règles de confidentialité examinés.
-- [ ] Décision d'adoption ou de rejet relue ; aucun secret ni appel payant automatique.
-- [ ] Si adopté : service local optionnel, configuration et procédure de test documentés.
+- [ ] Evaluated version, license and verified interface compatibility documented.
+- [ ] Comparison with direct provider access and adoption criteria.
+- [ ] Latency, usage and cost measurements for a representative scenario.
+- [ ] Errors, rate limits, timeouts, retries and provider failover evaluated.
+- [ ] Data flows, logs, secret storage and privacy rules reviewed.
+- [ ] Adoption or rejection decision reviewed; no secrets or automatic paid calls.
+- [ ] If adopted: optional local service, configuration and test procedure documented.
 
-## R5 — Livrer le premier incrément fonctionnel
+## R5 — Deliver the first functional increment
 
-**Objectif :** implémenter une tranche complète du parcours choisi en R1.
+**Goal:** implement one complete slice of the journey selected in R1.
 
-**Dépendances :** R1, R2, R3 et décision R4 lorsque le parcours utilise des LLM.
+**Dependencies:** R1, R2, R3 and the R4 decision if the journey uses LLMs.
 
-**Livrables et acceptation :**
+**Deliverables and acceptance criteria:**
 
-- [ ] Proposition, spécifications, conception et tâches OpenSpec relues.
-- [ ] Parcours exécutable entièrement depuis le devcontainer.
-- [ ] Scénarios nominaux, données invalides et indisponibilité des dépendances testés.
-- [ ] Documentation d'usage et CHANGELOG à jour.
-- [ ] PR accompagnée des résultats de tests, puis fusion seulement après review humaine.
+- [ ] OpenSpec proposal, specifications, design and tasks reviewed.
+- [ ] Journey runnable entirely from the devcontainer.
+- [ ] Success cases, invalid data and dependency unavailability tested.
+- [ ] Usage documentation and CHANGELOG updated.
+- [ ] PR includes test results and is merged only after human review.

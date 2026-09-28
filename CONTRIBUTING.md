@@ -1,56 +1,63 @@
-# Contribuer à Soulkiller
+# Contributing to Soulkiller
 
-## Environnement
+## Environment
 
-Lire le [README](README.md) et démarrer le devcontainer avant toute commande.
-Les installations et commandes Git se font dans son terminal. Ne modifier
-aucun autre dossier hôte ; ne pas toucher à [LICENSE](LICENSE).
+Read the [README](README.md) and start the devcontainer before running commands.
+Run installations and Git commands in its terminal. Do not modify other host
+folders or [LICENSE](LICENSE).
 
-L'identité Git et l'authentification restent personnelles. Si elles sont
-nécessaires, configurer l'identité au niveau du dépôt avec `git config --local`
-et utiliser un mécanisme d'authentification approuvé, sans token dans un fichier
-versionné ou une URL de remote. Ne pas copier de credentials dans l'image.
+Git identity and authentication remain personal. When needed, configure identity
+at repository level using `git config --local` and use an approved authentication
+mechanism, without tokens in tracked files or remote URLs. Do not copy credentials
+into the image.
+
+## Working language
+
+Use **English** for project work: specifications, documentation, agent instructions,
+code comments, issues, pull requests and new commit messages. Keep tool-defined
+identifiers and validation keywords unchanged. Historical commits are preserved;
+the language policy does not require rewriting history.
 
 ## GitHub Flow
 
-Nous suivons [GitHub Flow](https://blog.stephane-robert.info/docs/developper/version/git/workflows-git/#4-github-flow) :
+We follow [GitHub Flow](https://blog.stephane-robert.info/docs/developper/version/git/workflows-git/#4-github-flow):
 
-1. Partir d'un `main` à jour et d'un workspace propre. Ne pas écraser du travail local.
-2. Créer une branche courte, par exemple `feature/nom`, `fix/nom` ou `docs/nom`.
-3. Préparer les artefacts [OpenSpec](docs/openspec.md), puis implémenter le
-   changement autorisé avec ses vérifications et sa documentation.
-4. Faire des commits ciblés aux messages explicites et ouvrir une PR **draft**.
-5. Indiquer le problème résolu, la référence OpenSpec, les tests réellement
-   exécutés et les limites. Demander la review du mainteneur lorsque prêt.
-6. Attendre sa validation ; la fusion dans `main` reste manuelle. Aucun auto-merge.
+1. Start from an up-to-date `main` and a clean workspace. Preserve local work.
+2. Create a short-lived branch, such as `feature/name`, `fix/name` or `docs/name`.
+3. Prepare the [OpenSpec](docs/openspec.md) artifacts, then implement the authorized
+   change with its checks and documentation.
+4. Make focused commits with clear messages and open a **draft** PR.
+5. Describe the problem solved, the OpenSpec reference, tests actually run and
+   limitations. Request maintainer review when ready.
+6. Wait for approval; merging into `main` remains manual. No auto-merge.
 
-Exemple à exécuter dans le conteneur, depuis un workspace propre :
+Example to run inside the container from a clean workspace:
 
 ```sh
 git switch main
 git pull --ff-only origin main
-git switch -c feature/nom-du-changement
+git switch -c feature/change-name
 ```
 
-Si Git refuse la mise à jour, examiner la divergence au lieu de forcer.
-Les réglages de protection GitHub ne sont pas configurés par cette initialisation ;
-la review reste une règle de contribution.
+If Git refuses an update, inspect the divergence instead of forcing it.
+This setup does not configure GitHub branch protection; review remains a
+contribution rule.
 
-## Vérifications et documentation
+## Validation and documentation
 
-- Suivre [docs/validation.md](docs/validation.md) et valider OpenSpec.
-- Ajouter des tests significatifs pour chaque comportement applicatif futur :
-  succès, entrées invalides, erreurs des dépendances et régressions.
-- Utiliser des doublures LLM déterministes pour les tests ordinaires ; réserver
-  les essais externes à une exécution explicite avec budget et secrets locaux.
-- Mettre à jour README, guides et [CHANGELOG](CHANGELOG.md) selon le changement.
-- Ne cocher une tâche que lorsque son résultat est vérifié.
+- Follow [docs/validation.md](docs/validation.md) and validate OpenSpec.
+- Add meaningful tests for each future application behavior: success, invalid
+  input, dependency failures and regressions.
+- Use deterministic LLM test doubles for routine tests. Reserve external trials
+  for explicit runs with an agreed budget and local secrets.
+- Update the README, guides and [CHANGELOG](CHANGELOG.md) as appropriate.
+- Check off a task only after verifying its outcome.
 
-Aucune CI n'est créée dans cette PR. Les preuves locales doivent figurer dans la
-description de PR ; une CI minimale pourra être proposée séparément.
+This PR introduces no CI. Include local validation evidence in the PR description;
+a minimal CI setup may be proposed separately.
 
-## Issues et sécurité
+## Issues and security
 
-Utiliser les templates de bug et de fonctionnalité pour les demandes ordinaires.
-La [feuille de route](docs/roadmap.md) contient des propositions non encore publiées.
-Les vulnérabilités suivent exclusivement [SECURITY.md](SECURITY.md).
+Use the bug and feature templates for ordinary requests.
+The [roadmap](docs/roadmap.md) contains proposals that have not been published yet.
+Follow [SECURITY.md](SECURITY.md) for vulnerabilities.

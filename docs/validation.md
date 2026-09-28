@@ -1,15 +1,15 @@
-# Vérifier le socle
+# Validating the foundation
 
-Les commandes de développement ci-dessous s'exécutent dans le devcontainer.
-Seules la construction et la relance du conteneur se font via Docker ou l'éditeur
-sur l'hôte. Conserver les résultats et limites dans la PR.
+Run the development commands below inside the devcontainer. Only building and
+relaunching the container happens through Docker or the editor on the host.
+Record results and limitations in the PR in English.
 
-## Construction et outils
+## Build and tools
 
-Reconstruire l'image depuis [.devcontainer](../.devcontainer/devcontainer.json)
-avec l'éditeur, ou utiliser les commandes hôte du [README](../README.md).
+Rebuild the image using the [.devcontainer configuration](../.devcontainer/devcontainer.json)
+in your editor, or use the host commands in the [README](../README.md).
 
-Dans le terminal du conteneur :
+In the container terminal:
 
 ```sh
 id
@@ -24,12 +24,12 @@ test "$PWD" = /workspaces/soulkiller
 test ! -S /var/run/docker.sock
 ```
 
-Attendus : utilisateur non-root, bon workspace, Git 2.43.0, Node.js v24.21.0,
-OpenSpec 1.13.2 et ripgrep 14.1.0. Aucune clé LLM n'est nécessaire.
+Expected: a non-root user, the correct workspace, Git 2.43.0, Node.js v24.21.0,
+OpenSpec 1.13.2 and ripgrep 14.1.0. No LLM credential is required.
 
-## Écriture et persistance
+## Writes and persistence
 
-Créer un témoin local ignoré, sans écraser un fichier existant :
+Create an ignored local marker without overwriting an existing file:
 
 ```sh
 test ! -e .soulkiller-local/persistence-check.txt
@@ -37,17 +37,17 @@ mkdir -p .soulkiller-local
 printf 'soulkiller-persistence-check\n' > .soulkiller-local/persistence-check.txt
 ```
 
-Recréer le conteneur en conservant le montage Soulkiller, puis vérifier :
+Recreate the container with the same Soulkiller mount, then verify:
 
 ```sh
 test "$(cat .soulkiller-local/persistence-check.txt)" = soulkiller-persistence-check
 test -w .soulkiller-local/persistence-check.txt
 ```
 
-Après ce contrôle, supprimer uniquement ce témoin si souhaité, depuis le
-conteneur. Ne jamais inclure le répertoire local dans un commit.
+After this check, delete only that marker if desired, from inside the container.
+Never include the local directory in a commit.
 
-## Spécifications et dépôt
+## Specifications and repository
 
 ```sh
 openspec list
@@ -60,30 +60,31 @@ git status --short
 git check-ignore .env .env.local .soulkiller-local/persistence-check.txt .devcontainer/tools/node_modules/example
 ```
 
-La commande `status --change initialize-repo` concerne cette PR ; après son
-archivage, utiliser l'identifiant du changement actif. Le diff de LICENSE doit
-être vide. Comparer également son empreinte à celle de la base d'initialisation :
+The `status --change initialize-repo` command applies to this PR; after archiving,
+use the active change's identifier. The LICENSE diff must be empty. Also compare
+its checksum with the initialization baseline:
 
 ```sh
 sha256sum LICENSE
 ```
 
-Empreinte initiale : `30cd79522ebd85148c43a931036e514e8b5cf8372776be39fc65a2f6293b051c`.
+Initial checksum: `30cd79522ebd85148c43a931036e514e8b5cf8372776be39fc65a2f6293b051c`.
 
-## Relecture des configurations et documents
+## Configuration and document review
 
-- Vérifier que devcontainer.json est un JSON valide et correspond au Dockerfile :
-  utilisateur, workspace, contexte de construction et commande de démarrage.
-- Vérifier que le manifeste et le verrou npm fixent la même version OpenSpec.
-- Vérifier les chemins des liens Markdown internes et la cohérence des commandes.
-- Vérifier les en-têtes YAML des deux templates d'issues et leurs champs requis.
-- Examiner les fichiers suivis : aucun secret, code applicatif, workflow Actions
-  ou changement de LICENSE. Les exclusions Git ne remplacent pas cette inspection.
-- Après publication, vérifier les branches, le statut draft et le lien de la PR.
+- Verify that devcontainer.json is valid JSON and matches the Dockerfile:
+  user, workspace, build context and startup command.
+- Verify that the npm manifest and lockfile pin the same OpenSpec version.
+- Check internal Markdown links and command consistency.
+- Verify both issue templates' YAML headers and required fields.
+- Check that project text, specifications, templates and configuration guidance
+  are in English and state a consistent working-language policy.
+- Inspect tracked files: no secrets, application code, Actions workflows or
+  LICENSE changes. Git exclusions do not replace this inspection.
+- After publication, verify the branches, draft status and PR link.
 
-## Limites
+## Limitations
 
-Cette procédure ne teste pas encore d'application. Le démarrage via l'interface
-d'un éditeur et chaque architecture matérielle doivent être distingués des
-vérifications faites avec Docker en ligne de commande ; ne pas les annoncer
-comme testés sans les avoir exécutés.
+This procedure does not test an application yet. Editor UI startup and each
+hardware architecture must be distinguished from checks performed through the
+Docker CLI; do not claim they were tested unless they were actually exercised.
