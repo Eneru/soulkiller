@@ -1,0 +1,79 @@
+# Proposed roadmap
+
+These entries are **issue drafts** to review in the initialization PR.
+No issues are created automatically. After approval, publish them in English
+and replace their local identifiers with GitHub links. The order below expresses
+dependencies; it does not define the product stages.
+
+## R1 — Define the stages and first user journey
+
+**Goal:** establish what Soulkiller should do, for whom, with which input data
+and observable outcomes. Distinguish the fictional inspiration from the actual
+capabilities being pursued.
+
+**Dependencies:** review of the initial foundation.
+
+**Deliverables and acceptance criteria:**
+
+- [ ] Audience, problem, first journey and exclusions approved by the maintainer.
+- [ ] Stages named and described, including inputs, outputs and transition conditions.
+- [ ] Storage, privacy, consent and data deletion needs defined.
+- [ ] Synthetic examples and observable criteria documented in an OpenSpec change.
+
+## R2 — Choose the architecture and languages
+
+**Goal:** choose the smallest architecture that supports the first journey.
+
+**Dependencies:** R1.
+
+**Deliverables and acceptance criteria:**
+
+- [ ] Component responsibilities and interactions defined.
+- [ ] Reasoned decision on Python, .NET and any frontend; no stack imposed in advance.
+- [ ] Storage and contracts required by the journey specified.
+- [ ] Tools and versions added to the devcontainer; local startup documented and verified.
+
+## R3 — Establish a reproducible testing strategy
+
+**Goal:** make the first journey and its failure cases testable from the devcontainer.
+
+**Dependencies:** R1 and R2.
+
+**Deliverables and acceptance criteria:**
+
+- [ ] Responsibilities of unit, integration and end-to-end tests defined.
+- [ ] Deterministic LLM test doubles, synthetic fixtures and test isolation defined.
+- [ ] Reproducible test command requiring no external provider or LLM spending.
+- [ ] Explicit decision on Docker-in-Docker; add it only if justified.
+- [ ] Optional minimal CI proposal with an estimate of GitHub Actions usage.
+
+## R4 — Evaluate OmniRoute and LLM access
+
+**Goal:** decide whether [OmniRoute](https://github.com/NStambovsky/OmniRoute)
+fits the identified needs.
+
+**Dependencies:** R1 and R2; reproducible trials build on R3.
+
+**Deliverables and acceptance criteria:**
+
+- [ ] Evaluated version, license and verified interface compatibility documented.
+- [ ] Comparison with direct provider access and adoption criteria.
+- [ ] Latency, usage and cost measurements for a representative scenario.
+- [ ] Errors, rate limits, timeouts, retries and provider failover evaluated.
+- [ ] Data flows, logs, secret storage and privacy rules reviewed.
+- [ ] Adoption or rejection decision reviewed; no secrets or automatic paid calls.
+- [ ] If adopted: optional local service, configuration and test procedure documented.
+
+## R5 — Deliver the first functional increment
+
+**Goal:** implement one complete slice of the journey selected in R1.
+
+**Dependencies:** R1, R2, R3 and the R4 decision if the journey uses LLMs.
+
+**Deliverables and acceptance criteria:**
+
+- [ ] OpenSpec proposal, specifications, design and tasks reviewed.
+- [ ] Journey runnable entirely from the devcontainer.
+- [ ] Success cases, invalid data and dependency unavailability tested.
+- [ ] Usage documentation and CHANGELOG updated.
+- [ ] PR includes test results and is merged only after human review.
