@@ -8,6 +8,8 @@ No version has been released yet.
 
 ### Added
 
+- Research brief and OpenSpec preparation change for local multimodal ingestion
+  and evidence-grounded digital personas, with comparisons and maintainer decisions.
 - Ubuntu 24.04 devcontainer with a non-root user, Git, Node.js and OpenSpec.
 - OpenSpec configuration and a change describing repository initialization.
 - Project, contribution, security and validation documentation.
