@@ -16,13 +16,18 @@ future specifications.
 The canonical repository is [Eneru/soulkiller](https://github.com/Eneru/soulkiller).
 Every change goes through a branch and a pull request reviewed by the maintainer.
 
-## Next study
+## Feasibility study
 
-The proposed next step is a [feasibility study](docs/research/soulkiller-feasibility-study.md)
-on local text/PDF, image and video ingestion and evidence-grounded digital
-personas. It compares RAG, fine-tuning, libraries, languages and deployment
-options, with maintainer questions before adoption. The topic is prepared for
-review; the study has not been conducted.
+The [approved brief](docs/research/soulkiller-feasibility-study.md) is tracked in
+[issue #3](https://github.com/Eneru/soulkiller/issues/3). The
+[desk-research report](docs/research/soulkiller-feasibility-report.md) compares
+local text/PDF, image and video extraction, RAG/fine-tuning, languages, deployment
+and OmniRoute. Windows on an ordinary household PC is the source-machine priority.
+
+Read the [evaluation proposal](docs/research/soulkiller-evaluation-plan.md) and
+[decision register](docs/research/soulkiller-decisions.md) before the next increment.
+Recommendations await maintainer review; candidate performance and native Windows
+packaging have not been tested, and no production stack is adopted.
 
 ## Working language
 
