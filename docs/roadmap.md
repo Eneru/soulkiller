@@ -1,9 +1,31 @@
 # Proposed roadmap
 
-These entries are **issue drafts** to review in the initialization PR.
+These entries are **issue drafts** for maintainer review.
 No issues are created automatically. After approval, publish them in English
 and replace their local identifiers with GitHub links. The order below expresses
 dependencies; it does not define the product stages.
+
+## R0 — Study local ingestion and digital personas
+
+**Goal:** evaluate how authorized local text/PDF, image and video data could
+support an evidence-grounded conversation with a digital persona.
+
+**Dependencies:** the reviewed development foundation. This study informs R1-R4
+and collects the product questions needed before architecture selection.
+
+**Issue topic:** [complete study brief](research/soulkiller-feasibility-study.md),
+including candidate references, work packages W1-W6, decisions Q1-Q8 and a
+new-chat prompt. Preparation change: plan-soulkiller-feasibility-study.
+
+**Deliverables and acceptance criteria:**
+
+- [ ] Extraction, RAG/fine-tuning and language/library alternatives compared
+      with advantages, drawbacks, primary references and declared assumptions.
+- [ ] Facts, speaking style and conversation memory assessed separately.
+- [ ] Candidate architectures, provenance and data lifecycle documented.
+- [ ] Hardware/cost assumptions and synthetic evaluation proposal provided.
+- [ ] Maintainer questions, recommendations and a first increment proposed
+      for review; no unreviewed stack adoption.
 
 ## R1 — Define the stages and first user journey
 
@@ -11,7 +33,7 @@ dependencies; it does not define the product stages.
 and observable outcomes. Distinguish the fictional inspiration from the actual
 capabilities being pursued.
 
-**Dependencies:** review of the initial foundation.
+**Dependencies:** the reviewed development foundation and R0 findings.
 
 **Deliverables and acceptance criteria:**
 

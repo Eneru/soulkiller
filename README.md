@@ -16,6 +16,14 @@ future specifications.
 The canonical repository is [Eneru/soulkiller](https://github.com/Eneru/soulkiller).
 Every change goes through a branch and a pull request reviewed by the maintainer.
 
+## Next study
+
+The proposed next step is a [feasibility study](docs/research/soulkiller-feasibility-study.md)
+on local text/PDF, image and video ingestion and evidence-grounded digital
+personas. It compares RAG, fine-tuning, libraries, languages and deployment
+options, with maintainer questions before adoption. The topic is prepared for
+review; the study has not been conducted.
+
 ## Working language
 
 **English is the project's working language.** Write specifications, documentation,
