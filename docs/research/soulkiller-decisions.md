@@ -1,13 +1,14 @@
 # Soulkiller decisions and proposed next increment
 
-**Status:** study reviewed and merged in PR #4; maintainer answers updated 2026-10-03.
+**Status:** study and initial framing reviewed and merged in PRs #4/#6;
+maintainer answers updated 2026-10-03.
 Options beyond the confirmed answers remain proposals.
 No technology or product behavior is adopted by this register.
 Read the [report](soulkiller-feasibility-report.md),
 [evaluation proposal](soulkiller-evaluation-plan.md) and
 [approved brief](soulkiller-feasibility-study.md).
 Study: completed [issue #3](https://github.com/Eneru/soulkiller/issues/3).
-Current framing: [issue #5](https://github.com/Eneru/soulkiller/issues/5) and the
+Reviewed framing: completed [issue #5](https://github.com/Eneru/soulkiller/issues/5) and the
 [first-increment decision record](soulkiller-first-increment-framing.md).
 
 ## Maintainer answers and open assumptions
@@ -19,7 +20,7 @@ Current framing: [issue #5](https://github.com/Eneru/soulkiller/issues/5) and th
 | Q3 | Confirmed request: compare local and remote before deciding. Required offline behavior, allowed transmitted fields/endpoints and retention remain open | Compare options and plan measurements; no data egress, paid trial or remote placement is authorized |
 | Q4 | First-person versus descriptive mode, text/voice and citation presentation unanswered | Propose text dialogue with inspectable sources; voice/avatar remain separate scope choices |
 | Q5 | Missing/conflicting facts and third-party attribution behavior unanswered | Propose explicit uncertainty, source dates and author/subject distinctions |
-| Q6 | Confirmed: evolving persona; automatic, inspectable/deletable memories used immediately with conversational origin preserved and shared by all interlocutors of the same persona. Content, attribution/access, style changes, correction, retention and deletion scope remain open | Preserve automatic saving/use and intentional same-persona sharing; do not impose manual approval. Keep conversational memories distinct from source evidence and separate personas |
+| Q6 | Confirmed: evolving persona; automatic, inspectable/deletable memories used immediately with conversational origin preserved and shared by all interlocutors of the same persona. Content confirmed: explicit statements and faithful attributed summaries; no inferred preferences. Deletion removes memory/derivatives, retains history and prevents automatic regeneration through a technical trace. Attribution/access, style changes, correction, retention, trace design, backups/remote scope remain open | Preserve automatic saving/use and intentional same-persona sharing; do not impose manual approval. Keep conversational memories distinct from source evidence and separate personas |
 | Q7 | Latency, import time, disk and financial limits unanswered; clarification requested | No numeric feasibility promise or provider quotation; approve profiles/gates before experiments |
 | Q8 | Same-persona memories shared across interlocutors confirmed; user/persona counts, authentication and access/management rights remain open | Test intended same-persona sharing separately from cross-persona isolation; no deployment or access model is adopted |
 
@@ -37,7 +38,7 @@ CPU-only PCs, but neither tier is a confirmed minimum or performance guarantee.
 | D3 Document pipeline | Small text/pypdf path; Docling structured path; Tika broad formats; PyMuPDF with distribution review | Benchmark simple versus structured on the agreed corpus; add conditional tools only for a needed format | Extraction contract and package inventory |
 | D4 Retrieval store | SQLite lexical baseline; dense/hybrid; pgvector with PostgreSQL; Qdrant dedicated service | Establish the lexical reference, then measure semantic gains. Service choice follows scale/shared-data requirements | Storage/embedding dependency adoption |
 | D5 Persona method | Grounded prompting/RAG; full tuning; PEFT; combinations | RAG plus approved profile first; tuning only for a measured unresolved style/behavior gap | Persona prompt/answer policy and any training |
-| D6 Style, facts and memory | Automatic memories, immediate use with origin and same-persona sharing confirmed; content, attribution/access, conflicts and deletion semantics open; citations open | Keep source evidence, profile/style and conversational memories distinct; preserve shared-memory scope and inspectability/deletion intent | End-to-end conversation and memory behavior |
+| D6 Style, facts and memory | Automatic memories used immediately and shared within one persona; explicit statements/faithful summaries and deletion with retained history confirmed; attribution/access, conflicts, trace design and broader retention/deletion scope open; citations open | Keep source evidence, profile/style and conversational memories distinct; preserve shared-memory scope and inspectability/deletion intent | End-to-end conversation and memory behavior |
 | D7 Inference/routing | llama.cpp; Ollama; explicit hosted adapter; optional OmniRoute | One explicit endpoint first. Gateway only if routing benefit and eligible data paths are approved | Provider/model selection or service integration |
 | D8 User experience and delivery | CLI/file picker; desktop/web; persistent service; UI framework | Visible explicit import with progress/cancellation; postpone framework/service choice | UI scope and Windows deployment tests |
 | D9 Benchmarks | Minimal synthetic corpus or broader multimodal tranche; local only or approved external comparison | Approve small E1/E4/E6/E7 tranche according to Q2/Q3/Q7; include OCR/media only if first-priority needs require them | Resource-dependent experiment execution |
@@ -61,8 +62,10 @@ asks a question of one persona and receives a grounded answer with source refere
 - Local lexical index and an approved persona profile; one model adapter.
 - No automatic collection, background startup or paid-provider requirement.
 - Automatic persistent memories are usable immediately and shared within the
-  same persona, with conversational origin preserved. Specify content, attribution,
-  access/management and deletion rules before implementing them.
+  same persona, with conversational origin preserved. Specify attribution, management
+  rights and detailed deletion rules before implementing them. Content
+  is explicit statements/faithful attributed summaries; deletion retains history
+  and a technical suppression trace while removing memory/derivatives.
 - OCR, image descriptions, video, dense retrieval and gateway integration are
   follow-ups unless Q2 makes one necessary for the first useful journey.
 
@@ -88,7 +91,7 @@ proposals requiring review before publication or implementation.
 | F1 — Define the Windows persona journey and data boundary | Resolve Q1-Q8/D1/D6/D8 for a useful first conversation | Study review; roadmap R1 | Target profile, corpus, answer/memory behavior, data flow and exclusions approved in OpenSpec |
 | F2 — Evaluate extraction and retrieval on a synthetic corpus | Resolve E1/E4 plus conditional OCR/media needs | F1; budget/runtime approval | Pinned artifacts/fixtures, primary license inventory, reproducible commands, quality/resource results and failure records; no paid routine calls |
 | F3 — Validate native Windows delivery | Establish source-machine packaging and execution evidence | F1; principal-language choice; approved Windows test lane | Bundle with native/model dependencies, install/start/import/cancel/restart/offline/Unicode-path checks on declared Windows profile; no claim from Linux tests alone |
-| F4 — Specify and deliver the first grounded conversation | Implement the approved narrow journey | F1, F2, F3; roadmap R2/R3 | Reviewed behavior specs, tests for success/errors/boundaries, one endpoint, evidence citations and uncertainty, docs and draft PR |
+| F4 — Specify and deliver the first grounded conversation | Implement the approved narrow journey | F1, F2, F3; roadmap R2/R3 | Reviewed behavior specs, tests for success/errors/boundaries, one endpoint, evidence citations and uncertainty, docs and a ready-for-review PR |
 | F5 — Evaluate richer media and semantic retrieval | Add capabilities when justified by quality/coverage | F2/F4 and explicit priorities | Per-format/retrieval baseline comparison, resources/lifecycle/provenance tested before adoption |
 | F6 — Evaluate optional routing or style adaptation | Resolve a demonstrated multi-endpoint or style gap | F4; approved data boundary/budget; roadmap R4 as applicable | Direct versus gateway or prompt versus PEFT evidence; no automatic external fallback, explicit decision and separate change |
 
@@ -113,4 +116,5 @@ starting implementation. Use this prompt once an increment is approved:
 
 The study report is reviewed and merged. Confirmed corpus and automatic-memory
 intent do not settle the open product choices, native Windows validation or
-E1-E9 measurements. Review of the new decision record remains pending.
+E1-E9 measurements. The initial decision record was reviewed in PR #6; the latest
+memory details and quality/Pages plans are submitted in a new planning change.

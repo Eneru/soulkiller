@@ -2,8 +2,12 @@
 
 R0 is completed in [issue #3](https://github.com/Eneru/soulkiller/issues/3) after
 maintainer review and merge of PR #4. [Issue #5](https://github.com/Eneru/soulkiller/issues/5)
-records initial R1/F1 answers and comparison framing only. The remaining entries
-are **issue drafts** for review.
+is completed by reviewed PR #6 and records initial R1/F1 framing only.
+The maintainer authorized [issue #7](https://github.com/Eneru/soulkiller/issues/7)
+for quality/security and [issue #8](https://github.com/Eneru/soulkiller/issues/8)
+for the documentation site; implementation is future work. R1-R5 remain
+**issue drafts** for review. R6 accompanies development from the first component;
+its numbering does not defer security until after R5.
 No issues are created automatically. After approval, publish them in English
 and replace their local identifiers with GitHub links. The order below expresses
 dependencies; it does not define the product stages.
@@ -66,6 +70,7 @@ capabilities being pursued.
 
 - [ ] Component responsibilities and interactions defined.
 - [ ] Reasoned decision on Python, .NET and any frontend; no stack imposed in advance.
+- [ ] Applicable quality/security/coverage gates planned with each introduced component (R6 / issue #7).
 - [ ] Storage and contracts required by the journey specified.
 - [ ] Tools and versions added to the devcontainer; local startup documented and verified.
 
@@ -78,10 +83,13 @@ capabilities being pursued.
 **Deliverables and acceptance criteria:**
 
 - [ ] Responsibilities of unit, integration and end-to-end tests defined.
+- [ ] Minimum 70% coverage, metric/exclusions and scanner failure policy defined under the [quality plan](development-quality.md).
 - [ ] Deterministic LLM test doubles, synthetic fixtures and test isolation defined.
 - [ ] Reproducible test command requiring no external provider or LLM spending.
+- [ ] Benchmarks and bounded load-test profiles, hardware/corpus baselines,
+      metrics and agreed thresholds; distinguish fast regression checks from deeper runs.
 - [ ] Explicit decision on Docker-in-Docker; add it only if justified.
-- [ ] Optional minimal CI proposal with an estimate of GitHub Actions usage.
+- [ ] Bounded GitHub Actions gates designed with early PR checks and deeper tag/manual checks; issue #7 tracks implementation alongside components.
 
 ## R4 — Evaluate OmniRoute and LLM access
 
@@ -111,5 +119,51 @@ fits the identified needs.
 - [ ] OpenSpec proposal, specifications, design and tasks reviewed.
 - [ ] Journey runnable entirely from the devcontainer.
 - [ ] Success cases, invalid data and dependency unavailability tested.
+- [ ] Applicable local/Actions coverage and security gates delivered with the increment (R6 / issue #7).
 - [ ] Usage documentation and CHANGELOG updated.
 - [ ] PR includes test results and is merged only after human review.
+
+## R6 / Issue #7 — Quality and security from each component's first delivery
+
+**Goal:** make tests, security analysis and automation native to development,
+rather than a later retrofit. See the [quality plan](development-quality.md).
+
+**Dependencies:** reviewed foundation; extend alongside each adopted language,
+Docker change and runnable web component. Accompanies R2/R3/R5 and R7.
+
+**Deliverables and acceptance criteria:**
+
+- [ ] Local/Actions entrypoints and pinned versions added with the relevant component.
+- [ ] Minimum 70% coverage with reviewed metric/exclusions and meaningful tests.
+- [ ] Gitleaks, Hadolint and appropriate language analysis; Bandit if Python.
+- [ ] Repository-local Gitleaks pre-commit hooks and container-side editor
+      diagnostics, including Hadolint with its image-installed binary; explicit CLI/CI execution.
+- [ ] Synthetic benchmark/load-test commands and bounded PR versus tag/manual
+      lanes when measurable components exist; no performance claims without evidence.
+- [ ] Web ZAP against an ephemeral synthetic instance once applicable.
+- [ ] Fast PR gates plus bounded deeper tag/manual scans, safe tokens/permissions,
+      redacted reports and declared runner/storage budget.
+- [ ] Actual results, intentional skips and limits documented; manual review.
+
+## R7 / Issue #8 — Publish readable documentation through Pages Actions
+
+**Goal:** create an accessible, distinctive static English documentation site,
+with repository Markdown/OpenSpec as the authoritative source.
+See the [site plan](documentation-site-plan.md).
+
+**Dependencies:** reviewed generator/visual/source proposal, applicable R6 gates,
+and the maintainer-reported Pages Actions setting. No application stage depends
+on choosing the site's frontend framework.
+
+**Deliverables and acceptance criteria:**
+
+- [ ] Docusaurus/stable VitePress comparison resolved in a reviewed implementation proposal.
+- [ ] Responsive, keyboard-usable visual design and clear accepted/draft status.
+- [ ] Explicit public-source selection, compatible rendering and correct links/assets.
+- [ ] Devcontainer production build/preview and applicable tests/checks.
+- [ ] Unprivileged PR build, isolated artifact deployment from reviewed main/trusted manual run;
+      no branch deployment, custom PAT or settings changes.
+- [ ] Deployment evidence, bounded Actions usage and maintenance instructions.
+
+Issues #7/#8 are authorized and published but implementation is not started.
+The planning PR references them without closing them.

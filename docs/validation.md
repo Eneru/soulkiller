@@ -81,7 +81,9 @@ Initial checksum: `30cd79522ebd85148c43a931036e514e8b5cf8372776be39fc65a2f6293b0
   are in English and state a consistent working-language policy.
 - Inspect tracked files: no secrets, application code, Actions workflows or
   LICENSE changes. Git exclusions do not replace this inspection.
-- After publication, verify the branches, draft status and PR link.
+- After publication, verify the branches, PR link and ready-for-review status.
+  A draft is only appropriate for unfinished work offered for early reading;
+  record what remains instead of requesting final approval.
 
 ## Limitations
 

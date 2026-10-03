@@ -36,6 +36,22 @@
 - Test changed behavior, errors and boundaries. For future features, include
   appropriate unit, integration and end-to-end tests. Routine tests must run
   without credentials or paid LLM calls.
+- Integrate DevOps/DevSecOps checks with each language/component from its first
+  implementation; follow docs/development-quality.md and issue #7.
+- Maintain at least 70% test coverage for executable code; define the metric and
+  justified exclusions in the implementation change. Do not fabricate coverage
+  for Markdown or unimplemented code.
+- Add applicable pinned local/CI checks: Gitleaks, Hadolint, Bandit for Python,
+  equivalent analysis for other languages, and ZAP for runnable web targets.
+- Specify each check's execution points: container CLI, repository-local hooks,
+  container-side editor integration and CI. Run Gitleaks before committing and
+  Hadolint in the editor using the binary installed in the image, once implemented.
+- Plan reproducible benchmarks and bounded load tests with approved profiles,
+  synthetic inputs and explicit thresholds; do not claim unexecuted results.
+- Keep secrets, applicable static checks and coverage in the fast PR lane;
+  reserve expensive checks for reviewed tags/manual runs with bounded resources.
+- Follow docs/documentation-site-plan.md for issue #8; Pages uses Actions by
+  maintainer report. Do not publish private/local data or change Pages settings.
 - Do not report a check as passing unless it was executed. Report blockers and
   distinguish foundation checks from application tests.
 - Run openspec validate --all --strict --no-interactive and git diff --check
@@ -47,8 +63,12 @@
 
 ## GitHub and review
 
-- Follow GitHub Flow: a short-lived branch from main, a draft PR, validation,
-  human review and manual merge.
+- Follow GitHub Flow: a short-lived branch from main, validation, a PR ready for
+  maintainer review and manual merge.
+- Open a non-draft PR when the completed change needs maintainer validation.
+  Use a draft only for unfinished work with a useful portion available for early
+  reading, for example before a context/quota limit; make the remaining work clear.
+  Early reading is not approval. Mark it ready when completion and checks permit.
 - Publish only the authorized working branch. Do not merge, enable auto-merge
   or change repository protections.
 - Link issue work through GitHub's native Development mechanism when available;

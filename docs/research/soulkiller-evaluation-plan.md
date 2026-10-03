@@ -10,7 +10,10 @@ was installed or benchmarked during the desk study.
 French/English, and tens to hundreds of documents up to approximately 1,000 pages
 as the initial planning corpus. Memories are proposed and saved automatically,
 inspectable/deletable, used immediately with conversational origin preserved and
-shared across interlocutors of the same persona. Detailed rules remain open.
+shared across interlocutors of the same persona. Content is explicit statements
+and faithful attributed summaries, excluding inferred preferences. Deletion
+removes memories/derivatives, retains history and prevents automatic regeneration
+through a technical trace; its design and broader scope remain open.
 Local versus remote is to
 compare, not selected or authorized for data transfer. See the
 [first-increment framing](soulkiller-first-increment-framing.md). All E1-E9 remain
@@ -61,8 +64,10 @@ Have a fixed source manifest and reference annotations.
 | S02 | Two personas with unique synthetic marker facts | Cross-persona retrieval and answer leakage |
 | A01 | Hostile instructions in text, OCR and transcripts | Imported content does not override application rules |
 | M01 | New chat statements and assistant-generated claims | Automatic memory saving with separate provenance; no automatic historical-fact promotion |
-| M02 | Saved memories, contradictions, inspection and deletion | Immediate use after restart; agreed deletion invalidates derivatives and prevents regeneration within its scope; rules still to approve |
+| M02 | Saved memories, contradictions, inspection and deletion | Immediate use after restart; deletion removes memory/derivatives, retains history and prevents automatic regeneration; trace/backup/remote contract still to specify |
 | M03 | Two interlocutors, one shared-memory persona, and a second persona | Expected same-persona memory sharing with correct speaker attribution; no cross-persona leakage |
+| M04 | Explicit statements, faithful summaries and tempting inferred preferences | Keep speaker attribution and fidelity; no preference inferred automatically or invented assistant fact promoted |
+| M05 | Retained history after memory deletion, duplicate/rephrased attempts and restart | Deletion trace prevents automatic regeneration under the agreed matching scope; historical messages remain distinct from usable memories |
 | U01 | Questions with no source answer | Appropriate uncertainty rather than invented biography |
 
 Reference each fact to source ID, revision and page/offset/time range.
@@ -107,6 +112,32 @@ A cross-encoder's score is not calibrated factual confidence.
 [Retrieve/rerank documentation](https://sbert.net/examples/sentence_transformer/applications/retrieve_rerank/README.html).
 Human evaluation and any model-judge scores must be recorded separately; a model
 judge does not replace source annotations.
+
+## Benchmark and load-test profiles
+
+The [development quality plan](../development-quality.md) defines where future
+checks run: explicit devcontainer commands, fast reliable PR regressions where
+appropriate, and bounded deeper tag/manual runs. This study adds no harness.
+
+Begin with single-operation benchmarks on the agreed TXT/PDF text corpus:
+extraction, import/index updates, retrieval, conversation startup and memory
+inspection/deletion. Then define load profiles for ingestion bursts and
+overlapping supported operations. Supported concurrency is a product decision;
+multiple synthetic clients do not establish a multi-user requirement.
+
+For each profile, record arrival rate/concurrency, duration, warm-up, repetitions,
+hardware/assets, maximum resource use and stop conditions. Measure latency
+distributions, throughput, error/timeout rates, peak memory/disk and queue growth.
+Verify attribution/isolation, cancellation, restart/recovery and deletion
+correctness under load as well as nominal throughput. Saturation and bounded
+soak tests need explicit acceptance criteria and a separately approved budget.
+
+Compare local and remote only under the approved data/endpoint boundary. Routine
+CI uses synthetic fixtures and model doubles; expensive real-model/provider runs
+are explicit, never automatic paid calls. Windows household-PC results require
+the reviewed native lane; Linux/hosted-runner timings are separate evidence.
+Thresholds, concurrency and hardware minima remain unapproved. All E1-E9 and
+these future load profiles remain unexecuted.
 
 ## Proposed gates to approve
 

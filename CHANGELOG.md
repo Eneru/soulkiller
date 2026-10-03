@@ -8,6 +8,10 @@ No version has been released yet.
 
 ### Added
 
+- Development quality/DevOps/DevSecOps plan with a 70% coverage minimum,
+  applicable security gates and bounded Actions lanes; implementation issue #7.
+- Documentation-site candidate and Pages Actions plan; implementation issue #8.
+
 - First-increment decision record with confirmed corpus/language priorities,
   automatic persona memories used immediately and shared within one persona,
   with preserved origin, and local/remote inference comparison framing.
@@ -23,6 +27,14 @@ No version has been released yet.
 - Roadmap for review, including an OmniRoute evaluation.
 
 ### Changed
+
+- Clarified check execution across the devcontainer, local Git hooks, editor and
+  CI; planned reproducible benchmarks and bounded load tests.
+- Made ready-for-review PRs the default for completed work; reserve drafts for
+  unfinished work with a useful portion available for early reading.
+
+- Recorded permitted memory content and retained-history deletion with automatic
+  regeneration prevention; marked the initial framing as reviewed.
 
 - Recorded study review separately from unresolved implementation decisions.
 - Documented issue/branch/PR linkage, closure keywords and owner-managed branch deletion.
