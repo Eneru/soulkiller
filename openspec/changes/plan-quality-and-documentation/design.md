@@ -30,10 +30,20 @@ See [proposal.md](proposal.md),
    Their contents, correction/management rights, backups and remote copies remain
    questions; do not promise complete erasure of retained history.
 
+7. Address review feedback by naming each execution point: Gitleaks in local
+   staged-content hooks and before API publication, Hadolint in the image with
+   container-side editor diagnostics, canonical CLI checks and independent CI.
+   Preserve existing hooks; select the hook runner/extensions in implementation.
+8. Plan reproducible benchmarks and bounded load/stress/soak profiles with
+   approved synthetic workloads, resource limits and thresholds. No runner or
+   performance result exists yet. Completed work requests validation with a
+   ready-for-review PR; drafts only expose useful unfinished work for early reading.
+
 ## Validation and delivery
 
 Run strict OpenSpec, whitespace, local Markdown-link/fence, scope and common
 secret-pattern checks in the devcontainer. Compare LICENSE with main.
 Request read-only review of quality/CI, Pages and memory wording.
-Deliver a draft PR; no scanner, coverage, site build or Actions execution is
+Deliver a ready-for-review PR under the maintainer's updated policy; no scanner,
+coverage, benchmark/load test, site build or Actions execution is
 claimed for this documentation-only change.

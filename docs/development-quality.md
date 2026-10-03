@@ -22,10 +22,50 @@ and postpone its security/test gates to a separate cleanup milestone.
   checks on tags or trusted manual runs. No mandatory paid account or service.
 
 First deliver reviewed foundation commands and a small Gitleaks/Hadolint/validation
-workflow. Extend it with each language's tests, coverage and analysis when that
+workflow, repository-local secret hooks and container-side Hadolint editor feedback.
+Extend it with each language's tests, coverage and analysis when that
 language enters the project. Web DAST and native Windows packaging need suitable
 targets and reviewed test lanes. This is not permission to install every candidate
 tool, adopt an application stack or enable a broad matrix immediately.
+
+## Execution points and developer feedback
+
+| Check | While editing / before committing | Container CLI and PR/main CI | Deeper execution |
+| --- | --- | --- | --- |
+| Secrets | Repository-local Gitleaks pre-commit hook scans staged content, with redacted diagnostics | Explicit scan before publishing, including API-created commits; CI scans the declared commit range with sufficient history | Full-history scan at baseline establishment and on approved tag/manual runs |
+| Dockerfiles | Container-side VS Code Hadolint extension calls the image-installed binary; a lightweight hook may reuse it | Same Hadolint binary/configuration checks all applicable Dockerfiles | Approved rebuild/boot and image/dependency scans |
+| Adopted languages | Container-side lint/type/security diagnostics where a maintained extension exists; fast hooks where justified | Canonical tests/coverage/static/dependency commands, including Bandit if Python | Broader integration, packaging and end-to-end tests |
+| Runnable web | Explicit local test-instance setup; no background scan against external sites | Bounded ZAP baseline against an ephemeral synthetic target | Active/full ZAP only in the approved tag/manual lane |
+| Performance | Explicit benchmark/load commands for measurable components | Small deterministic performance regression checks only where the runner supports reliable gates | Representative benchmarks and bounded load/stress/soak profiles on approved hardware and tag/manual runs |
+
+Install pinned Gitleaks/Hadolint binaries in the devcontainer image when issue #7's
+foundation tranche is implemented. Version the hook configuration and provide
+an explicit repository-local setup/verification command from the container.
+Gitleaks must reject synthetic staged secrets and tool failures before a commit
+is created. Inspect existing hooks/core.hooksPath and preserve them; never use
+global host configuration or blindly overwrite another hook.
+
+pre-commit is a candidate hook runner; using it introduces a tooling dependency
+to review, not adoption of Python for the application. Native binaries/hooks
+avoid a Docker socket or nested Docker requirement. Verify pinning, checksums,
+staged-content handling, partial staging, clean inputs and missing-tool failures.
+[Gitleaks hooks](https://github.com/gitleaks/gitleaks#pre-commit),
+[pre-commit setup](https://pre-commit.com/#install).
+
+Add reviewed VS Code extensions through devcontainer customizations, installed
+on the container side. For Hadolint, the extension supplies diagnostics and the
+image supplies the executable: verify its path and shared configuration after a
+rebuild. Terminal users must have the same checks without relying on editor UI.
+Select equivalent language integrations only when that language is introduced.
+[Hadolint integration](https://github.com/hadolint/hadolint/blob/master/docs/INTEGRATION.md),
+[Hadolint VS Code extension](https://github.com/michaellzc/vscode-hadolint).
+
+Hooks are local feedback, not a security boundary: GitHub API-created commits
+and other paths can bypass them. Agent publication must therefore invoke the
+canonical secret check explicitly before publishing, even when no git commit
+hook runs. CI repeats the check independently. Test hook installation/persistence,
+editor diagnostics and CLI/CI parity separately; none is installed or exercised
+by this planning PR.
 
 ## Coverage contract to finalize in the implementation proposal
 
@@ -84,12 +124,47 @@ gates on findings or scanner execution errors; report explicit not-applicable
 checks. Suppressions need narrow scope, rationale and review. Do not use blanket
 allowlists or continue-on-error to turn a failure into success.
 
+## Benchmarks and load tests
+
+Plan performance checks with the first measurable components. A benchmark
+compares reproducible extraction, indexing, retrieval or conversation workloads;
+a load test measures behavior under declared arrival rates/concurrency. Bounded
+stress and soak profiles explore saturation and sustained operation once those
+targets exist. Multi-client load is a test profile, not adoption of multi-user
+product behavior.
+
+Use the [evaluation proposal](research/soulkiller-evaluation-plan.md) for corpus,
+candidate and hardware controls. Keep TXT/PDF text and French/English first;
+the roughly 1,000-page planning corpus is not a validated capacity limit.
+
+- Record source/config/model revisions, machine profile, CPU/RAM/storage, corpus
+  size, cold/warm conditions, repetitions and background load.
+- Measure p50/p95 latency, throughput, peak memory/disk, error/timeout rates and
+  queue/backpressure behavior. Keep functional correctness and provenance checks
+  active under load; speed does not compensate for leakage or lost data.
+- Exercise bounded ingestion bursts and overlapping supported operations;
+  cancellation, restart/recovery, dependency delays and resource exhaustion
+  must leave inspectable state. Define supported concurrency before implementing.
+- Agree thresholds and comparison baselines before treating a measurement as a
+  gate. Hosted-runner variability is not Windows household-PC performance proof:
+  separate informational results from stable, reproducible regression checks.
+- Use synthetic inputs and deterministic model doubles for routine runs. Real
+  model/provider benchmarks need separately approved assets, data boundary and
+  budget; never trigger paid/network trials through a tag alone.
+- Set explicit maximum duration, concurrency, corpus size, memory/disk and report
+  retention. Put larger benchmark/load/stress/soak runs in selected tag/manual
+  lanes; do not replace fast behavioral tests or the 70% coverage gate.
+
+No benchmark harness, load generator, numeric performance threshold or result
+is delivered here. Tool selection and runnable commands belong to issue #7 and
+the relevant component's reviewed implementation change.
+
 ## Actions lanes and budget
 
 | Lane | Proposed contents | Trigger boundary |
 | --- | --- | --- |
 | Fast validation | Secrets, applicable Docker/language analysis, deterministic tests and 70% coverage, OpenSpec/docs checks | PRs and reviewed main changes |
-| Deeper validation | Repeat baseline; full scans, broader supported-OS/packaging/end-to-end work | Selected tags or trusted manual runs |
+| Deeper validation | Repeat baseline; full scans, representative benchmarks/load tests and broader supported-OS/packaging/end-to-end work | Selected tags or trusted manual runs |
 | Pages | Unprivileged PR build checks; separate static artifact deployment | Reviewed main or trusted manual run; no PR deployment |
 
 Basic coverage, secret detection and applicable static analysis stay before merge.

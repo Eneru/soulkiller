@@ -113,6 +113,32 @@ A cross-encoder's score is not calibrated factual confidence.
 Human evaluation and any model-judge scores must be recorded separately; a model
 judge does not replace source annotations.
 
+## Benchmark and load-test profiles
+
+The [development quality plan](../development-quality.md) defines where future
+checks run: explicit devcontainer commands, fast reliable PR regressions where
+appropriate, and bounded deeper tag/manual runs. This study adds no harness.
+
+Begin with single-operation benchmarks on the agreed TXT/PDF text corpus:
+extraction, import/index updates, retrieval, conversation startup and memory
+inspection/deletion. Then define load profiles for ingestion bursts and
+overlapping supported operations. Supported concurrency is a product decision;
+multiple synthetic clients do not establish a multi-user requirement.
+
+For each profile, record arrival rate/concurrency, duration, warm-up, repetitions,
+hardware/assets, maximum resource use and stop conditions. Measure latency
+distributions, throughput, error/timeout rates, peak memory/disk and queue growth.
+Verify attribution/isolation, cancellation, restart/recovery and deletion
+correctness under load as well as nominal throughput. Saturation and bounded
+soak tests need explicit acceptance criteria and a separately approved budget.
+
+Compare local and remote only under the approved data/endpoint boundary. Routine
+CI uses synthetic fixtures and model doubles; expensive real-model/provider runs
+are explicit, never automatic paid calls. Windows household-PC results require
+the reviewed native lane; Linux/hosted-runner timings are separate evidence.
+Thresholds, concurrency and hardware minima remain unapproved. All E1-E9 and
+these future load profiles remain unexecuted.
+
 ## Proposed gates to approve
 
 For deterministic fixture tests, propose exact source-location resolution,

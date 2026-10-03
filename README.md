@@ -40,7 +40,9 @@ DevOps/DevSecOps will accompany each implementation, with a **70% minimum test
 coverage**, secret/Dockerfile scans, language-appropriate analysis and web DAST
 when applicable. The [quality plan](docs/development-quality.md) and
 [issue #7](https://github.com/Eneru/soulkiller/issues/7) define local/Actions gates
-and bounded deeper tag checks. No such scanner or CI workflow is configured yet.
+and bounded deeper tag checks. It also defines repository-local secret-scanning
+hooks, container-side editor diagnostics, benchmarks and load-test execution points.
+No such hook, scanner, editor extension or CI workflow is configured yet.
 
 The [site plan](docs/documentation-site-plan.md) and
 [issue #8](https://github.com/Eneru/soulkiller/issues/8) cover a styled English

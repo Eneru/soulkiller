@@ -7,11 +7,12 @@
 - [x] 1.3 Document the coverage minimum, applicable checks, PR/tag lanes, safe CI and resource constraints.
 - [x] 1.4 Compare documentation generators and define Pages/source/publication acceptance without implementing or deploying a site.
 - [x] 1.5 Record the memory-content/deletion answers and previous framing review; update roadmap, project guidance and CHANGELOG.
+- [x] 1.6 Address PR #9 feedback: document hooks/editor/container/CI execution and future benchmarks/load tests; apply the maintainer's updated PR policy.
 
 ## 2. Verification and delivery preparation
 
 - [x] 2.1 Run strict OpenSpec, whitespace, Markdown-link/fence, scope, secret-pattern and unchanged-LICENSE checks inside the devcontainer.
-- [x] 2.2 Prepare a scoped draft PR with related-work references to #7/#8, actual results and explicit unexecuted implementation checks.
+- [x] 2.2 Prepare a scoped PR with related-work references to #7/#8, actual results and explicit unexecuted implementation checks; request validation when ready, using the updated delivery policy.
 
 ## 3. Future work
 

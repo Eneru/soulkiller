@@ -11,6 +11,10 @@ The maintainer also clarified automatic-memory content and deletion behavior.
 
 - Record local/CI quality and security requirements, including Gitleaks, Hadolint,
   conditional language analysis, web ZAP and the coverage minimum.
+- Specify container CLI, repository-local hooks, editor diagnostics and CI
+  execution points; plan benchmarks and bounded load tests without running them.
+- Apply the maintainer's current delivery rule: completed changes request validation
+  through non-draft PRs; drafts only expose useful unfinished work for early reading.
 - Propose fast PR gates and bounded deeper tag/manual checks with no mandatory
   paid account, preserving local devcontainer rules.
 - Plan a styled static Pages site using Actions deployment, compare Docusaurus

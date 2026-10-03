@@ -96,6 +96,6 @@ implementation time; an upload allowance is not the published-site size limit.
   personal/local data in static output or search artifacts.
 - PR build checks, isolated Pages deployment permissions and trusted-revision checks.
 - Actual build/deployment results, costs/limits and maintenance commands documented
-  in a draft PR for human review.
+  in a ready-for-review PR for human review.
 
 No build, accessibility scan or deployment result is claimed by this plan.

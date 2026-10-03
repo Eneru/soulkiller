@@ -86,6 +86,8 @@ capabilities being pursued.
 - [ ] Minimum 70% coverage, metric/exclusions and scanner failure policy defined under the [quality plan](development-quality.md).
 - [ ] Deterministic LLM test doubles, synthetic fixtures and test isolation defined.
 - [ ] Reproducible test command requiring no external provider or LLM spending.
+- [ ] Benchmarks and bounded load-test profiles, hardware/corpus baselines,
+      metrics and agreed thresholds; distinguish fast regression checks from deeper runs.
 - [ ] Explicit decision on Docker-in-Docker; add it only if justified.
 - [ ] Bounded GitHub Actions gates designed with early PR checks and deeper tag/manual checks; issue #7 tracks implementation alongside components.
 
@@ -134,6 +136,10 @@ Docker change and runnable web component. Accompanies R2/R3/R5 and R7.
 - [ ] Local/Actions entrypoints and pinned versions added with the relevant component.
 - [ ] Minimum 70% coverage with reviewed metric/exclusions and meaningful tests.
 - [ ] Gitleaks, Hadolint and appropriate language analysis; Bandit if Python.
+- [ ] Repository-local Gitleaks pre-commit hooks and container-side editor
+      diagnostics, including Hadolint with its image-installed binary; explicit CLI/CI execution.
+- [ ] Synthetic benchmark/load-test commands and bounded PR versus tag/manual
+      lanes when measurable components exist; no performance claims without evidence.
 - [ ] Web ZAP against an ephemeral synthetic instance once applicable.
 - [ ] Fast PR gates plus bounded deeper tag/manual scans, safe tokens/permissions,
       redacted reports and declared runner/storage budget.

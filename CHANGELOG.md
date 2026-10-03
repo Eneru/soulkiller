@@ -28,6 +28,11 @@ No version has been released yet.
 
 ### Changed
 
+- Clarified check execution across the devcontainer, local Git hooks, editor and
+  CI; planned reproducible benchmarks and bounded load tests.
+- Made ready-for-review PRs the default for completed work; reserve drafts for
+  unfinished work with a useful portion available for early reading.
+
 - Recorded permitted memory content and retained-history deletion with automatic
   regeneration prevention; marked the initial framing as reviewed.
 

@@ -26,9 +26,12 @@ We follow [GitHub Flow](https://blog.stephane-robert.info/docs/developper/versio
 2. Create a short-lived branch, such as `feature/name`, `fix/name` or `docs/name`.
 3. Prepare the [OpenSpec](docs/openspec.md) artifacts, then implement the authorized
    change with its checks and documentation.
-4. Make focused commits with clear messages and open a **draft** PR.
+4. Make focused commits with clear messages. Open a **ready-for-review** PR when
+   the completed change needs maintainer validation.
 5. Describe the problem solved, the OpenSpec reference, tests actually run and
-   limitations. Request maintainer review when ready.
+   limitations. Use a draft only for unfinished work with a useful portion for
+   early reading, such as before a context/quota limit. State what remains and
+   mark it ready after completion and checks; early reading is not approval.
 6. Wait for approval; merging into `main` remains manual. No auto-merge.
 
 Example to run inside the container from a clean workspace:
@@ -41,7 +44,15 @@ git switch -c feature/change-name
 
 If Git refuses an update, inspect the divergence instead of forcing it.
 This setup does not configure GitHub branch protection; review remains a
-contribution rule.
+contribution rule. Historical OpenSpec delivery records may mention drafts;
+this policy supersedes them for new work.
+
+Commit author metadata does not change the authenticated GitHub account that
+opens a PR. Separating agent development from maintainer approval requires a
+separately authenticated machine user or GitHub App and maintainer-configured
+review rules. Never approve or merge agent work using the maintainer's identity.
+No account, credentials, CODEOWNERS or repository protections are configured by
+this planning change.
 
 ## Issue linkage and completed work
 
@@ -74,6 +85,10 @@ This setting does not authorize automatic merging.
 - Apply the [development quality plan](docs/development-quality.md) with each
   implemented language/component: at least 70% coverage, applicable security/static
   checks and reproducible local/Actions commands. Metrics and exclusions need review.
+- Specify where checks run: container CLI, repository-local pre-commit hooks,
+  container-side editor diagnostics and CI. Editor/hooks complement CI, not replace it.
+- Include reproducible benchmarks and bounded load tests as components become
+  measurable, with synthetic data, approved resource profiles and thresholds.
 - Use deterministic LLM test doubles for routine tests. Reserve external trials
   for explicit runs with an agreed budget and local secrets.
 - Update the README, guides and [CHANGELOG](CHANGELOG.md) as appropriate.

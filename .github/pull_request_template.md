@@ -25,5 +25,5 @@
 ## Review notes
 
 <!-- Decisions, known limitations and possible follow-up work. -->
-<!-- Keep this PR in draft until ready. Merge only after human review. -->
+<!-- Request validation with a ready-for-review PR. Draft only unfinished work with a useful portion for early reading; describe what remains. Merge only after human review. -->
 <!-- Automatic branch deletion depends on a maintainer-controlled repository setting. -->
