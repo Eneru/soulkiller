@@ -36,6 +36,17 @@
 - Test changed behavior, errors and boundaries. For future features, include
   appropriate unit, integration and end-to-end tests. Routine tests must run
   without credentials or paid LLM calls.
+- Integrate DevOps/DevSecOps checks with each language/component from its first
+  implementation; follow docs/development-quality.md and issue #7.
+- Maintain at least 70% test coverage for executable code; define the metric and
+  justified exclusions in the implementation change. Do not fabricate coverage
+  for Markdown or unimplemented code.
+- Add applicable pinned local/CI checks: Gitleaks, Hadolint, Bandit for Python,
+  equivalent analysis for other languages, and ZAP for runnable web targets.
+- Keep secrets, applicable static checks and coverage in the fast PR lane;
+  reserve expensive checks for reviewed tags/manual runs with bounded resources.
+- Follow docs/documentation-site-plan.md for issue #8; Pages uses Actions by
+  maintainer report. Do not publish private/local data or change Pages settings.
 - Do not report a check as passing unless it was executed. Report blockers and
   distinguish foundation checks from application tests.
 - Run openspec validate --all --strict --no-interactive and git diff --check

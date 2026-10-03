@@ -14,5 +14,5 @@
 
 ## 3. Next approval
 
-- [ ] 3.1 Obtain maintainer review of this decision record.
+- [x] 3.1 Obtain maintainer review of this decision record; confirmed by the maintainer and merged PR #6 on 2026-10-03.
 - [ ] 3.2 Resolve the outstanding inference, memory, journey and resource choices and approve a separate behavioral OpenSpec change before implementation.

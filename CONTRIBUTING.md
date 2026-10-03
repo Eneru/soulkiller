@@ -71,13 +71,20 @@ This setting does not authorize automatic merging.
 - Follow [docs/validation.md](docs/validation.md) and validate OpenSpec.
 - Add meaningful tests for each future application behavior: success, invalid
   input, dependency failures and regressions.
+- Apply the [development quality plan](docs/development-quality.md) with each
+  implemented language/component: at least 70% coverage, applicable security/static
+  checks and reproducible local/Actions commands. Metrics and exclusions need review.
 - Use deterministic LLM test doubles for routine tests. Reserve external trials
   for explicit runs with an agreed budget and local secrets.
 - Update the README, guides and [CHANGELOG](CHANGELOG.md) as appropriate.
 - Check off a task only after verifying its outcome.
 
-This PR introduces no CI. Include local validation evidence in the PR description;
-a minimal CI setup may be proposed separately.
+CI is not configured yet. [Issue #7](https://github.com/Eneru/soulkiller/issues/7)
+tracks the foundation and component gates; implement them alongside development.
+Keep core checks on PRs and reserve expensive work for reviewed tags/manual runs.
+[Issue #8](https://github.com/Eneru/soulkiller/issues/8) tracks the Actions-based
+[documentation site](docs/documentation-site-plan.md). Include actual local/CI
+results and limitations in each PR; do not claim planned automation is running.
 
 ## Issues and security
 

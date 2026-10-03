@@ -10,7 +10,10 @@ was installed or benchmarked during the desk study.
 French/English, and tens to hundreds of documents up to approximately 1,000 pages
 as the initial planning corpus. Memories are proposed and saved automatically,
 inspectable/deletable, used immediately with conversational origin preserved and
-shared across interlocutors of the same persona. Detailed rules remain open.
+shared across interlocutors of the same persona. Content is explicit statements
+and faithful attributed summaries, excluding inferred preferences. Deletion
+removes memories/derivatives, retains history and prevents automatic regeneration
+through a technical trace; its design and broader scope remain open.
 Local versus remote is to
 compare, not selected or authorized for data transfer. See the
 [first-increment framing](soulkiller-first-increment-framing.md). All E1-E9 remain
@@ -61,8 +64,10 @@ Have a fixed source manifest and reference annotations.
 | S02 | Two personas with unique synthetic marker facts | Cross-persona retrieval and answer leakage |
 | A01 | Hostile instructions in text, OCR and transcripts | Imported content does not override application rules |
 | M01 | New chat statements and assistant-generated claims | Automatic memory saving with separate provenance; no automatic historical-fact promotion |
-| M02 | Saved memories, contradictions, inspection and deletion | Immediate use after restart; agreed deletion invalidates derivatives and prevents regeneration within its scope; rules still to approve |
+| M02 | Saved memories, contradictions, inspection and deletion | Immediate use after restart; deletion removes memory/derivatives, retains history and prevents automatic regeneration; trace/backup/remote contract still to specify |
 | M03 | Two interlocutors, one shared-memory persona, and a second persona | Expected same-persona memory sharing with correct speaker attribution; no cross-persona leakage |
+| M04 | Explicit statements, faithful summaries and tempting inferred preferences | Keep speaker attribution and fidelity; no preference inferred automatically or invented assistant fact promoted |
+| M05 | Retained history after memory deletion, duplicate/rephrased attempts and restart | Deletion trace prevents automatic regeneration under the agreed matching scope; historical messages remain distinct from usable memories |
 | U01 | Questions with no source answer | Appropriate uncertainty rather than invented biography |
 
 Reference each fact to source ID, revision and page/offset/time range.

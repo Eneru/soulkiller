@@ -34,6 +34,19 @@ with their conversational origin preserved. Local versus remote operation remain
 request. Candidate performance and native Windows packaging have not been tested;
 no production stack is adopted.
 
+## Quality and documentation roadmap
+
+DevOps/DevSecOps will accompany each implementation, with a **70% minimum test
+coverage**, secret/Dockerfile scans, language-appropriate analysis and web DAST
+when applicable. The [quality plan](docs/development-quality.md) and
+[issue #7](https://github.com/Eneru/soulkiller/issues/7) define local/Actions gates
+and bounded deeper tag checks. No such scanner or CI workflow is configured yet.
+
+The [site plan](docs/documentation-site-plan.md) and
+[issue #8](https://github.com/Eneru/soulkiller/issues/8) cover a styled English
+GitHub Pages site deployed by Actions. Docusaurus leads the candidate comparison
+with stable VitePress; no generator is adopted and no site has been built/deployed.
+
 ## Working language
 
 **English is the project's working language.** Write specifications, documentation,
