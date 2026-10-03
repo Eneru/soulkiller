@@ -15,5 +15,5 @@
 - [x] 3.1 Run offline behavior/error tests, coverage and static/security checks in the container.
 - [x] 3.2 Rebuild/start the image and verify tools, permissions and workspace persistence.
 - [x] 3.3 Validate OpenSpec, links, diff, staged files, secrets and unchanged LICENSE.
-- [ ] 3.4 Publish the authorized branch and ready PR; verify bot identity and commit signature.
+- [x] 3.4 Publish the authorized branch and ready PR; verify bot identity and commit signature.
 - [ ] 3.5 Obtain maintainer review and manual merge confirmation.
