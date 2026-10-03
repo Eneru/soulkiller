@@ -19,4 +19,5 @@ implementation and adoption decisions are not completed by this change.
 ## 3. Integration and review
 
 - [x] 3.1 Run openspec validate --all --strict --no-interactive, git diff --check and staged whitespace/scope/LICENSE checks inside the devcontainer; record actual results and limitations.
-- [ ] 3.2 Obtain maintainer review of the study and explicit choices before adopting technologies or implementing product behavior.
+- [x] 3.2 Obtain maintainer review of the study; confirmed by merged PR #4 and the maintainer on 2026-10-03.
+- [ ] 3.3 Obtain the remaining explicit choices before adopting technologies or implementing product behavior; see the updated decision register.

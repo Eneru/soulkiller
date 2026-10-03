@@ -4,7 +4,9 @@
 
 ## References
 
-- Issue, if any:
+<!-- Use Closes #N only when this PR completes the issue; use Refs #N for partial work. -->
+- Issue closure or related-work reference, if any:
+- Native branch/issue linkage verified, or tooling limitation:
 - OpenSpec change (path or identifier), or explanation if not applicable:
 
 ## Validation
@@ -24,3 +26,4 @@
 
 <!-- Decisions, known limitations and possible follow-up work. -->
 <!-- Keep this PR in draft until ready. Merge only after human review. -->
+<!-- Automatic branch deletion depends on a maintainer-controlled repository setting. -->

@@ -6,6 +6,16 @@ and [approved brief](soulkiller-feasibility-study.md).
 This proposal adds no executable harness or fixtures. No candidate/runtime/model
 was installed or benchmarked during the desk study.
 
+**Framing update, 2026-10-03:** the maintainer chose TXT/born-digital PDF first,
+French/English, and tens to hundreds of documents up to approximately 1,000 pages
+as the initial planning corpus. Memories are proposed and saved automatically,
+inspectable/deletable, used immediately with conversational origin preserved and
+shared across interlocutors of the same persona. Detailed rules remain open.
+Local versus remote is to
+compare, not selected or authorized for data transfer. See the
+[first-increment framing](soulkiller-first-increment-framing.md). All E1-E9 remain
+unexecuted; OCR/media experiments are later priorities.
+
 ## Goals and comparison controls
 
 Determine whether the shortlisted components satisfy the approved Windows,
@@ -48,9 +58,11 @@ Have a fixed source manifest and reference annotations.
 | K01 | Conflicting facts with and without reliable event dates | Surface conflict; import order alone does not settle truth |
 | K02 | Duplicate file and edited/deleted revision | Stable identity, invalidation and stale-result detection |
 | S01 | Third-party text stored by Inez plus overlapping names | Ownership is not authorship; correct subject attribution |
-| S02 | Two personas with unique synthetic marker facts | Cross-subject retrieval and answer leakage |
+| S02 | Two personas with unique synthetic marker facts | Cross-persona retrieval and answer leakage |
 | A01 | Hostile instructions in text, OCR and transcripts | Imported content does not override application rules |
-| M01 | New chat statements and assistant-generated claims | Separate provenance; no automatic historical-fact promotion |
+| M01 | New chat statements and assistant-generated claims | Automatic memory saving with separate provenance; no automatic historical-fact promotion |
+| M02 | Saved memories, contradictions, inspection and deletion | Immediate use after restart; agreed deletion invalidates derivatives and prevents regeneration within its scope; rules still to approve |
+| M03 | Two interlocutors, one shared-memory persona, and a second persona | Expected same-persona memory sharing with correct speaker attribution; no cross-persona leakage |
 | U01 | Questions with no source answer | Appropriate uncertainty rather than invented biography |
 
 Reference each fact to source ID, revision and page/offset/time range.
@@ -86,7 +98,7 @@ an explicitly enabled local model or an approved provider/budget.
 | Retrieval | Recall@k, MRR@k or nDCG@k on relevance labels | Use identical corpus, k and query set |
 | Answers | Supported claims / factual claims; valid citations / citations; source-location accuracy | Claim support and citation correctness are separate |
 | Unknowns/conflicts | Correct uncertainty, unnecessary abstention, surfaced conflicts | Test both answerable and unanswerable questions |
-| Isolation/lifecycle | Cross-subject hits/leakage; stale/deleted source hits after job completion | Zero observed failures is a finite-suite gate, not universal proof |
+| Isolation/lifecycle | Cross-persona hits/leakage; stale/deleted source hits after job completion | Zero observed failures is a finite-suite gate, not universal proof |
 | Style | Human 1-5 rubric for tone, attributed vocabulary, coherence and immersion | Score separately from factual accuracy; do not call this consciousness fidelity |
 | Runtime | Cold/warm start, p50/p95 latency, throughput, peak RAM/VRAM, disk and incremental import time | State hardware, concurrency and model settings |
 | Cost | Resource use, token counts/rates, retries, downloads and packaging work | Separate local costs and provider charges |
@@ -100,7 +112,7 @@ judge does not replace source annotations.
 
 For deterministic fixture tests, propose exact source-location resolution,
 visible failure/partial status, no unauthorized files/endpoints, and zero observed
-cross-subject or deleted-source retrieval after a completed lifecycle operation.
+cross-persona or deleted-source retrieval after a completed lifecycle operation.
 Define what deletion covers: active indexes, evidence, summaries, caches, retained
 chat references and backups. Physical erasure is a different guarantee.
 

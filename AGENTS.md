@@ -51,6 +51,12 @@
   human review and manual merge.
 - Publish only the authorized working branch. Do not merge, enable auto-merge
   or change repository protections.
+- Link issue work through GitHub's native Development mechanism when available;
+  a branch name alone is not a native link. Use Closes #N in the PR description
+  only when its merge completes that issue; use Refs #N for partial work.
+- Report any native branch-link capability limitation rather than claiming success.
+- Keep completed issues as closed history. Automatic branch deletion is a
+  maintainer-managed repository setting; do not change settings or enable auto-merge.
 - The PR must identify the OpenSpec change, checks performed and their limitations.
 - Proposed issues in docs/roadmap.md require maintainer review before being
   created on GitHub.

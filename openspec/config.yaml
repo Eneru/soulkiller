@@ -5,7 +5,14 @@ context: |
   Functional stages and architecture still need to be defined with the maintainer.
   Source-machine priority: Windows on an ordinary household PC; exact hardware is open.
   Read docs/research/soulkiller-decisions.md for confirmed answers and pending choices.
-  Desk-study recommendations do not adopt a stack or authorize data egress.
+  The desk study was reviewed and merged in PR #4; recommendations do not adopt a stack.
+  Confirmed first inputs: TXT and born-digital PDF, French and English.
+  Initial corpus profile: tens to hundreds of documents, approximately 1,000 pages; not a tested capacity.
+  Compare local and remote before deciding; no data egress or paid trial is authorized.
+  Persona memories are proposed and saved automatically, inspectable and deletable.
+  Saved memories are used immediately with conversational origin; shared across interlocutors of one persona.
+  Memory content, attribution/access, correction, style changes, retention and deletion scope remain open.
+  Read docs/research/soulkiller-first-increment-framing.md before behavioral specifications.
   The foundation uses Ubuntu 24.04, Node.js and OpenSpec in a non-root devcontainer.
   Python, .NET, Angular and OmniRoute are candidates, not adopted technologies.
   Run all development and validation commands inside the container.

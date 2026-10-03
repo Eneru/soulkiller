@@ -1,7 +1,10 @@
 # Study brief: local data ingestion and evidence-grounded digital personas
 
 **Status:** topic approved in [PR #2](https://github.com/Eneru/soulkiller/pull/2);
-desk research prepared for review in [issue #3](https://github.com/Eneru/soulkiller/issues/3).
+desk research reviewed and merged in [PR #4](https://github.com/Eneru/soulkiller/pull/4),
+with [issue #3](https://github.com/Eneru/soulkiller/issues/3) completed.
+The [first-increment framing](soulkiller-first-increment-framing.md) records the
+maintainer's subsequent corpus, comparison and automatic-memory answers.
 **Study outputs:** [report](soulkiller-feasibility-report.md),
 [evaluation proposal](soulkiller-evaluation-plan.md), [decisions](soulkiller-decisions.md).
 **Suggested issue title:** Study local multimodal ingestion and RAG-based digital personas.

@@ -1,7 +1,9 @@
 # Proposed roadmap
 
-R0 is tracked in [issue #3](https://github.com/Eneru/soulkiller/issues/3) after
-maintainer approval. The remaining entries are **issue drafts** for review.
+R0 is completed in [issue #3](https://github.com/Eneru/soulkiller/issues/3) after
+maintainer review and merge of PR #4. [Issue #5](https://github.com/Eneru/soulkiller/issues/5)
+records initial R1/F1 answers and comparison framing only. The remaining entries
+are **issue drafts** for review.
 No issues are created automatically. After approval, publish them in English
 and replace their local identifiers with GitHub links. The order below expresses
 dependencies; it does not define the product stages.
@@ -21,7 +23,7 @@ new-chat prompt. Preparation change: plan-soulkiller-feasibility-study.
 **Study delivery:** [report](research/soulkiller-feasibility-report.md),
 [evaluation proposal](research/soulkiller-evaluation-plan.md) and
 [decision register](research/soulkiller-decisions.md). Study change:
-analyze-soulkiller-feasibility. Desk research is prepared for review; experiments
+analyze-soulkiller-feasibility. Desk research is reviewed and merged; experiments
 and technology adoption remain pending. Follow-up issue drafts are in the register.
 
 **Deliverables and acceptance criteria:**
@@ -35,6 +37,11 @@ and technology adoption remain pending. Follow-up issue drafts are in the regist
       for review; no unreviewed stack adoption.
 
 ## R1 — Define the stages and first user journey
+
+Initial decisions: [first-increment framing](research/soulkiller-first-increment-framing.md).
+TXT/PDF text, French/English, a small planning corpus and automatic memories
+with immediate use, preserved origin and same-persona sharing are confirmed. Offline placement, detailed memory and journey rules remain open;
+this does not complete the criteria below.
 
 **Goal:** establish what Soulkiller should do, for whom, with which input data
 and observable outcomes. Distinguish the fictional inspiration from the actual
