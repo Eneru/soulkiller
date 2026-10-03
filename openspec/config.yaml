@@ -31,7 +31,10 @@ context: |
   Plan reproducible benchmarks and bounded load tests with synthetic data, approved profiles and thresholds.
   Plan automatic Actions with fast PR gates and bounded deeper tag/manual checks; no mandatory paid services.
   Read docs/documentation-site-plan.md: English Pages docs via Actions; generator and visual direction still need review.
-  No quality workflow, scanner configuration or documentation site is implemented by the planning change.
+  The quality planning change did not implement scanners or a site.
+  configure-github-app-publication implements tested Node development tooling, Gitleaks/Hadolint/ESLint and a bounded quality workflow.
+  Use the installed eneru-soulkiller-agent App (ID 5174172) publication CLI; keys remain ignored and bot commits must be verified.
+  Never fall back to the maintainer-authenticated connector for agent publication. The documentation site remains planned.
   English is the working language for specifications, documentation, agent instructions,
   code comments, issue and PR content, and new commit messages.
   Preserve tool-defined identifiers and OpenSpec validation keywords.

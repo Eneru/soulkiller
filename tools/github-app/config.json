@@ -1,0 +1,7 @@
+{
+  "appId": 5174172,
+  "appSlug": "eneru-soulkiller-agent",
+  "repository": "Eneru/soulkiller",
+  "apiVersion": "2026-03-10",
+  "keyFile": ".soulkiller-local/github-app/private-key.pem"
+}

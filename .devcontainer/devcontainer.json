@@ -15,8 +15,17 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash"
-      }
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "hadolint.hadolintPath": "/usr/local/bin/hadolint",
+        "hadolint.cliOptions": [
+          "--no-color",
+          "--failure-threshold",
+          "style"
+        ]
+      },
+      "extensions": [
+        "exiasr.hadolint@1.1.2"
+      ]
     }
   }
 }

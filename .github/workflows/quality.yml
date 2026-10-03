@@ -1,0 +1,35 @@
+name: Development quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  foundation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out reviewed source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Build the development environment
+        run: docker build --tag soulkiller-quality .devcontainer
+      - name: Run canonical credential-free checks
+        env:
+          SOULKILLER_CHECK_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: >-
+          docker run --rm --init
+          --mount "type=bind,source=${GITHUB_WORKSPACE},target=/workspaces/soulkiller,readonly"
+          --env SOULKILLER_CHECK_BASE
+          soulkiller-quality bash tools/checks/check.sh all

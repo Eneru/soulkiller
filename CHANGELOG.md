@@ -8,6 +8,13 @@ No version has been released yet.
 
 ### Added
 
+- Confined GitHub App publication tooling with exact staged trees, verified bot
+  commits, ready PRs and credential-free error-path tests with a 70% coverage gate.
+- Pinned Gitleaks/Hadolint/ESLint/kcov, measured JavaScript and Bash coverage,
+  explicit local secret hooks, container-side
+  Hadolint configuration and a bounded unprivileged Actions quality lane.
+- GitHub App setup/recovery guidance, Eneru CODEOWNERS and an original App avatar.
+
 - Development quality/DevOps/DevSecOps plan with a 70% coverage minimum,
   applicable security gates and bounded Actions lanes; implementation issue #7.
 - Documentation-site candidate and Pages Actions plan; implementation issue #8.
