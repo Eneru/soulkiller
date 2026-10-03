@@ -5,7 +5,8 @@ maintainer review and merge of PR #4. [Issue #5](https://github.com/Eneru/soulki
 is completed by reviewed PR #6 and records initial R1/F1 framing only.
 The maintainer authorized [issue #7](https://github.com/Eneru/soulkiller/issues/7)
 for quality/security and [issue #8](https://github.com/Eneru/soulkiller/issues/8)
-for the documentation site; implementation is future work. R1-R5 remain
+for the documentation site. The GitHub App publication tranche starts R6 with
+tooling tests and native quality checks; the documentation site remains planned. R1-R5 remain
 **issue drafts** for review. R6 accompanies development from the first component;
 its numbering does not defer security until after R5.
 No issues are created automatically. After approval, publish them in English
@@ -165,5 +166,8 @@ on choosing the site's frontend framework.
       no branch deployment, custom PAT or settings changes.
 - [ ] Deployment evidence, bounded Actions usage and maintenance instructions.
 
-Issues #7/#8 are authorized and published but implementation is not started.
-The planning PR references them without closing them.
+Issue #7 receives its first tooling tranche in `configure-github-app-publication`:
+[publication CLI](github-app-publication.md), [quality commands](quality-checks.md),
+70% publisher line-coverage gate and bounded PR/main Actions. Broader component
+gates, web DAST and product benchmarks remain open; this PR uses Refs #7.
+Issue #8 is published but its site implementation has not started.

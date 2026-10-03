@@ -1,0 +1,10 @@
+# Use the pinned scanner's default rules without local allowlists.
+[extend]
+useDefault = true
+
+# Supplement the pinned default rules for GitHub's April 2026 token format.
+[[rules]]
+id = "github-app-installation-jwt"
+description = "GitHub App installation token with App ID and JWT"
+regex = '''\bghs_[0-9]+_[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\b'''
+keywords = ["ghs_"]

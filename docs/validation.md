@@ -79,11 +79,32 @@ Initial checksum: `30cd79522ebd85148c43a931036e514e8b5cf8372776be39fc65a2f6293b0
 - Verify both issue templates' YAML headers and required fields.
 - Check that project text, specifications, templates and configuration guidance
   are in English and state a consistent working-language policy.
-- Inspect tracked files: no secrets, application code, Actions workflows or
-  LICENSE changes. Git exclusions do not replace this inspection.
+- Inspect tracked files: no secrets, unapproved application code/workflows or
+  LICENSE changes. Development tooling and its quality workflow are allowed in
+  configure-github-app-publication. Git exclusions do not replace this inspection.
 - After publication, verify the branches, PR link and ready-for-review status.
   A draft is only appropriate for unfinished work offered for early reading;
   record what remains instead of requesting final approval.
+
+## Tooling and security checks
+
+Inside the rebuilt container, follow [quality commands](quality-checks.md):
+
+```sh
+gitleaks version
+hadolint --version
+eslint --version
+npm --prefix tools/github-app test
+bash tools/checks/check.sh all
+```
+
+The test command enforces at least 70% executable line coverage for the publisher;
+its API tests use fakes and generated ephemeral keys. Live App identity/signature
+verification is a separate explicit run described in
+[publication setup](github-app-publication.md). Never print tokens or PEM contents.
+Record the tested architecture and distinguish a local equivalent from an actual
+hosted Actions run. Verify container-side editor diagnostics manually; configuring
+an extension does not prove that its UI ran.
 
 ## Limitations
 

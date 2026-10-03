@@ -77,6 +77,11 @@
 - Report any native branch-link capability limitation rather than claiming success.
 - Keep completed issues as closed history. Automatic branch deletion is a
   maintainer-managed repository setting; do not change settings or enable auto-merge.
+- Publish agent changes through tools/github-app/cli.mjs in the devcontainer;
+  read docs/github-app-publication.md. The existing connector may authenticate as
+  Eneru: do not fall back to it for agent publication or human review.
+- Keep App keys inside ignored .soulkiller-local/github-app/, never in CI/image/logs.
+  Require verified bot commits, exact staged trees and non-force branch updates.
 - The PR must identify the OpenSpec change, checks performed and their limitations.
 - Proposed issues in docs/roadmap.md require maintainer review before being
   created on GitHub.

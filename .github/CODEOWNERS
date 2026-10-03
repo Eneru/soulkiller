@@ -1,0 +1,4 @@
+# Review requests use the CODEOWNERS file on the PR's base branch.
+# Approval enforcement is configured separately by the maintainer.
+* @Eneru
+/.github/CODEOWNERS @Eneru
