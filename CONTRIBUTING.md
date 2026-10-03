@@ -43,6 +43,29 @@ If Git refuses an update, inspect the divergence instead of forcing it.
 This setup does not configure GitHub branch protection; review remains a
 contribution rule.
 
+## Issue linkage and completed work
+
+When working on an approved issue, create or link its branch through GitHub's
+**Development** section when that interface is available. A branch created there
+connects the eventual PR to the issue. See
+[GitHub's branch workflow](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/creating-a-branch-for-an-issue).
+Including the issue number in a branch name aids navigation but does not create
+that native connection; report a tooling limitation if the native link cannot be made.
+
+Use `Closes #N` in the PR description when merging into the default branch
+completes the issue. Use `Refs #N` for partial or related work: it does not close
+the issue. Check the issue's criteria before choosing a closing keyword.
+See [GitHub's issue linking rules](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue).
+Close completed issues rather than deleting their history.
+
+Automatic deletion after merge is a repository setting, not a PR option:
+**Settings → General → Pull Requests → Automatically delete head branches**.
+The maintainer controls it; agents keep repository settings unchanged and must
+not claim it is enabled without verification. Branch protections/rules can prevent
+deletion. See
+[GitHub's branch deletion documentation](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-the-automatic-deletion-of-branches).
+This setting does not authorize automatic merging.
+
 ## Validation and documentation
 
 - Follow [docs/validation.md](docs/validation.md) and validate OpenSpec.

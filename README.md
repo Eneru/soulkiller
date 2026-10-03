@@ -26,8 +26,13 @@ and OmniRoute. Windows on an ordinary household PC is the source-machine priorit
 
 Read the [evaluation proposal](docs/research/soulkiller-evaluation-plan.md) and
 [decision register](docs/research/soulkiller-decisions.md) before the next increment.
-Recommendations await maintainer review; candidate performance and native Windows
-packaging have not been tested, and no production stack is adopted.
+The study was reviewed and merged in [PR #4](https://github.com/Eneru/soulkiller/pull/4).
+The [first-increment framing](docs/research/soulkiller-first-increment-framing.md)
+records TXT/PDF text, French/English, a small planning corpus and automatic,
+inspectable/deletable memories used immediately and shared within one persona,
+with their conversational origin preserved. Local versus remote operation remains a comparison
+request. Candidate performance and native Windows packaging have not been tested;
+no production stack is adopted.
 
 ## Working language
 

@@ -1,6 +1,7 @@
 # Soulkiller feasibility study
 
-**Research snapshot:** 2026-10-02. **Status:** desk study submitted for review.
+**Research snapshot:** 2026-10-02. **Status:** reviewed and merged in
+[PR #4](https://github.com/Eneru/soulkiller/pull/4) on 2026-10-03.
 **Tracking:** [issue #3](https://github.com/Eneru/soulkiller/issues/3);
 OpenSpec change [analyze-soulkiller-feasibility](../../openspec/changes/analyze-soulkiller-feasibility/proposal.md).
 Read with the [approved brief](soulkiller-feasibility-study.md),
@@ -44,10 +45,15 @@ a reviewed release/card is not an installed or selected dependency version.
 
 Confirmed: local authorized extraction, text/PDF/image/video inputs, technology
 comparisons, maintainer choices and Windows-first household-PC deployment.
-Open: exact hardware, corpus/languages, fully offline requirements, permitted
-external processing, persona mode, retained memory, latency/cost and user scope.
-The [decision register](soulkiller-decisions.md) preserves Q1-Q8 without silently
-choosing answers.
+At the research snapshot, corpus/languages, offline/data egress and memory were
+unanswered. The maintainer's 2026-10-03 answers now confirm TXT/PDF text,
+French/English, an approximately 1,000-page planning corpus and automatic,
+inspectable/deletable memories used immediately, with conversational origin
+preserved and shared within the same persona. Local versus remote remains to compare.
+The [decision register](soulkiller-decisions.md) and
+[framing document](soulkiller-first-increment-framing.md) record current answers
+and remaining hardware, memory, data-boundary, journey and resource choices.
+These answers do not turn the unexecuted study into runtime evidence.
 
 ## W2: extraction alternatives
 
