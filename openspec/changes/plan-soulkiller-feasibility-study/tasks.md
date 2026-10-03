@@ -13,4 +13,4 @@ and acceptance criteria are in the research brief; they are not completed here.
 
 - [x] 2.1 Validate the documentation-only OpenSpec change using skip_specs, run openspec validate --all --strict --no-interactive and git diff --check inside the devcontainer.
 - [x] 2.2 Inspect the diff and verify LICENSE matches main, with no application code, runtime dependencies, secrets or workflows added.
-- [ ] 2.3 Obtain maintainer review of the proposed study topic and verify confirmation before publishing roadmap issues or adopting technologies.
+- [x] 2.3 Obtain maintainer review of the proposed study topic and verify confirmation before publishing roadmap issues or adopting technologies.

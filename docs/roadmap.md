@@ -1,11 +1,12 @@
 # Proposed roadmap
 
-These entries are **issue drafts** for maintainer review.
+R0 is tracked in [issue #3](https://github.com/Eneru/soulkiller/issues/3) after
+maintainer approval. The remaining entries are **issue drafts** for review.
 No issues are created automatically. After approval, publish them in English
 and replace their local identifiers with GitHub links. The order below expresses
 dependencies; it does not define the product stages.
 
-## R0 — Study local ingestion and digital personas
+## R0 / Issue #3 — Study local ingestion and digital personas
 
 **Goal:** evaluate how authorized local text/PDF, image and video data could
 support an evidence-grounded conversation with a digital persona.
@@ -17,14 +18,20 @@ and collects the product questions needed before architecture selection.
 including candidate references, work packages W1-W6, decisions Q1-Q8 and a
 new-chat prompt. Preparation change: plan-soulkiller-feasibility-study.
 
+**Study delivery:** [report](research/soulkiller-feasibility-report.md),
+[evaluation proposal](research/soulkiller-evaluation-plan.md) and
+[decision register](research/soulkiller-decisions.md). Study change:
+analyze-soulkiller-feasibility. Desk research is prepared for review; experiments
+and technology adoption remain pending. Follow-up issue drafts are in the register.
+
 **Deliverables and acceptance criteria:**
 
-- [ ] Extraction, RAG/fine-tuning and language/library alternatives compared
+- [x] Extraction, RAG/fine-tuning and language/library alternatives compared
       with advantages, drawbacks, primary references and declared assumptions.
-- [ ] Facts, speaking style and conversation memory assessed separately.
-- [ ] Candidate architectures, provenance and data lifecycle documented.
-- [ ] Hardware/cost assumptions and synthetic evaluation proposal provided.
-- [ ] Maintainer questions, recommendations and a first increment proposed
+- [x] Facts, speaking style and conversation memory assessed separately.
+- [x] Candidate architectures, provenance and data lifecycle documented.
+- [x] Hardware/cost assumptions and synthetic evaluation proposal provided.
+- [x] Maintainer questions, recommendations and a first increment proposed
       for review; no unreviewed stack adoption.
 
 ## R1 — Define the stages and first user journey

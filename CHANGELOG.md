@@ -8,6 +8,8 @@ No version has been released yet.
 
 ### Added
 
+- Feasibility report, synthetic evaluation proposal and decision register for
+  Windows-first local ingestion and grounded personas; research issue tracking.
 - Research brief and OpenSpec preparation change for local multimodal ingestion
   and evidence-grounded digital personas, with comparisons and maintainer decisions.
 - Ubuntu 24.04 devcontainer with a non-root user, Git, Node.js and OpenSpec.

@@ -1,6 +1,9 @@
 # Study brief: local data ingestion and evidence-grounded digital personas
 
-**Status:** proposed research topic, pending maintainer review.
+**Status:** topic approved in [PR #2](https://github.com/Eneru/soulkiller/pull/2);
+desk research prepared for review in [issue #3](https://github.com/Eneru/soulkiller/issues/3).
+**Study outputs:** [report](soulkiller-feasibility-report.md),
+[evaluation proposal](soulkiller-evaluation-plan.md), [decisions](soulkiller-decisions.md).
 **Suggested issue title:** Study local multimodal ingestion and RAG-based digital personas.
 **OpenSpec preparation change:** [plan-soulkiller-feasibility-study](../../openspec/changes/plan-soulkiller-feasibility-study/proposal.md).
 **Dependencies:** the reviewed development foundation. This study informs R1-R4
@@ -161,7 +164,9 @@ cannot change application rules. Keep fixture content synthetic.
 
 ## Maintainer decision register to open
 
-No answers are assumed by this preparation.
+The preparation assumed no answers. The study records confirmed Windows-first
+household-PC deployment and remaining questions in the
+[decision register](soulkiller-decisions.md); this table preserves the original questions.
 
 | ID | Question | What it determines |
 | --- | --- | --- |
@@ -178,19 +183,22 @@ Ask blocking questions before narrowing the study or running resource-dependent
 experiments. Present nonblocking options with explicit assumptions so the
 maintainer can make an informed choice.
 
-## Acceptance criteria for the future study
+## Acceptance criteria for the study
 
-- [ ] Confirmed needs, assumptions, exclusions and Q1-Q8 are recorded.
-- [ ] Text/PDF, image/OCR and video/audio approaches have a comparison with
+Checked items record desk-study deliverables, not approved technology choices or
+executed experiments. See the report and decision register for limitations.
+
+- [x] Confirmed needs, assumptions, exclusions and Q1-Q8 are recorded.
+- [x] Text/PDF, image/OCR and video/audio approaches have a comparison with
       advantages, drawbacks and primary references.
-- [ ] RAG, prompting and fine-tuning are compared separately for facts, style
+- [x] RAG, prompting and fine-tuning are compared separately for facts, style
       and memory, with stated resource and maintenance assumptions.
-- [ ] Languages, libraries, deployment alternatives and OmniRoute have reasoned
+- [x] Languages, libraries, deployment alternatives and OmniRoute have reasoned
       options without an unreviewed stack decision.
-- [ ] Data flow, provenance, updates, deletion and subject isolation are covered.
-- [ ] Synthetic evaluation covers success, boundaries and failure cases;
+- [x] Data flow, provenance, updates, deletion and subject isolation are covered.
+- [x] Synthetic evaluation covers success, boundaries and failure cases;
       measurements and unexecuted experiments are clearly distinguished.
-- [ ] The report ends with actionable maintainer questions, recommendations and
+- [x] The report ends with actionable maintainer questions, recommendations and
       a proposed first increment, all subject to human review.
 
 ## Starting the study in a new chat

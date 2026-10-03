@@ -3,6 +3,9 @@ schema: spec-driven
 context: |
   Soulkiller is a multi-stage application project inspired by Cyberpunk 2077.
   Functional stages and architecture still need to be defined with the maintainer.
+  Source-machine priority: Windows on an ordinary household PC; exact hardware is open.
+  Read docs/research/soulkiller-decisions.md for confirmed answers and pending choices.
+  Desk-study recommendations do not adopt a stack or authorize data egress.
   The foundation uses Ubuntu 24.04, Node.js and OpenSpec in a non-root devcontainer.
   Python, .NET, Angular and OmniRoute are candidates, not adopted technologies.
   Run all development and validation commands inside the container.
