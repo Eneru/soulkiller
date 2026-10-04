@@ -1,6 +1,12 @@
 # First persona: behavior and access decision packet
 
-**Status, 2026-10-04:** confirmed intent plus proposals for R1/F1 review.
+**Status, 2026-10-04:** reviewed and merged in PR #12; operational details
+remain proposals.
+
+**Follow-up decision:** the maintainer subsequently selected one local manager
+with unauthenticated interlocutor labels for the first increment. Read the
+[current decision register](soulkiller-decisions.md). The comparison below is
+retained as rationale; accounts remain an unselected alternative.
 This is a planning document, not implemented behavior or approval of a production
 stack, provider, account service, model, data transfer or experiment.
 Read the [decision register](soulkiller-decisions.md),
@@ -18,7 +24,7 @@ Read the [decision register](soulkiller-decisions.md),
 | Memory use | Save automatically, use immediately and share across interlocutors of the same persona, preserving conversational origin |
 | Memory deletion | Remove the memory and its derivatives; retain conversation history and a technical trace preventing automatic regeneration |
 | Style evolution | Memories can evolve speaking style through explicit, inspectable and deletable changes |
-| Access model | Compare a sole local manager with distinct accounts before choosing either |
+| Access model | After the comparison, one local manager with unauthenticated interlocutor labels was selected for the first increment |
 
 Speaking-style evolution does not authorize inferred psychological traits or
 unrestricted personality editing. Derivation, attribution, correction and
@@ -55,8 +61,9 @@ a capacity limit or a guarantee from a finite future suite.
 
 ## Sole local manager versus distinct accounts
 
-Both options remain candidates. The benefits and costs below are engineering
-inferences for this project, not measured results or an adopted identity design.
+The local-manager option was selected after this comparison; distinct accounts
+remain an unselected alternative. Benefits and costs below are engineering
+inferences, not measurements or implemented authentication/permission controls.
 
 | Criterion | Sole local manager | Distinct accounts |
 | --- | --- | --- |
@@ -89,7 +96,8 @@ retention cannot be inferred from an audit-log recommendation.
 
 ## Decisions still required before dependent implementation
 
-- Identity trust, manager/account choice, enrollment/recovery and action rights;
+- Local-label attribution and management action rules; account enrollment/recovery
+  are outside the selected first model;
   whether sources, transcripts and conversational origins are visible to everyone
   who may converse with a persona.
 - Source/subject attribution, explicit correction versus replacement,
@@ -98,7 +106,8 @@ retention cannot be inferred from an audit-log recommendation.
   suppression matching for duplicates/rephrasings, minimal trace contents,
   retention/lifetime, backups and any remote copies.
 - Answer language, cross-language retrieval, citation interaction and delivery UI.
-- Windows version/architecture, measured household-PC profile, corpus byte/file
+- Windows version/architecture, CPU/storage and native validation of the 8/16 GiB
+  CPU-only targets, corpus byte/file
   boundaries, latency/storage targets and automatic-memory compute/cost budgets.
 - Local/owned-remote/hosted comparison boundary, transmitted fields, endpoint,
   retention and trial budget. No data egress or provider use is authorized here.

@@ -3,7 +3,8 @@
 **Status:** study and initial framing reviewed and merged in PRs #4/#6;
 maintainer answers updated 2026-10-04.
 Options beyond the confirmed answers remain proposals.
-No technology or product behavior is adopted by this register.
+This register records confirmed product intent, not implemented behavior or an
+adopted production stack.
 Read the [report](soulkiller-feasibility-report.md),
 [evaluation proposal](soulkiller-evaluation-plan.md) and
 [approved brief](soulkiller-feasibility-study.md).
@@ -15,19 +16,22 @@ Reviewed framing: completed [issue #5](https://github.com/Eneru/soulkiller/issue
 
 | Brief ID | Current answer / status | Consequence |
 | --- | --- | --- |
-| Q1 | Confirmed: Windows first, ordinary household PC. Exact Windows version/architecture, CPU/RAM/storage remain open. No dedicated GPU is a working baseline assumption | Do not require WSL/Docker or a developer SDK on the source PC without a separate decision; measure native packaging/CPU costs |
+| Q1 | Confirmed: Windows first; 8 GiB RAM, CPU only, with 16 GiB for comparison (2026-10-04). Exact Windows version/architecture, CPU and storage remain open; this is a reference profile, not a tested minimum | Do not require WSL/Docker or a developer SDK on the source PC without a separate decision; measure native packaging/CPU costs |
 | Q2 | Confirmed: TXT and born-digital PDF first, French/English; tens to hundreds of documents, up to approximately 1,000 pages. Total bytes, longest files, language mix and update frequency remain open | Use this planning corpus; no tested capacity or hard limit. OCR, images, audio/video follow later; cross-language retrieval and answer language remain to specify |
 | Q3 | Confirmed request: compare local and remote before deciding. Required offline behavior, allowed transmitted fields/endpoints and retention remain open | Compare options and plan measurements; no data egress, paid trial or remote placement is authorized |
 | Q4 | Confirmed: first-person text dialogue with consultable sources, 2026-10-04. Detailed citation interaction remains open | Preserve this presentation; select citation details and UI delivery later. Voice/avatar remain separate scope choices |
 | Q5 | Confirmed: say "I do not know" when evidence is missing; show contradictions with their sources without resolving them automatically. Detailed third-party attribution and source inspection remain to specify | Preserve uncertainty and visible conflicts; recency/import order do not automatically establish truth |
 | Q6 | Confirmed: evolving persona; automatic, inspectable/deletable memories used immediately with conversational origin preserved and shared by all interlocutors of the same persona. Content confirmed: explicit statements and faithful attributed summaries; no inferred preferences. Deletion removes memory/derivatives, retains history and prevents automatic regeneration through a technical trace. Speaking style also evolves through explicit, inspectable and deletable changes. Update/removal mechanics, attribution/access, correction, retention, trace design and backups/remote scope remain open | Preserve automatic saving/use and intentional same-persona sharing; do not impose manual approval. Keep conversational memories distinct from source evidence and separate personas |
 | Q7 | Latency, import time, disk and financial limits unanswered; clarification requested | No numeric feasibility promise or provider quotation; approve profiles/gates before experiments |
-| Q8 | Same-persona memories shared across interlocutors confirmed; compare one local manager with separate application accounts before choosing. User/persona counts and operation-specific access/management rights remain open | Test intended same-persona sharing separately from cross-persona isolation; no deployment or access model is adopted |
+| Q8 | Confirmed for the first increment: one local manager, with interlocutors identified by labels without authentication (2026-10-04). Same-persona memories remain shared. User/persona counts, source/history visibility and detailed management operations remain open | Labels provide attribution, not verified identity or an authorization boundary; do not introduce application accounts. Test same-persona sharing separately from cross-persona isolation; deployment/data placement remain open |
 
-An unanswered question is not consent or a chosen default. Exact RAM and
-acceptable latency should become observable requirements in the next approved
-OpenSpec change. Optional illustrative test tiers could compare 8 and 16 GiB
-CPU-only PCs, but neither tier is a confirmed minimum or performance guarantee.
+An unanswered question is not consent or a chosen default. The 8/16 GiB CPU-only
+profiles are now confirmed evaluation targets, not measured minima or performance
+guarantees. Acceptable latency, exact CPU/OS/storage and resource limits remain
+open. The maintainer requested a plan/specs-only extraction tranche before code;
+see [evaluate-text-pdf-extraction](../../openspec/changes/evaluate-text-pdf-extraction/proposal.md).
+No Python installation, experiment or production-language choice is authorized
+by this planning delivery.
 
 Read the [behavior decision packet](soulkiller-behavior-framing.md) for the latest
 confirmed answers, access comparison and proposed synthetic acceptance examples.
@@ -122,5 +126,8 @@ intent do not settle the open product choices, native Windows validation or
 E1-E9 measurements. The initial decision record was reviewed in PR #6. Subsequent
 memory-content and quality/Pages planning was reviewed, and the publication/quality tooling tranche
 was merged in PR #10. PR #11 records the confirmed dialogue presentation and CI
-policy. The latest uncertainty/style answers and access comparison are submitted
-in frame-dialogue-memory-and-access; remaining behavior and experiments need review.
+policy. The latest uncertainty/style answers and access comparison are reviewed
+and merged in PR #12
+(frame-dialogue-memory-and-access). The next evaluate-text-pdf-extraction change
+is a plan/specs-only review packet, with the latest hardware/access answers;
+implementation, remaining behavior and experiments still need approval.

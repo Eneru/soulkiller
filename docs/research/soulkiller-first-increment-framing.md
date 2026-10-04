@@ -15,7 +15,9 @@ Future behavior needs reviewed OpenSpec requirements, design and tasks.
 
 ## Confirmed first corpus and memory intent
 
-- Windows on an ordinary household PC; exact hardware remains unspecified.
+- Windows first; confirmed reference of 8 GiB RAM, CPU only, with 16 GiB for
+  comparison. Exact CPU, Windows version/architecture and storage remain open;
+  performance is unmeasured.
 - TXT and PDFs containing selectable text first, in French and English.
   OCR/scanned PDFs, images, audio and video are later priorities.
 - Tens to hundreds of documents, up to approximately 1,000 pages per initial
@@ -52,10 +54,13 @@ Speaking style can also evolve through explicit changes that are inspectable and
 deletable. Update triggers, composition, correction and removal effects still
 need an operational contract; inferred preferences remain excluded.
 
-The maintainer requests comparison of one local manager and separate accounts
-before choosing access/management rights. Read the
-[behavior decision packet](soulkiller-behavior-framing.md) for that comparison and
-proposed synthetic acceptance examples. No access model is selected.
+After reviewing the comparison in PR #12, the maintainer selected one local
+manager for the first increment, with unauthenticated interlocutor labels
+(2026-10-04). Labels do not prove identity or enforce permissions. Detailed
+management operations and source/history visibility remain to specify; shared
+recall does not settle those rules. Read the
+[behavior decision packet](soulkiller-behavior-framing.md) for the earlier
+comparison and proposed synthetic acceptance examples.
 
 ## Local versus remote: a comparison to evaluate
 
@@ -119,7 +124,7 @@ memories. These are proposed design boundaries for review.
 | Question | Options or boundary to decide |
 | --- | --- |
 | Content (confirmed) | Explicit interlocutor statements and faithful summaries with attribution; no automatic inferred preferences. Model inventions do not become established facts |
-| Attribution and access | Shared memory within the same persona is confirmed. Compare one local manager and separate accounts before deciding who may inspect, correct or delete which records; speaker/subject distinctions still need a contract |
+| Attribution and access | Shared memory within the same persona is confirmed. One local manager and unauthenticated interlocutor labels are confirmed for the first increment. Detailed inspection/correction/deletion operations, source/history visibility and speaker/subject distinctions still need a contract |
 | Evolution (partly confirmed) | Explicit, inspectable/deletable speaking-style changes are confirmed. Triggers, composition, correction and deletion effects remain open; do not infer preferences or psychological traits |
 | Conflicts and correction (partly confirmed) | Show sourced contradictions without automatic resolution; missing evidence yields uncertainty. Editing versus deletion/replacement and record-matching rules remain open |
 | History and deletion (partly confirmed) | Remove memory and its derivatives; retain history and a technical trace preventing automatic regeneration. Trace contents/lifetime, derivative boundaries, backups and remote copies still need a contract |

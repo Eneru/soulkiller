@@ -49,7 +49,10 @@ with immediate use, preserved origin and same-persona sharing are confirmed. Fir
 Explicit uncertainty, sourced contradictions without automatic resolution and
 inspectable/deletable speaking-style changes are now confirmed. The
 [behavior packet](research/soulkiller-behavior-framing.md) compares access options
-and proposes acceptance examples; no access model is selected. These decisions
+and proposes acceptance examples. The first increment now selects one local
+manager with unauthenticated interlocutor labels. The evaluation target is
+8 GiB RAM CPU-only, with 16 GiB for comparison; exact CPU/OS/storage and
+performance remain open. These decisions
 do not complete the criteria below.
 
 **Goal:** establish what Soulkiller should do, for whom, with which input data
@@ -78,6 +81,12 @@ capabilities being pursued.
 - [ ] Applicable quality/security/coverage gates planned with each introduced component (R6 / issue #7).
 - [ ] Storage and contracts required by the journey specified.
 - [ ] Tools and versions added to the devcontainer; local startup documented and verified.
+
+A proposed first experimental tranche is
+[evaluate-text-pdf-extraction](../openspec/changes/evaluate-text-pdf-extraction/proposal.md):
+a synthetic native TXT/PDF comparison, not application-language adoption.
+Its proposal, experimental contract, design and tasks are prepared for review
+only. No candidate/harness or R2 acceptance criterion is completed by this packet.
 
 ## R3 — Establish a reproducible testing strategy
 

@@ -19,6 +19,21 @@ compare, not selected or authorized for data transfer. See the
 [first-increment framing](soulkiller-first-increment-framing.md). All E1-E9 remain
 unexecuted; OCR/media experiments are later priorities.
 
+## Next concrete tranche, 2026-10-04
+
+The maintainer requested **plan/specifications only** for a synthetic Python
+TXT/PDF comparison. Read
+[evaluate-text-pdf-extraction](../../openspec/changes/evaluate-text-pdf-extraction/proposal.md)
+and its design/contract before implementation. The first proposed E1 portion
+compares pypdf with Docling's native, model-free pipeline; learned layout/table
+models remain separate. It does not install candidates or provide results.
+
+The reference target is 8 GiB RAM, CPU only, with 16 GiB for comparison. Exact
+CPU/Windows version/architecture/storage and latency expectations remain open.
+The proposed small Linux run limits in that change are experiment guards, not
+Windows performance guarantees. All E1-E9 remain unexecuted; E4/E6/E7 and any
+remote boundary are separate later review gates.
+
 ## Goals and comparison controls
 
 Determine whether the shortlisted components satisfy the approved Windows,
@@ -79,7 +94,7 @@ For style, use attributed synthetic writing samples plus a human rubric.
 
 | ID | Compare | What it resolves | Execution status |
 | --- | --- | --- | --- |
-| E1 | Standard readers/pypdf versus Docling | Text/layout/provenance benefit versus footprint | Not run |
+| E1 | Standard readers/pypdf versus Docling; native-only tranche proposed first | Native text/provenance first; learned-layout benefit requires a later model/assets tranche | Not run; plan/specs prepared for review |
 | E2 | Tesseract versus RapidOCR on the same rendered pages | Printed OCR quality and Windows CPU packaging | Not run |
 | E3 | Whisper versus faster-whisper with equivalent weights/settings; modular video versus Docling only if needed | ASR/time mapping/frame coverage and dependency cost | Not run |
 | E4 | SQLite lexical versus one dense candidate and hybrid search | Whether semantic recall improves the target questions | Not run |

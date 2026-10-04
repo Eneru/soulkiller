@@ -3,7 +3,7 @@ schema: spec-driven
 context: |
   Soulkiller is a multi-stage application project inspired by Cyberpunk 2077.
   Functional stages and architecture still need to be defined with the maintainer.
-  Source-machine priority: Windows on an ordinary household PC; exact hardware is open.
+  Source-machine priority: Windows; 8 GiB RAM CPU-only reference and 16 GiB comparison confirmed. Exact CPU/OS/storage and performance remain open.
   Read docs/research/soulkiller-decisions.md for confirmed answers and pending choices.
   The desk study was reviewed and merged in PR #4; recommendations do not adopt a stack.
   Confirmed first inputs: TXT and born-digital PDF, French and English.
@@ -16,9 +16,10 @@ context: |
   Deletion removes the memory and derivatives, retains history and uses a technical trace to prevent automatic regeneration.
   Missing evidence yields explicit uncertainty; sourced contradictions are shown without automatic resolution.
   Speaking style may evolve through explicit, inspectable and deletable changes; triggers and deletion effects remain open.
-  Compare one local manager and separate accounts before choosing an access model.
+  Initial access model: one local manager; interlocutors use unauthenticated labels, not verified identities or authorization boundaries. No application accounts are selected.
   Trace design, operation-specific rights, correction, retention, backups and remote deletion remain open.
   Read docs/research/soulkiller-behavior-framing.md for these decisions and proposed acceptance examples.
+  Next tranche: plan/specs-only evaluate-text-pdf-extraction, a proposed synthetic Python native-text comparison; no installation or experiment yet.
   Read docs/research/soulkiller-first-increment-framing.md before behavioral specifications.
   The foundation uses Ubuntu 24.04, Node.js and OpenSpec in a non-root devcontainer.
   Python, .NET, Angular and OmniRoute are candidates, not adopted technologies.
