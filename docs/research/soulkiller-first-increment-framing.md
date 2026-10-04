@@ -44,6 +44,19 @@ a source panel and detailed interaction behavior remain to specify. This records
 a product choice, not an implemented persona or a selected UI framework.
 Voice and animated avatars remain separate scope choices.
 
+## Confirmed uncertainty, conflicts and style evolution
+
+On 2026-10-04, the maintainer confirmed explicit uncertainty when evidence is
+missing and contradictions presented with sources, without automatic resolution.
+Speaking style can also evolve through explicit changes that are inspectable and
+deletable. Update triggers, composition, correction and removal effects still
+need an operational contract; inferred preferences remain excluded.
+
+The maintainer requests comparison of one local manager and separate accounts
+before choosing access/management rights. Read the
+[behavior decision packet](soulkiller-behavior-framing.md) for that comparison and
+proposed synthetic acceptance examples. No access model is selected.
+
 ## Local versus remote: a comparison to evaluate
 
 For a controlled initial comparison, keeping extraction and retrieval local
@@ -106,9 +119,9 @@ memories. These are proposed design boundaries for review.
 | Question | Options or boundary to decide |
 | --- | --- |
 | Content (confirmed) | Explicit interlocutor statements and faithful summaries with attribution; no automatic inferred preferences. Model inventions do not become established facts |
-| Attribution and access | Shared memory within the same persona is confirmed. Whose statement concerns which person, and who may access, correct or delete it? |
-| Evolution | Can memories affect factual context only, or also speaking style/personality? Source identity and later experiences are distinct |
-| Conflicts and correction | How to handle a memory contradicting a source or another memory? Is editing supported, or deletion and replacement? |
+| Attribution and access | Shared memory within the same persona is confirmed. Compare one local manager and separate accounts before deciding who may inspect, correct or delete which records; speaker/subject distinctions still need a contract |
+| Evolution (partly confirmed) | Explicit, inspectable/deletable speaking-style changes are confirmed. Triggers, composition, correction and deletion effects remain open; do not infer preferences or psychological traits |
+| Conflicts and correction (partly confirmed) | Show sourced contradictions without automatic resolution; missing evidence yields uncertainty. Editing versus deletion/replacement and record-matching rules remain open |
 | History and deletion (partly confirmed) | Remove memory and its derivatives; retain history and a technical trace preventing automatic regeneration. Trace contents/lifetime, derivative boundaries, backups and remote copies still need a contract |
 | Retention and budget | How much memory is retained, when is it summarized, and which compute/cost limits apply to automatic memory generation? |
 

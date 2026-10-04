@@ -14,7 +14,11 @@ context: |
   Saved memories are used immediately with conversational origin; shared across interlocutors of one persona.
   Memories contain explicit interlocutor statements and faithful attributed summaries, not inferred preferences.
   Deletion removes the memory and derivatives, retains history and uses a technical trace to prevent automatic regeneration.
-  Trace design, management rights, conflicts/correction, style evolution, retention, backups and remote deletion remain open.
+  Missing evidence yields explicit uncertainty; sourced contradictions are shown without automatic resolution.
+  Speaking style may evolve through explicit, inspectable and deletable changes; triggers and deletion effects remain open.
+  Compare one local manager and separate accounts before choosing an access model.
+  Trace design, operation-specific rights, correction, retention, backups and remote deletion remain open.
+  Read docs/research/soulkiller-behavior-framing.md for these decisions and proposed acceptance examples.
   Read docs/research/soulkiller-first-increment-framing.md before behavioral specifications.
   The foundation uses Ubuntu 24.04, Node.js and OpenSpec in a non-root devcontainer.
   Python, .NET, Angular and OmniRoute are candidates, not adopted technologies.
