@@ -51,8 +51,10 @@
   Hadolint in the editor using the binary installed in the image, once implemented.
 - Plan reproducible benchmarks and bounded load tests with approved profiles,
   synthetic inputs and explicit thresholds; do not claim unexecuted results.
-- Keep secrets, applicable static checks and coverage in the fast PR lane;
-  reserve expensive checks for reviewed tags/manual runs with bounded resources.
+- Keep secrets, applicable static checks and coverage in the fast PR lane.
+  CI builds/checks run only for PRs targeting main or valid SemVer version tags;
+  reserve expensive CI checks for reviewed version tags with bounded resources.
+  Do not add main/other branch pushes or manual Actions dispatch without a new decision.
 - Follow docs/documentation-site-plan.md for issue #8; Pages uses Actions by
   maintainer report. Do not publish private/local data or change Pages settings.
 - Do not report a check as passing unless it was executed. Report blockers and

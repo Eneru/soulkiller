@@ -65,7 +65,10 @@ attachments from the publication selection.
 Use GitHub's artifact deployment, with no gh-pages branch:
 build the approved static output, configure Pages, upload a Pages artifact and
 deploy through the github-pages environment. PRs build/validate without deployment.
-Only a reviewed main revision or trusted manual run can enter the deployment job.
+The CI policy recorded on 2026-10-04 permits builds only on PRs targeting main
+and valid SemVer version tags. The earlier main/manual deployment proposal is
+superseded: the site implementation must propose reviewed version-tag publication
+with its provenance checks before adding a deployment job.
 Give that job pages:write and id-token:write; keep ordinary jobs contents:read.
 No custom personal access token or repository-setting change is required.
 [GitHub custom Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
@@ -78,7 +81,7 @@ Docusaurus baseUrl and VitePress base must match the selected URL.
 [stable VitePress deployment](https://vuejs.github.io/vitepress/v1/guide/deploy).
 
 Use one bounded site workflow with relevant-change build checks and trusted
-manual dispatch. Coordinate path filtering with any required quality gate so
+version-tag events. Coordinate path filtering with any required quality gate so
 skipped work does not leave required checks pending. Apply the
 [development quality plan](development-quality.md) to custom executable site
 code and tooling; pure Markdown has no fabricated coverage result.

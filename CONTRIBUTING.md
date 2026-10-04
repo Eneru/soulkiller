@@ -100,7 +100,10 @@ A small [quality workflow](.github/workflows/quality.yml) checks this tooling an
 the foundation. [Quality commands](docs/quality-checks.md) are shared with the
 container CLI. [Issue #7](https://github.com/Eneru/soulkiller/issues/7) remains open
 for future component gates; implement those alongside their development.
-Keep core checks on PRs and reserve expensive work for reviewed tags/manual runs.
+Run CI builds/checks only on PRs targeting main and valid SemVer version tags;
+reserve expensive CI work for reviewed version tags. Main/other branch pushes
+and manual Actions dispatch do not repeat those checks. Local container commands
+remain available. See [the event policy](docs/quality-checks.md#editor-and-ci).
 [Issue #8](https://github.com/Eneru/soulkiller/issues/8) tracks the Actions-based
 [documentation site](docs/documentation-site-plan.md). Include actual local/CI
 results and limitations in each PR; do not claim planned automation is running.

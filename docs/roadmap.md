@@ -45,7 +45,7 @@ and technology adoption remain pending. Follow-up issue drafts are in the regist
 
 Initial decisions: [first-increment framing](research/soulkiller-first-increment-framing.md).
 TXT/PDF text, French/English, a small planning corpus and automatic memories
-with immediate use, preserved origin and same-persona sharing are confirmed. Offline placement, detailed memory and journey rules remain open;
+with immediate use, preserved origin and same-persona sharing are confirmed. First-person text dialogue with consultable sources is also confirmed. Offline placement, detailed memory and journey rules remain open;
 this does not complete the criteria below.
 
 **Goal:** establish what Soulkiller should do, for whom, with which input data
@@ -90,7 +90,7 @@ capabilities being pursued.
 - [ ] Benchmarks and bounded load-test profiles, hardware/corpus baselines,
       metrics and agreed thresholds; distinguish fast regression checks from deeper runs.
 - [ ] Explicit decision on Docker-in-Docker; add it only if justified.
-- [ ] Bounded GitHub Actions gates designed with early PR checks and deeper tag/manual checks; issue #7 tracks implementation alongside components.
+- [ ] Bounded GitHub Actions gates designed with early PR checks and deeper version-tag checks; issue #7 tracks implementation alongside components.
 
 ## R4 — Evaluate OmniRoute and LLM access
 
@@ -139,10 +139,10 @@ Docker change and runnable web component. Accompanies R2/R3/R5 and R7.
 - [ ] Gitleaks, Hadolint and appropriate language analysis; Bandit if Python.
 - [ ] Repository-local Gitleaks pre-commit hooks and container-side editor
       diagnostics, including Hadolint with its image-installed binary; explicit CLI/CI execution.
-- [ ] Synthetic benchmark/load-test commands and bounded PR versus tag/manual
+- [ ] Synthetic benchmark/load-test commands and bounded PR versus version-tag
       lanes when measurable components exist; no performance claims without evidence.
 - [ ] Web ZAP against an ephemeral synthetic instance once applicable.
-- [ ] Fast PR gates plus bounded deeper tag/manual scans, safe tokens/permissions,
+- [ ] Fast PR gates plus bounded deeper version-tag scans, safe tokens/permissions,
       redacted reports and declared runner/storage budget.
 - [ ] Actual results, intentional skips and limits documented; manual review.
 
@@ -162,12 +162,12 @@ on choosing the site's frontend framework.
 - [ ] Responsive, keyboard-usable visual design and clear accepted/draft status.
 - [ ] Explicit public-source selection, compatible rendering and correct links/assets.
 - [ ] Devcontainer production build/preview and applicable tests/checks.
-- [ ] Unprivileged PR build, isolated artifact deployment from reviewed main/trusted manual run;
+- [ ] Unprivileged PR build, isolated artifact deployment from reviewed SemVer version tag;
       no branch deployment, custom PAT or settings changes.
 - [ ] Deployment evidence, bounded Actions usage and maintenance instructions.
 
 Issue #7 receives its first tooling tranche in `configure-github-app-publication`:
 [publication CLI](github-app-publication.md), [quality commands](quality-checks.md),
-70% publisher line-coverage gate and bounded PR/main Actions. Broader component
+70% publisher line-coverage gate and bounded PR-to-main/version-tag Actions. Broader component
 gates, web DAST and product benchmarks remain open; this PR uses Refs #7.
 Issue #8 is published but its site implementation has not started.

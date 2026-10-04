@@ -117,7 +117,7 @@ judge does not replace source annotations.
 
 The [development quality plan](../development-quality.md) defines where future
 checks run: explicit devcontainer commands, fast reliable PR regressions where
-appropriate, and bounded deeper tag/manual runs. This study adds no harness.
+appropriate, and bounded deeper reviewed SemVer version-tag runs. This study adds no harness.
 
 Begin with single-operation benchmarks on the agreed TXT/PDF text corpus:
 extraction, import/index updates, retrieval, conversation startup and memory

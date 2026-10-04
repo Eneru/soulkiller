@@ -35,6 +35,11 @@ No version has been released yet.
 
 ### Changed
 
+- Restricted CI builds/checks to PRs targeting main and valid SemVer version
+  tags, with an exact lightweight guard before Docker builds and tests.
+- Recorded first-person text dialogue with consultable sources as confirmed;
+  detailed citation interaction and other product choices remain open.
+
 - Split GitHub App publication responsibilities and shared test fixtures into
   focused modules, with independent Arrange/Act/Assert scenarios.
 - Added explicit App-authenticated replies to maintainer review comments while

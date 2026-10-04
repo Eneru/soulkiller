@@ -8,6 +8,7 @@ context: |
   The desk study was reviewed and merged in PR #4; recommendations do not adopt a stack.
   Confirmed first inputs: TXT and born-digital PDF, French and English.
   Initial corpus profile: tens to hundreds of documents, approximately 1,000 pages; not a tested capacity.
+  Confirmed presentation: first-person text dialogue with consultable sources; citation interaction details remain open.
   Compare local and remote before deciding; no data egress or paid trial is authorized.
   Persona memories are proposed and saved automatically, inspectable and deletable.
   Saved memories are used immediately with conversational origin; shared across interlocutors of one persona.
@@ -29,7 +30,8 @@ context: |
   Plan Gitleaks in repository-local pre-commit hooks and Hadolint editor integration using an image-installed binary.
   Specify execution points for container commands, hooks, editor diagnostics and CI; do not modify host/global configuration.
   Plan reproducible benchmarks and bounded load tests with synthetic data, approved profiles and thresholds.
-  Plan automatic Actions with fast PR gates and bounded deeper tag/manual checks; no mandatory paid services.
+  Run CI builds/checks only on PRs targeting main or valid SemVer version tags; no main push or manual dispatch.
+  Keep fast PR gates and bounded deeper version-tag checks; no mandatory paid services.
   Read docs/documentation-site-plan.md: English Pages docs via Actions; generator and visual direction still need review.
   The quality planning change did not implement scanners or a site.
   configure-github-app-publication implements tested Node development tooling, Gitleaks/Hadolint/ESLint and a bounded quality workflow.
