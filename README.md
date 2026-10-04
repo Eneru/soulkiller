@@ -9,7 +9,9 @@ or demonstrated.
 ## Project status
 
 This initial setup provides a development environment and contribution rules.
-There is no application code, server or functional test suite yet. Python, .NET
+There is no application code or server yet. Tested GitHub App publication tooling
+and native quality checks are available; these are development tools, not application
+features. Python, .NET
 and possibly Angular are candidates; their use and versions will be decided in
 future specifications.
 
@@ -42,7 +44,11 @@ when applicable. The [quality plan](docs/development-quality.md) and
 [issue #7](https://github.com/Eneru/soulkiller/issues/7) define local/Actions gates
 and bounded deeper tag checks. It also defines repository-local secret-scanning
 hooks, container-side editor diagnostics, benchmarks and load-test execution points.
-No such hook, scanner, editor extension or CI workflow is configured yet.
+The first tooling tranche provides pinned Gitleaks/Hadolint/ESLint, an explicit
+repository-local hook installer, publisher and coverage-validator tests, Bash
+integration tests with kcov, and a 70% executable line-coverage gate for maintained
+JavaScript and shell helpers. A small PR/main Actions workflow repeats these checks. Read [quality commands](docs/quality-checks.md).
+Web DAST and product benchmarks remain planned.
 
 The [site plan](docs/documentation-site-plan.md) and
 [issue #8](https://github.com/Eneru/soulkiller/issues/8) cover a styled English
@@ -97,6 +103,9 @@ for this initial setup.
 | Node.js | 24.21.0 LTS, archive verified with SHA-256 |
 | npm | Version bundled with Node.js |
 | OpenSpec | 1.13.2, with locked dependencies |
+| Gitleaks / Hadolint | 8.30.1 / 2.15.1, verified release artifacts |
+| ESLint / security rules | 10.12.0 / eslint-plugin-security 4.2.0, locked dependencies |
+| Bash coverage | kcov 43, source archive verified with SHA-256 |
 
 The [.devcontainer configuration](.devcontainer/devcontainer.json) is the source
 of truth. The [Dockerfile](.devcontainer/Dockerfile) pins direct packages; the
@@ -125,8 +134,29 @@ git diff --check
 
 The complete procedure and expected results are in
 [docs/validation.md](docs/validation.md). These checks validate the foundation;
-they do not replace future application tests. No GitHub Actions workflow is
-included at this stage.
+they do not replace future application tests. The bounded
+[quality workflow](.github/workflows/quality.yml) repeats tooling checks without
+App keys or paid services.
+
+```sh
+npm --prefix tools/github-app test
+bash tools/checks/check.sh all
+```
+
+## Agent publication
+
+[GitHub App publication](docs/github-app-publication.md) uses
+`eneru-soulkiller-agent` (App ID `5174172`) to create verified bot commits and ready
+PRs for independent maintainer review. Public configuration lives in
+[tools/github-app/config.json](tools/github-app/config.json); the private PEM stays
+in ignored `.soulkiller-local/github-app/` and never enters the image or CI.
+Use the CLI in the devcontainer; the existing GitHub connector still has its
+own identity and does not switch accounts automatically. [CODEOWNERS](.github/CODEOWNERS)
+requests Eneru's review after it reaches `main`; enforcement requires
+maintainer-configured repository rules.
+
+The [App avatar](docs/assets/README.md) is detailed blonde manga artwork with
+circular-crop guidance. Upload it manually in the App's settings.
 
 ## Specifications and LLMs
 

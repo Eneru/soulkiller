@@ -2,8 +2,11 @@
 
 **Maintainer direction:** 2026-10-03.
 Tracking: [issue #7](https://github.com/Eneru/soulkiller/issues/7).
-This plan accompanies each implemented component. No scanners, coverage gate or
-GitHub Actions workflow are configured yet; the current change records the work.
+This plan accompanies each implemented component. The first tooling tranche,
+`configure-github-app-publication`, implements Gitleaks/Hadolint/ESLint, explicit
+local secret hooks, publisher tests with the 70% line-coverage gate and a bounded
+Actions workflow. See [runnable quality commands](quality-checks.md). The broader
+language/web/performance rollout below remains planned.
 
 ## Requirements and rollout
 
@@ -64,8 +67,9 @@ Hooks are local feedback, not a security boundary: GitHub API-created commits
 and other paths can bypass them. Agent publication must therefore invoke the
 canonical secret check explicitly before publishing, even when no git commit
 hook runs. CI repeats the check independently. Test hook installation/persistence,
-editor diagnostics and CLI/CI parity separately; none is installed or exercised
-by this planning PR.
+editor diagnostics and CLI/CI parity separately. The planning PR did not install
+these tools; the later publication-tooling tranche installs the CLI checks and
+configures the editor integration. Report editor UI verification separately.
 
 ## Coverage contract to finalize in the implementation proposal
 

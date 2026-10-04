@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+repo="$(git rev-parse --show-toplevel)"
+exec bash "$repo/tools/checks/check.sh" secrets-staged

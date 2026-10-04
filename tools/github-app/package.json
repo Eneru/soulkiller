@@ -1,0 +1,13 @@
+{
+  "name": "soulkiller-github-app-publication",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "test": "node --test --experimental-test-coverage --test-coverage-lines=70 --test-coverage-include=*.mjs --test-coverage-exclude=test/** test/*.test.mjs",
+    "check": "node cli.mjs check"
+  }
+}

@@ -8,6 +8,13 @@ No version has been released yet.
 
 ### Added
 
+- Confined GitHub App publication tooling with exact staged trees, verified bot
+  commits, ready PRs and credential-free error-path tests with a 70% coverage gate.
+- Pinned Gitleaks/Hadolint/ESLint/kcov, measured JavaScript and Bash coverage,
+  explicit local secret hooks, container-side
+  Hadolint configuration and a bounded unprivileged Actions quality lane.
+- GitHub App setup/recovery guidance, Eneru CODEOWNERS and an original App avatar.
+
 - Development quality/DevOps/DevSecOps plan with a 70% coverage minimum,
   applicable security gates and bounded Actions lanes; implementation issue #7.
 - Documentation-site candidate and Pages Actions plan; implementation issue #8.
@@ -27,6 +34,14 @@ No version has been released yet.
 - Roadmap for review, including an OmniRoute evaluation.
 
 ### Changed
+
+- Split GitHub App publication responsibilities and shared test fixtures into
+  focused modules, with independent Arrange/Act/Assert scenarios.
+- Added explicit App-authenticated replies to maintainer review comments while
+  preserving maintainer-owned thread resolution.
+- Replaced the App avatar with detailed blonde, freckled manga artwork.
+- Preserved captured Git index bytes during post-publication verification,
+  including cache-tree metadata.
 
 - Clarified check execution across the devcontainer, local Git hooks, editor and
   CI; planned reproducible benchmarks and bounded load tests.

@@ -6,7 +6,7 @@ Read the [README](README.md) and start the devcontainer before running commands.
 Run installations and Git commands in its terminal. Do not modify other host
 folders or [LICENSE](LICENSE).
 
-Git identity and authentication remain personal. When needed, configure identity
+Human Git identity and authentication remain personal. When needed, configure identity
 at repository level using `git config --local` and use an approved authentication
 mechanism, without tokens in tracked files or remote URLs. Do not copy credentials
 into the image.
@@ -51,8 +51,10 @@ Commit author metadata does not change the authenticated GitHub account that
 opens a PR. Separating agent development from maintainer approval requires a
 separately authenticated machine user or GitHub App and maintainer-configured
 review rules. Never approve or merge agent work using the maintainer's identity.
-No account, credentials, CODEOWNERS or repository protections are configured by
-this planning change.
+The [publication tool](docs/github-app-publication.md) authenticates as the installed
+App; never use the maintainer-authenticated connector as a fallback for agent
+publication. The PEM remains an ignored local input. CODEOWNERS requests Eneru's
+review, while enforcing review/signature rules remains a maintainer setting.
 
 ## Issue linkage and completed work
 
@@ -94,12 +96,33 @@ This setting does not authorize automatic merging.
 - Update the README, guides and [CHANGELOG](CHANGELOG.md) as appropriate.
 - Check off a task only after verifying its outcome.
 
-CI is not configured yet. [Issue #7](https://github.com/Eneru/soulkiller/issues/7)
-tracks the foundation and component gates; implement them alongside development.
+A small [quality workflow](.github/workflows/quality.yml) checks this tooling and
+the foundation. [Quality commands](docs/quality-checks.md) are shared with the
+container CLI. [Issue #7](https://github.com/Eneru/soulkiller/issues/7) remains open
+for future component gates; implement those alongside their development.
 Keep core checks on PRs and reserve expensive work for reviewed tags/manual runs.
 [Issue #8](https://github.com/Eneru/soulkiller/issues/8) tracks the Actions-based
 [documentation site](docs/documentation-site-plan.md). Include actual local/CI
 results and limitations in each PR; do not claim planned automation is running.
+
+## Maintainable tooling and tests
+
+Keep modules focused on a clear responsibility. In the Node.js tooling, put
+each class in its own file, separate shared constants and pure helpers from
+publication orchestration, and use explicit imports and composition. Prefer
+named operations over compact expressions that hide validation or cleanup.
+
+Organize tests by capability. Keep reusable synthetic repositories and fake API
+fixtures in dedicated helper files. Each named test follows Arrange, Act, Assert
+(or Given, When, Then), using one independent scenario and a fresh fixture.
+Parameterized cases still have a descriptive name and those phases; avoid
+adding a second scenario after the first scenario's assertions. Assert behavior
+and failures rather than implementation layout.
+
+When splitting source modules, update meaningful tests and coverage inclusion
+for all maintained executable modules; an include filter alone does not execute
+an unimported module. See [the publication guide](docs/github-app-publication.md)
+for the tooling layout.
 
 ## Issues and security
 
