@@ -8,6 +8,9 @@ No version has been released yet.
 
 ### Added
 
+- Persona behavior decision packet with a local-manager/account access comparison
+  and proposed synthetic acceptance examples.
+
 - Confined GitHub App publication tooling with exact staged trees, verified bot
   commits, ready PRs and credential-free error-path tests with a 70% coverage gate.
 - Pinned Gitleaks/Hadolint/ESLint/kcov, measured JavaScript and Bash coverage,
@@ -34,6 +37,9 @@ No version has been released yet.
 - Roadmap for review, including an OmniRoute evaluation.
 
 ### Changed
+
+- Recorded explicit uncertainty, sourced contradictions without automatic
+  resolution, and inspectable/deletable speaking-style evolution.
 
 - Restricted CI builds/checks to PRs targeting main and valid SemVer version
   tags, with an exact lightweight guard before Docker builds and tests.

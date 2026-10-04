@@ -33,8 +33,12 @@ The [first-increment framing](docs/research/soulkiller-first-increment-framing.m
 records TXT/PDF text, French/English, a small planning corpus and automatic,
 inspectable/deletable memories used immediately and shared within one persona,
 with their conversational origin preserved. First-person text dialogue with consultable
-sources is confirmed; precise citation presentation remains to specify. Local versus remote operation remains a comparison
-request. Candidate performance and native Windows packaging have not been tested;
+sources is confirmed; precise citation presentation remains to specify. Explicit
+uncertainty, sourced contradictions without automatic resolution and
+inspectable/deletable speaking-style changes are also confirmed. Read the
+[behavior decision packet](docs/research/soulkiller-behavior-framing.md), including
+the unselected local-manager/account access comparison. Local versus remote
+operation remains a comparison request. Candidate performance and native Windows packaging have not been tested;
 no production stack is adopted.
 
 ## Quality and documentation roadmap

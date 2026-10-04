@@ -19,15 +19,18 @@ Reviewed framing: completed [issue #5](https://github.com/Eneru/soulkiller/issue
 | Q2 | Confirmed: TXT and born-digital PDF first, French/English; tens to hundreds of documents, up to approximately 1,000 pages. Total bytes, longest files, language mix and update frequency remain open | Use this planning corpus; no tested capacity or hard limit. OCR, images, audio/video follow later; cross-language retrieval and answer language remain to specify |
 | Q3 | Confirmed request: compare local and remote before deciding. Required offline behavior, allowed transmitted fields/endpoints and retention remain open | Compare options and plan measurements; no data egress, paid trial or remote placement is authorized |
 | Q4 | Confirmed: first-person text dialogue with consultable sources, 2026-10-04. Detailed citation interaction remains open | Preserve this presentation; select citation details and UI delivery later. Voice/avatar remain separate scope choices |
-| Q5 | Missing/conflicting facts and third-party attribution behavior unanswered | Propose explicit uncertainty, source dates and author/subject distinctions |
-| Q6 | Confirmed: evolving persona; automatic, inspectable/deletable memories used immediately with conversational origin preserved and shared by all interlocutors of the same persona. Content confirmed: explicit statements and faithful attributed summaries; no inferred preferences. Deletion removes memory/derivatives, retains history and prevents automatic regeneration through a technical trace. Attribution/access, style changes, correction, retention, trace design, backups/remote scope remain open | Preserve automatic saving/use and intentional same-persona sharing; do not impose manual approval. Keep conversational memories distinct from source evidence and separate personas |
+| Q5 | Confirmed: say "I do not know" when evidence is missing; show contradictions with their sources without resolving them automatically. Detailed third-party attribution and source inspection remain to specify | Preserve uncertainty and visible conflicts; recency/import order do not automatically establish truth |
+| Q6 | Confirmed: evolving persona; automatic, inspectable/deletable memories used immediately with conversational origin preserved and shared by all interlocutors of the same persona. Content confirmed: explicit statements and faithful attributed summaries; no inferred preferences. Deletion removes memory/derivatives, retains history and prevents automatic regeneration through a technical trace. Speaking style also evolves through explicit, inspectable and deletable changes. Update/removal mechanics, attribution/access, correction, retention, trace design and backups/remote scope remain open | Preserve automatic saving/use and intentional same-persona sharing; do not impose manual approval. Keep conversational memories distinct from source evidence and separate personas |
 | Q7 | Latency, import time, disk and financial limits unanswered; clarification requested | No numeric feasibility promise or provider quotation; approve profiles/gates before experiments |
-| Q8 | Same-persona memories shared across interlocutors confirmed; user/persona counts, authentication and access/management rights remain open | Test intended same-persona sharing separately from cross-persona isolation; no deployment or access model is adopted |
+| Q8 | Same-persona memories shared across interlocutors confirmed; compare one local manager with separate application accounts before choosing. User/persona counts and operation-specific access/management rights remain open | Test intended same-persona sharing separately from cross-persona isolation; no deployment or access model is adopted |
 
 An unanswered question is not consent or a chosen default. Exact RAM and
 acceptable latency should become observable requirements in the next approved
 OpenSpec change. Optional illustrative test tiers could compare 8 and 16 GiB
 CPU-only PCs, but neither tier is a confirmed minimum or performance guarantee.
+
+Read the [behavior decision packet](soulkiller-behavior-framing.md) for the latest
+confirmed answers, access comparison and proposed synthetic acceptance examples.
 
 ## Choices for review
 
@@ -38,7 +41,7 @@ CPU-only PCs, but neither tier is a confirmed minimum or performance guarantee.
 | D3 Document pipeline | Small text/pypdf path; Docling structured path; Tika broad formats; PyMuPDF with distribution review | Benchmark simple versus structured on the agreed corpus; add conditional tools only for a needed format | Extraction contract and package inventory |
 | D4 Retrieval store | SQLite lexical baseline; dense/hybrid; pgvector with PostgreSQL; Qdrant dedicated service | Establish the lexical reference, then measure semantic gains. Service choice follows scale/shared-data requirements | Storage/embedding dependency adoption |
 | D5 Persona method | Grounded prompting/RAG; full tuning; PEFT; combinations | RAG plus approved profile first; tuning only for a measured unresolved style/behavior gap | Persona prompt/answer policy and any training |
-| D6 Style, facts and memory | Automatic memories used immediately and shared within one persona; explicit statements/faithful summaries and deletion with retained history confirmed; attribution/access, conflicts, trace design and broader retention/deletion scope open; consultable sources confirmed, detailed citation interaction open | Keep source evidence, profile/style and conversational memories distinct; preserve shared-memory scope and inspectability/deletion intent | End-to-end conversation and memory behavior |
+| D6 Style, facts and memory | Automatic memories used immediately and shared within one persona; explicit statements/faithful summaries and deletion with retained history confirmed; sourced contradictions without automatic resolution and inspectable/deletable speaking-style changes confirmed; attribution/access, style/deletion mechanics and broader retention remain open; consultable sources confirmed, detailed citation interaction open | Keep source evidence, profile/style and conversational memories distinct; preserve shared-memory scope and inspectability/deletion intent | End-to-end conversation and memory behavior |
 | D7 Inference/routing | llama.cpp; Ollama; explicit hosted adapter; optional OmniRoute | One explicit endpoint first. Gateway only if routing benefit and eligible data paths are approved | Provider/model selection or service integration |
 | D8 User experience and delivery | CLI/file picker; desktop/web; persistent service; UI framework | Visible explicit import with progress/cancellation; postpone framework/service choice | UI scope and Windows deployment tests |
 | D9 Benchmarks | Minimal synthetic corpus or broader multimodal tranche; local only or approved external comparison | Approve small E1/E4/E6/E7 tranche according to Q2/Q3/Q7; include OCR/media only if first-priority needs require them | Resource-dependent experiment execution |
@@ -116,5 +119,8 @@ starting implementation. Use this prompt once an increment is approved:
 
 The study report is reviewed and merged. Confirmed corpus and automatic-memory
 intent do not settle the open product choices, native Windows validation or
-E1-E9 measurements. The initial decision record was reviewed in PR #6; the latest
-memory details and quality/Pages plans are submitted in a new planning change.
+E1-E9 measurements. The initial decision record was reviewed in PR #6. Subsequent
+memory-content and quality/Pages planning was reviewed, and the publication/quality tooling tranche
+was merged in PR #10. PR #11 records the confirmed dialogue presentation and CI
+policy. The latest uncertainty/style answers and access comparison are submitted
+in frame-dialogue-memory-and-access; remaining behavior and experiments need review.

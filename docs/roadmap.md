@@ -45,8 +45,12 @@ and technology adoption remain pending. Follow-up issue drafts are in the regist
 
 Initial decisions: [first-increment framing](research/soulkiller-first-increment-framing.md).
 TXT/PDF text, French/English, a small planning corpus and automatic memories
-with immediate use, preserved origin and same-persona sharing are confirmed. First-person text dialogue with consultable sources is also confirmed. Offline placement, detailed memory and journey rules remain open;
-this does not complete the criteria below.
+with immediate use, preserved origin and same-persona sharing are confirmed. First-person text dialogue with consultable sources is also confirmed. Offline placement, detailed memory and journey rules remain open.
+Explicit uncertainty, sourced contradictions without automatic resolution and
+inspectable/deletable speaking-style changes are now confirmed. The
+[behavior packet](research/soulkiller-behavior-framing.md) compares access options
+and proposes acceptance examples; no access model is selected. These decisions
+do not complete the criteria below.
 
 **Goal:** establish what Soulkiller should do, for whom, with which input data
 and observable outcomes. Distinguish the fictional inspiration from the actual
