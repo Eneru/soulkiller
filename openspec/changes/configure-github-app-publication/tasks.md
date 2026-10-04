@@ -17,3 +17,10 @@
 - [x] 3.3 Validate OpenSpec, links, diff, staged files, secrets and unchanged LICENSE.
 - [x] 3.4 Publish the authorized branch and ready PR; verify bot identity and commit signature.
 - [ ] 3.5 Obtain maintainer review and manual merge confirmation.
+
+## 4. Review corrections
+- [x] 4.1 Refactor production modules by responsibility without weakening safeguards.
+- [x] 4.2 Extract shared fixtures and split tests into independent Arrange/Act/Assert cases.
+- [x] 4.3 Implement and test explicit, confined App replies without resolving threads.
+- [x] 4.4 Replace avatar artwork and update crop/export documentation.
+- [ ] 4.5 Run quality/coverage checks, publish verified updates, and answer each review comment.

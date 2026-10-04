@@ -124,6 +124,11 @@ review request is reported as `reviewRequested: false` without hiding an
 otherwise valid PR. Repository review requirements and CODEOWNERS remain
 separate maintainer-managed controls.
 
+To explicitly refresh the same bot PR title and body after review corrections,
+add `--update-pr` to `publish`. The inputs are captured and scanned; the tool
+checks the expected bot PR/head before updating and verifies the saved metadata.
+Without that flag, existing PR metadata is preserved.
+
 Verify the resulting PR and its exact local tree:
 
 ```sh
@@ -135,6 +140,39 @@ Successful output contains public repository/App identifiers, branch, object
 SHAs, verification state and the PR URL. Errors expose fixed explanations and
 safe public identifiers or HTTP status, never API response bodies, scanner
 output, PEM contents or token values.
+
+## Reply to maintainer review comments
+
+After publishing and verifying the current branch, write the requested English
+reply in an ignored file. No unpublished staged or unstaged changes may remain.
+Use the numeric ID of the top-level inline maintainer comment, not a thread node
+ID or a reply ID. For example:
+
+```sh
+node tools/github-app/cli.mjs reply \
+  --number 10 --comment 4176900402 \
+  --body-file .soulkiller-local/review-reply.md
+node tools/github-app/cli.mjs reply --execute \
+  --number 10 --comment 4176900402 \
+  --body-file .soulkiller-local/review-reply.md \
+  --key-file .soulkiller-local/github-app/private-key.pem
+```
+
+The first command is offline. Execution requests only Contents read and Pull
+requests write, verifies the bot PR and exact current commit/tree, confirms that
+the selected top-level comment belongs to Eneru on that PR, and posts the
+captured/scanned body as the App. The persisted reply identity and parent are
+verified and token revocation is attempted. It never resolves a thread, submits
+a review, approves or merges; thread acceptance remains the maintainer's action.
+
+Replies are explicit and serial. Bounded pagination checks up to 1,000 existing
+review comments and returns an identical bot reply instead of posting it again.
+Ambiguous duplicates, repeated pages or exhausted bounds fail. REST posting has
+no atomic idempotency key: a timeout can occur after GitHub accepts a reply, so
+inspect/retry through this command rather than blindly posting again or running
+concurrent reply commands.
+
+Official endpoint: [reply to a review comment](https://docs.github.com/en/rest/pulls/comments#create-a-reply-for-a-review-comment).
 
 ## Publication safeguards
 
@@ -200,7 +238,7 @@ If PR creation fails after the verified branch is published, the error
 identifies that branch and commit. When the local branch was advanced
 successfully, retrying the same command can create the missing PR without an
 extra commit. An existing single ready bot PR is reused and its existing title
-and body are preserved. Multiple matching PRs, external authors or an
+and body are preserved unless `--update-pr` is explicit. Multiple matching PRs, external authors or an
 unexpected PR state are refused.
 
 If a request times out after a remote mutation, the response may not reveal
@@ -208,6 +246,33 @@ whether GitHub accepted it. If local fetch or verification fails, the remote
 branch may already exist while local HEAD remains unchanged. Inspect the
 reported state and use an approved recovery procedure; do not force-push,
 reset, change authentication or fall back to the maintainer connector.
+
+## Code and test organization
+
+Start with the command parsing in `cli.mjs`, then the workflow in
+`publisher.mjs`. Publisher coordinates explicit collaborators; each class lives
+in its own module. Shared helpers and constants are separate.
+
+| Module | Responsibility |
+| --- | --- |
+| `constants.mjs`, `errors.mjs`, `guards.mjs` | Fixed public identity, limits and redacted errors |
+| `validation.mjs`, `crypto.mjs`, `verification.mjs` | Input/token rules, JWT signing and expected GitHub metadata |
+| `command.mjs` | Bounded command execution with safe errors |
+| `local-files.mjs`, `confined-read.mjs` | Ignored key/body confinement and descriptor reads |
+| `git-workspace.mjs`, `git-index.mjs` | Git plumbing, immutable index snapshots and local state checks |
+| `quality-gates.mjs` | Fixed scans, strict OpenSpec and whitespace gates |
+| `github-client.mjs` | Fixed GitHub API transport and request bounds |
+| `installation-auth.mjs` | Scoped installation authentication and token revocation |
+| `github-repository.mjs` | Repository/ref/PR state and permitted PR operations |
+| `commit-publisher.mjs` | Exact blobs/trees, verified commits and non-force refs |
+| `publisher.mjs` | Publication/check/verification workflow coordination |
+| `review-replies.mjs`, `review-validation.mjs` | Explicit replies to verified maintainer comments |
+
+Tests are grouped by capability under `test/`. Reusable temporary repositories,
+a fake GitHub server and publication fixtures live under `test/helpers/`; they
+contain no real credentials. Each named case follows Arrange, Act, Assert,
+with independent state. Parameterized cases have their own descriptive name
+and fixture instead of sharing mutations between scenarios.
 
 ## Offline validation and coverage
 
@@ -224,10 +289,10 @@ RSA keys, synthetic text/binary data and a fake GitHub transport. It performs
 no real authentication or paid call. The fake server reconstructs trees from
 the submitted base tree and entries to test exact publication content.
 
-The coverage metric is executable **line coverage** across both maintained
-source modules, `publisher.mjs` and `cli.mjs`, including CLI execution.
+The coverage metric is executable **line coverage** across all maintained
+source modules listed above, including CLI execution and review replies.
 The test command enforces at least 70% overall line coverage and explicitly
-includes both maintained source modules, which the suite exercises. Include
+includes maintained source modules, which the suite exercises. Include
 filters do not discover unimported modules; adding a new executable source
 requires adding meaningful test execution and coverage inclusion.
 The separate Bash and coverage-validator gates are described in

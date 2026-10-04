@@ -155,7 +155,7 @@ own identity and does not switch accounts automatically. [CODEOWNERS](.github/CO
 requests Eneru's review after it reaches `main`; enforcement requires
 maintainer-configured repository rules.
 
-The [App avatar](docs/assets/README.md) is an original cyberpunk portrait with
+The [App avatar](docs/assets/README.md) is detailed blonde manga artwork with
 circular-crop guidance. Upload it manually in the App's settings.
 
 ## Specifications and LLMs

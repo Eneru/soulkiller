@@ -74,3 +74,37 @@ objects or a branch without a PR can remain after failure. Recovery inspects
 remote objects and resumes safely, with no cleanup or force push.
 No paid model calls, application features, web DAST target, site deployment,
 benchmark claim or settings change belongs to this implementation.
+
+## Maintainer review corrections
+
+The maintainer requested clearer module boundaries and independent, readable
+tests on PR #10. Keep one class per file, group constants separately, and move
+validation, confined file access, Git/index handling, installation authentication
+and HTTP transport into modules with explicit responsibilities. Publisher remains
+a coordinator; avoid inheritance or dynamically installed methods. Preserve all
+publication safeguards and CLI defaults.
+
+Share synthetic repository and fake-API fixtures outside test cases. Split tests
+by capability and use visible Arrange, Act and Assert phases, with a fresh fixture
+for each named case. Parameterized cases represent one behavior and still use
+those phases. Include every maintained module in meaningful execution and coverage.
+
+The maintainer also authorized replies to the existing review comments. Add an
+explicit App-authenticated reply command, with offline default and confined,
+scanned body input. Require the verified bot PR/current branch/commit, validate
+the target top-level maintainer comment belongs to that PR, and report duplicate
+matching bot replies rather than posting them again. Request only contents read
+and pull_requests write. Recheck immutable inputs before posting, verify the bot
+reply and always attempt token revocation. This command never resolves a thread,
+submits a review, approves, merges or changes repository settings.
+
+Replace the App avatar with the requested blonde, freckled cyberpunk artwork in
+a detailed 1990s manga style, retaining circular-crop suitability. Keep the upload
+asset and preview paths stable, and document export dimensions/size accurately.
+
+An explicit publish --update-pr option may refresh the existing bot PR title and
+body after the updated verified branch is published. Reuse without this option
+preserves metadata. Use the captured, scanned title/body, require the expected
+bot-owned ready PR and head, verify the updated response, and expose no unrelated
+PR or repository metadata operations. This keeps the reviewed description aligned
+with the delivered source layout, checks and revised artwork.

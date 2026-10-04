@@ -63,3 +63,26 @@ API publication, applicable static/Docker checks and bounded unprivileged CI.
 #### Scenario: Hook setup and partial staging
 - **WHEN** a contributor explicitly installs hooks or stages only part of a file
 - **THEN** existing unrelated hooks/configuration are preserved and the staged secret content is still checked
+
+### Requirement: Explicit bot replies to review comments
+The tool SHALL default review replies to an offline dry run and SHALL post only
+an explicitly executed, scanned reply to a top-level maintainer comment on the
+current verified bot PR. It SHALL preserve maintainer-owned thread resolution
+and SHALL not approve or merge. It SHALL detect an existing identical bot reply.
+
+#### Scenario: Valid requested reply
+- **WHEN** the maintainer requests replies and the PR, commit, comment and immutable local body are valid
+- **THEN** the reply is posted as the configured App bot and its identity and parent comment are verified
+
+#### Scenario: Unsafe or duplicate reply
+- **WHEN** the body contains a secret, changes before posting, the thread belongs elsewhere or an identical bot reply exists
+- **THEN** no unsafe or duplicate reply is posted and no thread is resolved
+
+### Requirement: Explicit PR description refresh
+The publisher SHALL preserve existing PR metadata by default. An explicit
+update-pr option SHALL refresh only the expected verified bot PR title and body
+using captured, scanned inputs, and SHALL verify the resulting metadata.
+
+#### Scenario: Reviewed description update
+- **WHEN** publication explicitly requests a description refresh on its valid bot PR
+- **THEN** the same PR is updated and verified without changing reviews or repository settings

@@ -35,6 +35,12 @@ No version has been released yet.
 
 ### Changed
 
+- Split GitHub App publication responsibilities and shared test fixtures into
+  focused modules, with independent Arrange/Act/Assert scenarios.
+- Added explicit App-authenticated replies to maintainer review comments while
+  preserving maintainer-owned thread resolution.
+- Replaced the App avatar with detailed blonde, freckled manga artwork.
+
 - Clarified check execution across the devcontainer, local Git hooks, editor and
   CI; planned reproducible benchmarks and bounded load tests.
 - Made ready-for-review PRs the default for completed work; reserve drafts for

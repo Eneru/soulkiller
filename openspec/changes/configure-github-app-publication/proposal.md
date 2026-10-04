@@ -35,3 +35,9 @@ Development tooling and a small CI lane; no application stack, provider, Pages
 deployment, product behavior or repository-setting changes. Private keys remain
 ignored inside Soulkiller and never enter the image, logs, PR or CI. This delivers
 part of issue #7; broader component gates remain open.
+
+## Review follow-up
+
+PR #10 review authorizes modular source files, shared fixtures, separate readable
+Arrange/Act/Assert test cases, the revised artwork, and App-authenticated replies
+to review comments. The maintainer retains thread resolution and final approval.

@@ -105,6 +105,25 @@ Keep core checks on PRs and reserve expensive work for reviewed tags/manual runs
 [documentation site](docs/documentation-site-plan.md). Include actual local/CI
 results and limitations in each PR; do not claim planned automation is running.
 
+## Maintainable tooling and tests
+
+Keep modules focused on a clear responsibility. In the Node.js tooling, put
+each class in its own file, separate shared constants and pure helpers from
+publication orchestration, and use explicit imports and composition. Prefer
+named operations over compact expressions that hide validation or cleanup.
+
+Organize tests by capability. Keep reusable synthetic repositories and fake API
+fixtures in dedicated helper files. Each named test follows Arrange, Act, Assert
+(or Given, When, Then), using one independent scenario and a fresh fixture.
+Parameterized cases still have a descriptive name and those phases; avoid
+adding a second scenario after the first scenario's assertions. Assert behavior
+and failures rather than implementation layout.
+
+When splitting source modules, update meaningful tests and coverage inclusion
+for all maintained executable modules; an include filter alone does not execute
+an unimported module. See [the publication guide](docs/github-app-publication.md)
+for the tooling layout.
+
 ## Issues and security
 
 Use the bug and feature templates for ordinary requests.
