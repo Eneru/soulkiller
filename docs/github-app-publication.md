@@ -14,6 +14,10 @@ a fallback for agent publication or human review. This tool creates ready PRs
 for maintainer review; it cannot approve, merge, enable auto-merge, delete a
 branch, publish a tag or change repository settings.
 
+The maintainer reports, on 2026-10-04, that owner review, at least one approval
+and signed commits are required. This is maintainer-reported configuration, not
+a settings audit by this tool. Publication keeps those controls intact.
+
 ## Local preparation
 
 Run every command below inside the Soulkiller devcontainer, with

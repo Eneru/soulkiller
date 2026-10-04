@@ -53,6 +53,9 @@ bash tools/checks/check.sh all
   Temporary fixture copies do not replace maintained sources or inflate the
   result. The Node report validator has separate positive, threshold-failure,
   missing-source and malformed-report tests with its own **70% line-coverage gate**.
+- The CI eligibility guard and its CLI have a separate **70% maintained executable
+  line-coverage gate** in `coverage`; named synthetic event/version tests measure
+  both source modules. They do not create release tags or measure application behavior.
 - The publisher's test command measures maintained publisher JavaScript with
   Node's built-in coverage and enforces at least **70% line coverage**. Test
   harnesses (`selftest.sh`, `coverage.sh` and test files), vendor packages and
@@ -127,8 +130,17 @@ establish that the extension UI has been exercised.
 The [quality workflow](../.github/workflows/quality.yml) uses a full-SHA-pinned
 checkout, full Git history, no persisted checkout credentials and
 `contents: read`. It builds the same image and runs `all` with a read-only
-repository mount on PRs and main; PR/main commit ranges avoid repeated baseline
-history scans. Its single job has a 15-minute limit and cancels superseded runs.
+repository mount only for PRs targeting main and valid SemVer version tags.
+There is no main/other branch push or manual Actions dispatch. PR commit ranges
+avoid repeated baseline history scans; new tags with an all-zero before SHA
+still scan the indexed tree rather than inventing a historical range.
+
+Version tags accept bare SemVer 2.0.0 or a lowercase v prefix, such as 1.2.3,
+v1.2.3-rc.1 and v1.2.3+build.7. Native tag globs are only a preliminary filter: a
+cheap dependency-free guard checks exact syntax before Docker builds/tests. A
+malformed version-shaped tag can perform checkout/eligibility work only; unrelated
+nonversion tags are excluded by the native event filters. No tags are created by
+local synthetic tests. The single job has a 15-minute limit and cancels superseded runs.
 No App key, token secret, Docker socket mount or privileged PR trigger is used.
 Hosted Actions results must be reported after execution, separately from local
 verification.

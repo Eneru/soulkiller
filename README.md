@@ -32,7 +32,8 @@ The study was reviewed and merged in [PR #4](https://github.com/Eneru/soulkiller
 The [first-increment framing](docs/research/soulkiller-first-increment-framing.md)
 records TXT/PDF text, French/English, a small planning corpus and automatic,
 inspectable/deletable memories used immediately and shared within one persona,
-with their conversational origin preserved. Local versus remote operation remains a comparison
+with their conversational origin preserved. First-person text dialogue with consultable
+sources is confirmed; precise citation presentation remains to specify. Local versus remote operation remains a comparison
 request. Candidate performance and native Windows packaging have not been tested;
 no production stack is adopted.
 
@@ -47,7 +48,8 @@ hooks, container-side editor diagnostics, benchmarks and load-test execution poi
 The first tooling tranche provides pinned Gitleaks/Hadolint/ESLint, an explicit
 repository-local hook installer, publisher and coverage-validator tests, Bash
 integration tests with kcov, and a 70% executable line-coverage gate for maintained
-JavaScript and shell helpers. A small PR/main Actions workflow repeats these checks. Read [quality commands](docs/quality-checks.md).
+JavaScript and shell helpers. A small Actions workflow repeats these checks only
+for PRs targeting main and valid SemVer version tags. Read [quality commands](docs/quality-checks.md).
 Web DAST and product benchmarks remain planned.
 
 The [site plan](docs/documentation-site-plan.md) and

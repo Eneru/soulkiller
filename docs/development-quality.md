@@ -1,6 +1,6 @@
 # Development quality, DevOps and DevSecOps
 
-**Maintainer direction:** 2026-10-03.
+**Maintainer direction:** 2026-10-03; CI event policy updated 2026-10-04.
 Tracking: [issue #7](https://github.com/Eneru/soulkiller/issues/7).
 This plan accompanies each implemented component. The first tooling tranche,
 `configure-github-app-publication`, implements Gitleaks/Hadolint/ESLint, explicit
@@ -22,7 +22,7 @@ and postpone its security/test gates to a separate cleanup milestone.
 - Deterministic tests, dependency/configuration checks, meaningful failure results
   and documented commands reproducible in the devcontainer.
 - Automatic GitHub Actions execution, with a small fast lane and bounded deeper
-  checks on tags or trusted manual runs. No mandatory paid account or service.
+  checks on valid SemVer version tags. No main-push or manual Actions builds/checks. No mandatory paid account or service.
 
 First deliver reviewed foundation commands and a small Gitleaks/Hadolint/validation
 workflow, repository-local secret hooks and container-side Hadolint editor feedback.
@@ -33,13 +33,13 @@ tool, adopt an application stack or enable a broad matrix immediately.
 
 ## Execution points and developer feedback
 
-| Check | While editing / before committing | Container CLI and PR/main CI | Deeper execution |
+| Check | While editing / before committing | Container CLI and PR-to-main/version-tag CI | Deeper execution |
 | --- | --- | --- | --- |
-| Secrets | Repository-local Gitleaks pre-commit hook scans staged content, with redacted diagnostics | Explicit scan before publishing, including API-created commits; CI scans the declared commit range with sufficient history | Full-history scan at baseline establishment and on approved tag/manual runs |
+| Secrets | Repository-local Gitleaks pre-commit hook scans staged content, with redacted diagnostics | Explicit scan before publishing, including API-created commits; CI scans the declared commit range with sufficient history | Full-history scan at baseline establishment and on approved version-tag runs |
 | Dockerfiles | Container-side VS Code Hadolint extension calls the image-installed binary; a lightweight hook may reuse it | Same Hadolint binary/configuration checks all applicable Dockerfiles | Approved rebuild/boot and image/dependency scans |
 | Adopted languages | Container-side lint/type/security diagnostics where a maintained extension exists; fast hooks where justified | Canonical tests/coverage/static/dependency commands, including Bandit if Python | Broader integration, packaging and end-to-end tests |
-| Runnable web | Explicit local test-instance setup; no background scan against external sites | Bounded ZAP baseline against an ephemeral synthetic target | Active/full ZAP only in the approved tag/manual lane |
-| Performance | Explicit benchmark/load commands for measurable components | Small deterministic performance regression checks only where the runner supports reliable gates | Representative benchmarks and bounded load/stress/soak profiles on approved hardware and tag/manual runs |
+| Runnable web | Explicit local test-instance setup; no background scan against external sites | Bounded ZAP baseline against an ephemeral synthetic target | Active/full ZAP only in the approved version-tag lane |
+| Performance | Explicit benchmark/load commands for measurable components | Small deterministic performance regression checks only where the runner supports reliable gates | Representative benchmarks and bounded load/stress/soak profiles on approved hardware and version-tag runs |
 
 Install pinned Gitleaks/Hadolint binaries in the devcontainer image when issue #7's
 foundation tranche is implemented. Version the hook configuration and provide
@@ -96,11 +96,11 @@ required. Python candidates include coverage.py/pytest-cov:
 
 | Scope | First applicable gate | Later or deeper checks |
 | --- | --- | --- |
-| Repository | OpenSpec/docs/config checks and Gitleaks on reviewed changes with sufficient Git history | Full-history scan on baseline establishment and tag/manual runs |
+| Repository | OpenSpec/docs/config checks and Gitleaks on reviewed changes with sufficient Git history | Full-history scan on baseline establishment and version-tag runs |
 | Dockerfiles | Hadolint, including the devcontainer Dockerfile when this baseline is introduced | Rebuild/boot and an approved image/dependency scan |
 | Python, if adopted | Tests/coverage, Bandit, lint/type checks and dependency vulnerability checks | Broader integration/end-to-end/resource evaluations |
 | .NET or TypeScript, if adopted | Tests/coverage and selected native lint/type/security/dependency analysis | Packaging, browser/runtime and broader OS checks |
-| Runnable web | Bounded ZAP baseline against an ephemeral synthetic instance when applicable | Active/full ZAP and deeper end-to-end checks on tags/manual runs |
+| Runnable web | Bounded ZAP baseline against an ephemeral synthetic instance when applicable | Active/full ZAP and deeper end-to-end checks on version-tag runs |
 | Documentation site | Production build, links/routes, dependency checks and applicable custom-code tests | Broader accessibility/browser checks and approved publication |
 
 Bandit analyzes Python syntax trees for common issues; it does not prove absence
@@ -156,7 +156,7 @@ the roughly 1,000-page planning corpus is not a validated capacity limit.
   model/provider benchmarks need separately approved assets, data boundary and
   budget; never trigger paid/network trials through a tag alone.
 - Set explicit maximum duration, concurrency, corpus size, memory/disk and report
-  retention. Put larger benchmark/load/stress/soak runs in selected tag/manual
+  retention. Put larger benchmark/load/stress/soak runs in selected version-tag
   lanes; do not replace fast behavioral tests or the 70% coverage gate.
 
 No benchmark harness, load generator, numeric performance threshold or result
@@ -167,9 +167,9 @@ the relevant component's reviewed implementation change.
 
 | Lane | Proposed contents | Trigger boundary |
 | --- | --- | --- |
-| Fast validation | Secrets, applicable Docker/language analysis, deterministic tests and 70% coverage, OpenSpec/docs checks | PRs and reviewed main changes |
-| Deeper validation | Repeat baseline; full scans, representative benchmarks/load tests and broader supported-OS/packaging/end-to-end work | Selected tags or trusted manual runs |
-| Pages | Unprivileged PR build checks; separate static artifact deployment | Reviewed main or trusted manual run; no PR deployment |
+| Fast validation | Secrets, applicable Docker/language analysis, deterministic tests and 70% coverage, OpenSpec/docs checks | PRs targeting main and valid SemVer version tags |
+| Deeper validation | Repeat baseline; full scans, representative benchmarks/load tests and broader supported-OS/packaging/end-to-end work | Selected reviewed SemVer version tags |
+| Pages | Unprivileged PR build checks; separate static artifact deployment | Reviewed version tags with provenance checks; no PR deployment |
 
 Basic coverage, secret detection and applicable static analysis stay before merge.
 Tags reduce the frequency of expensive work; they do not replace these early

@@ -36,6 +36,14 @@ French/English input priorities do not change English as the project's working
 language. Cross-language retrieval, answer language and bilingual memory
 summaries need separate acceptance examples.
 
+## Confirmed dialogue presentation
+
+On 2026-10-04, the maintainer selected **first-person text dialogue with
+consultable sources**. Source references must be inspectable; inline markers,
+a source panel and detailed interaction behavior remain to specify. This records
+a product choice, not an implemented persona or a selected UI framework.
+Voice and animated avatars remain separate scope choices.
+
 ## Local versus remote: a comparison to evaluate
 
 For a controlled initial comparison, keeping extraction and retrieval local
@@ -122,7 +130,7 @@ and the scope of any backups or remote copies before implementation.
 The maintainer has approved the corpus priorities and automatic memories used
 immediately and shared within the same persona, with their origin preserved.
 The offline/remote choice remains a comparison request. Resolve the relevant
-questions above, exact hardware and cost/latency expectations, the first dialogue
+questions above, exact hardware and cost/latency expectations, the detailed citation
 presentation and delivery scope before a behavioral implementation proposal.
 
 Completed issue #5 covered the initial decision record and comparison framing only. It does not
