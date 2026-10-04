@@ -84,8 +84,7 @@ export class GitWorkspace {
     await this.git(['merge-base', '--is-ancestor', snapshot.head, commit]);
     await this.assertSnapshot(snapshot);
     await this.git(['update-ref', 'refs/heads/' + snapshot.branch, commit, snapshot.head]);
-    // update-ref leaves the staged index and working files intact; their tree is now HEAD's tree.
-    ensure(await this.gitText(['rev-parse', 'HEAD']) === commit
-      && await this.gitText(['write-tree']) === snapshot.tree, 'INDEX_CHANGED');
+    // Validate the expected HEAD/tree from a frozen index: live write-tree can rewrite its TREE cache.
+    await this.assertPublishedSnapshot(snapshot, commit);
   }
 }

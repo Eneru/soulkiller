@@ -40,6 +40,8 @@ No version has been released yet.
 - Added explicit App-authenticated replies to maintainer review comments while
   preserving maintainer-owned thread resolution.
 - Replaced the App avatar with detailed blonde, freckled manga artwork.
+- Preserved captured Git index bytes during post-publication verification,
+  including cache-tree metadata.
 
 - Clarified check execution across the devcontainer, local Git hooks, editor and
   CI; planned reproducible benchmarks and bounded load tests.
