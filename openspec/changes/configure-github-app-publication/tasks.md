@@ -23,4 +23,4 @@
 - [x] 4.2 Extract shared fixtures and split tests into independent Arrange/Act/Assert cases.
 - [x] 4.3 Implement and test explicit, confined App replies without resolving threads.
 - [x] 4.4 Replace avatar artwork and update crop/export documentation.
-- [ ] 4.5 Run quality/coverage checks, publish verified updates, and answer each review comment.
+- [x] 4.5 Run quality/coverage checks, publish verified updates, and answer each review comment.
