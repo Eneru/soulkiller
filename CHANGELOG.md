@@ -8,6 +8,10 @@ No version has been released yet.
 
 ### Added
 
+- Review-only OpenSpec extraction-evaluation proposal, contract and design for
+  synthetic TXT/PDF native parsing, provenance, bounded runs and Python quality
+  gates; no harness, dependency installation or experiment results.
+
 - Persona behavior decision packet with a local-manager/account access comparison
   and proposed synthetic acceptance examples.
 
@@ -37,6 +41,9 @@ No version has been released yet.
 - Roadmap for review, including an OmniRoute evaluation.
 
 ### Changed
+
+- Recorded the 8 GiB CPU-only reference and 16 GiB comparison profiles, plus
+  one local manager with unauthenticated interlocutor labels for the first increment.
 
 - Recorded explicit uncertainty, sourced contradictions without automatic
   resolution, and inspectable/deletable speaking-style evolution.

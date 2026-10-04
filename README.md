@@ -24,7 +24,8 @@ The [approved brief](docs/research/soulkiller-feasibility-study.md) is tracked i
 [issue #3](https://github.com/Eneru/soulkiller/issues/3). The
 [desk-research report](docs/research/soulkiller-feasibility-report.md) compares
 local text/PDF, image and video extraction, RAG/fine-tuning, languages, deployment
-and OmniRoute. Windows on an ordinary household PC is the source-machine priority.
+and OmniRoute. Windows is the source-machine priority: 8 GiB RAM, CPU only,
+with 16 GiB for comparison. These are evaluation profiles, not tested minima.
 
 Read the [evaluation proposal](docs/research/soulkiller-evaluation-plan.md) and
 [decision register](docs/research/soulkiller-decisions.md) before the next increment.
@@ -37,9 +38,17 @@ sources is confirmed; precise citation presentation remains to specify. Explicit
 uncertainty, sourced contradictions without automatic resolution and
 inspectable/deletable speaking-style changes are also confirmed. Read the
 [behavior decision packet](docs/research/soulkiller-behavior-framing.md), including
-the unselected local-manager/account access comparison. Local versus remote
+the reviewed local-manager/account comparison. The first increment now selects
+one local manager with unauthenticated interlocutor labels. Local versus remote
 operation remains a comparison request. Candidate performance and native Windows packaging have not been tested;
 no production stack is adopted.
+
+The next [OpenSpec review packet](openspec/changes/evaluate-text-pdf-extraction/proposal.md)
+proposes a bounded synthetic TXT/PDF native-extraction comparison in Python,
+using pypdf and Docling's model-free native pipeline. It contains a plan and
+specifications only: no Python runtime, candidate, harness, fixture generator,
+model download or benchmark result has been added. Review its design/resource
+proposals before implementation.
 
 ## Quality and documentation roadmap
 
