@@ -1,8 +1,8 @@
-# TXT/PDF evaluation: first implementation tranche
+# TXT/PDF evaluation: initial implementation tranches
 
 This is an experimental Python seam, not an application stack or a completed
 parser comparison. [The parent plan](../../openspec/changes/evaluate-text-pdf-extraction/design.md)
-was approved in PR #13. This first small PR delivers byte-to-TXT decoding, evidence
+was approved in PR #13. PR #14 delivers byte-to-TXT decoding, evidence
 and quality gates; see [its contract](../../openspec/changes/implement-python-text-foundation/specs/text-evidence-foundation/spec.md).
 
 ## Run in the rebuilt devcontainer
@@ -19,10 +19,14 @@ bash tools/checks/python.sh audit
 bash tools/checks/check.sh all
 ```
 
+The [confined corpus guide](../../docs/text-corpus-input.md) documents the second
+tranche: explicit TXT manifests, verified byte snapshots and independently annotated
+literal fixtures. PDF candidates/workers and comparisons remain later tranches.
+
 Tests/static analysis are offline. Audit explicitly queries public package
 advisory services; it sends package names/versions, not source data. Findings and
-service/tool errors fail. There is no PDF parser, manifest, file reader, worker,
-CLI ingestion command, report, model download or performance result yet.
+service/tool errors fail. There is no PDF parser, worker, CLI ingestion command,
+report, model download or performance result yet.
 
 For native VS Code Ruff/mypy diagnostics, source navigation and pytest Test
 Explorer, follow [Python editor setup](../../docs/python-editor.md). The full
@@ -34,7 +38,9 @@ test run.
 The public helpers are `soulkiller_text.extract_utf8(bytes)` and
 `soulkiller_text.evidence_slice(result, start, end)`. The package lives in `src`;
 tests add that path through pyproject.toml without installing the experiment.
-Callers must provide bytes from a later reviewed and confined input reader.
+Callers can obtain verified bytes with load_corpus(workspace_root, corpus_path).
+Its trusted workspace/corpus boundary and exact schema are documented in the
+[corpus guide](../../docs/text-corpus-input.md); the Linux loader does no source scan.
 
 Decoding retains the original SHA-256 and unchanged UTF-8 text. Empty bytes
 produce `no_text`; invalid UTF-8 produces `invalid_encoding` with no decoded text.
@@ -71,10 +77,12 @@ native Windows performance or the 8/16 GiB CPU-only reference profiles.
 
 ## Small follow-ups
 
-1. Confined manifest/source reads, independent fixture bytes and annotations.
-2. Bounded worker, pypdf and failure-containment tests.
-3. Native Docling candidate, scoring and bounded inspectable reports.
-4. Explicit approved offline Linux comparison; review findings before choosing a stack.
+The confined TXT manifest/source tranche and literal annotations are implemented;
+PDF corpus support will be added alongside its worker. Remaining short PRs:
+
+1. Bounded worker, pypdf and failure-containment tests.
+2. Native Docling candidate, scoring and bounded inspectable reports.
+3. Explicit approved offline Linux comparison; review findings before choosing a stack.
 
 Each tranche gets a tested ready PR and human review before continuing. Native
 Windows remains a separate reviewed lane. Detailed parent tasks remain unchecked

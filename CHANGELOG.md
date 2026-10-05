@@ -8,12 +8,17 @@ No version has been released yet.
 
 ### Changed
 
+- Standardize new authored English commit messages on Conventional Commits 1.0.0,
+  preserving existing signed history and generated merge commits.
 - Pair the experimental Python runtime with pinned native VS Code integrations,
   image interpreter/tool paths, Ruff/strict mypy diagnostics, source navigation and
   pytest discovery; require future component additions to evolve the devcontainer.
 
 ### Added
 
+- Confined Linux synthetic TXT corpus loader: strict bounded manifest validation,
+  descriptor-anchored immutable byte snapshots, source/annotation verification and
+  independent bilingual fixtures, with exact-byte Git attributes and boundary tests.
 - First extraction-evaluation implementation tranche: isolated CPython 3.13.16,
   hash-locked Python quality tools, strict in-memory UTF-8 outcomes and exact
   Unicode evidence slices with independent tests. No PDF comparison or benchmark yet.

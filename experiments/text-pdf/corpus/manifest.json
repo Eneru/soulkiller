@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "fixtures": [
+    {
+      "id": "french-unicode",
+      "path": "texts/french.txt",
+      "language": "fr",
+      "author_label": "Inez (synthetic author)",
+      "subject_label": "Inez (synthetic subject)",
+      "outcome": "success",
+      "annotations": [
+        {
+          "start": 15,
+          "end": 29,
+          "quote": "J'aime le café"
+        },
+        {
+          "start": 38,
+          "end": 40,
+          "quote": "é"
+        },
+        {
+          "start": 53,
+          "end": 54,
+          "quote": "🌟"
+        }
+      ],
+      "sha256": "8ce95be28c383081a10eea941fa644a99c6bf0373dfe94f6ee2edcd9230fc2d1",
+      "format": "txt"
+    },
+    {
+      "id": "english-lines",
+      "path": "texts/english.txt",
+      "language": "en",
+      "author_label": "Corin (synthetic author)",
+      "subject_label": "Corin (synthetic subject)",
+      "outcome": "success",
+      "annotations": [
+        {
+          "start": 12,
+          "end": 31,
+          "quote": "I prefer green tea."
+        }
+      ],
+      "sha256": "7b541b1e0e7a471410b7738cf9ed26ed87bf3b4601f7c601fbc0016f2e8c6392",
+      "format": "txt"
+    },
+    {
+      "id": "empty",
+      "path": "texts/empty.txt",
+      "language": "en",
+      "author_label": "Synthetic blank source",
+      "subject_label": "No asserted subject",
+      "outcome": "no_text",
+      "annotations": [],
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "format": "txt"
+    },
+    {
+      "id": "invalid-utf8",
+      "path": "texts/invalid-utf8.txt",
+      "language": "en",
+      "author_label": "Synthetic byte sentinel",
+      "subject_label": "No asserted subject",
+      "outcome": "invalid_encoding",
+      "annotations": [],
+      "sha256": "a8100ae6aa1940d0b663bb31cd466142ebbdbd5187131b92d93818987832eb89",
+      "format": "txt"
+    },
+    {
+      "id": "third-party-conflict",
+      "path": "texts/contradictions.txt",
+      "language": "en",
+      "author_label": "Synthetic narrator",
+      "subject_label": "Inez and Corin (synthetic subjects)",
+      "outcome": "success",
+      "annotations": [
+        {
+          "start": 0,
+          "end": 34,
+          "quote": "Corin says Inez prefers black tea."
+        },
+        {
+          "start": 35,
+          "end": 64,
+          "quote": "Inez says she prefers coffee."
+        }
+      ],
+      "sha256": "052cde2e1178464a61ef6a197b3c1714196e019ad7e577672d426b86741dbdf6",
+      "format": "txt"
+    }
+  ]
+}

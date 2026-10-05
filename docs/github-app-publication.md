@@ -91,7 +91,7 @@ or network call:
 ```sh
 node tools/github-app/cli.mjs check
 node tools/github-app/cli.mjs publish \
-  --title "Add the reviewed repository change" \
+  --title "chore(repository): apply the reviewed change" \
   --body-file .soulkiller-local/publication-pr.md
 node tools/github-app/cli.mjs verify --number 10
 ```
@@ -117,12 +117,13 @@ Publish the staged change and create or reuse its ready PR:
 ```sh
 node tools/github-app/cli.mjs publish --execute \
   --key-file .soulkiller-local/github-app/private-key.pem \
-  --title "Add the reviewed repository change" \
-  --message "Add the reviewed repository change" \
+  --title "chore(repository): apply the reviewed change" \
+  --message "chore(repository): apply the reviewed change" \
   --body-file .soulkiller-local/publication-pr.md
 ```
 
-`--message` is optional and defaults to the title. Titles and messages must be
+`--message` is optional and defaults to the title; for new commits, pass an explicit
+[Conventional Commit](../CONTRIBUTING.md#commit-messages) message. Titles and messages must be
 nonempty single-line text. The tool requests a review from `Eneru`; a denied
 review request is reported as `reviewRequested: false` without hiding an
 otherwise valid PR. Repository review requirements and CODEOWNERS remain

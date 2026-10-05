@@ -20,6 +20,7 @@ context: |
   Trace design, operation-specific rights, correction, retention, backups and remote deletion remain open.
   Read docs/research/soulkiller-behavior-framing.md for these decisions and proposed acceptance examples.
   Approved evaluate-text-pdf-extraction is implemented in short reviewed tranches; implement-python-text-foundation adds isolated Python checks and pure TXT evidence, not a PDF comparison or benchmark.
+  implement-confined-text-corpus adds explicit synthetic TXT manifests and verified Linux descriptor-bound byte snapshots; PDF/workers remain separate.
   Read docs/research/soulkiller-first-increment-framing.md before behavioral specifications.
   The foundation uses Ubuntu 24.04, Node.js and OpenSpec in a non-root devcontainer.
   Python is used for the extraction evaluation only; the production language, .NET, Angular and OmniRoute remain candidates, not adopted technologies.
@@ -27,6 +28,7 @@ context: |
   Only building and launching the container are allowed on the host.
   Do not modify or mount host folders other than Soulkiller.
   GitHub Flow: branch from main, validated ready-for-review PR, human review, manual merge.
+  New authored English commit messages use Conventional Commits 1.0.0 with lowercase types; preserve historical and generated merge messages.
   Draft PRs are only for unfinished work with a useful portion for early reading; identify remaining work.
   Historical draft-delivery records do not override the current policy.
   Keep LICENSE unchanged. No secrets or automatic paid LLM calls.

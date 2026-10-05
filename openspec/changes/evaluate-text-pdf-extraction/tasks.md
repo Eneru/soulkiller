@@ -2,7 +2,8 @@
 
 The review packet was approved and merged in PR #13. Implementation is now
 authorized in small reviewable tranches. [The first tranche](../implement-python-text-foundation/proposal.md)
-adds runtime/checks and pure TXT evidence; it does not complete the parent harness.
+adds runtime/checks and pure TXT evidence. [The second tranche](../implement-confined-text-corpus/proposal.md)
+adds confined TXT corpus reads and literal annotations; neither completes the parent harness.
 
 ## 1. Preparation and review packet
 

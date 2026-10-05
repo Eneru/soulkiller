@@ -189,7 +189,8 @@ Issue #8 is published but its site implementation has not started.
 
 The approved PR #13 plan is being implemented in short reviewed PRs.
 [Tranche 1](../experiments/text-pdf/README.md) supplies Python/checks and pure TXT
-evidence only. Next: confined manifest/corpus reads; bounded pypdf workers;
+evidence. The [second tranche](text-corpus-input.md) adds confined TXT manifest/corpus
+reads and literal annotations. Next: bounded pypdf workers and PDF corpus support;
 native Docling/scoring/reports; then the approved offline Linux comparison.
 Each requires independent tests and review; no E1 result, production-stack
 choice, Windows benchmark, provider or memory implementation is implied.

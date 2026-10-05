@@ -56,6 +56,28 @@ App; never use the maintainer-authenticated connector as a fallback for agent
 publication. The PEM remains an ignored local input. CODEOWNERS requests Eneru's
 review, while enforcing review/signature rules remains a maintainer setting.
 
+## Commit messages
+
+Use [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)
+for new human/agent-authored commits, in English: `type(scope): description`.
+Use a lowercase type; the scope is optional. Choose `feat` for new behavior,
+`fix` for corrections, and `docs`, `test`, `refactor`, `build`, `ci` or `chore`
+when those describe the focused change. Examples:
+
+```text
+feat(evaluation): validate confined synthetic corpus inputs
+fix(devcontainer): use the image mypy in editor diagnostics
+docs(contributing): clarify review evidence
+```
+
+Describe a breaking change with `!` before the colon or a `BREAKING CHANGE:`
+footer. Keep a useful descriptive subject after the prefix. Pass a conventional
+message explicitly through the App publisher's `--message`; do not rely on an
+unstructured PR title as its default commit message. Preserve existing history;
+this rule applies going forward and does not rewrite signed commits or require
+GitHub-generated merge commits to be renamed. It does not automate releases or
+add a commitlint dependency/Actions trigger. Review the message before publication.
+
 ## Issue linkage and completed work
 
 When working on an approved issue, create or link its branch through GitHub's

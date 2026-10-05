@@ -54,7 +54,8 @@ The Python extension enables pytest and disables unittest, sets the working
 directory to `experiments/text-pdf`, and discovers `tests` with pytest's cache
 provider disabled. The image's pytest and the experiment's configured `pythonpath`
 are used without an editable package install. Use **Testing → Refresh Tests**, then
-run a test or the suite. The initial synthetic suite contains 40 cases.
+run a test or the current suite. The corpus-input tranche expands the synthetic cases;
+use python -m pytest --collect-only from experiments/text-pdf to see the count.
 
 Test Explorer runs are useful feedback, but do not enforce the 70% coverage floor,
 Bandit, secrets or advisory checks. Run the checked-in **Tasks: Run Task →
@@ -67,7 +68,7 @@ use, but has not been validated by the foundation's CLI tests.
 
 In the rebuilt container, confirm the interpreter path/version and run
 `bash tools/checks/python.sh static` and `bash tools/checks/python.sh tests`.
-In VS Code, inspect the installed remote extension versions, refresh the 40 tests,
+In VS Code, inspect the installed remote extension versions, refresh the current synthetic tests,
 open a source file and navigate to an imported definition. Temporarily introduce
 an unused import and, separately, an incompatible annotated assignment in an
 uncommitted synthetic file in the experiment; save and confirm Ruff/mypy diagnostics,

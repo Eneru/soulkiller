@@ -47,8 +47,10 @@ The [approved extraction plan](openspec/changes/evaluate-text-pdf-extraction/pro
 frames a bounded synthetic TXT/PDF native-extraction comparison in Python,
 using pypdf and Docling's model-free native pipeline. The first
 [implementation tranche](experiments/text-pdf/README.md) adds the runtime, Python
-quality gates and pure TXT decoding/evidence tests. PDF candidates, confined file
-reads, workers, scoring and benchmark results remain subsequent short PRs.
+quality gates and pure TXT decoding/evidence tests. The next
+[confined TXT corpus tranche](docs/text-corpus-input.md) validates explicit manifests,
+source revisions and annotations before returning verified byte snapshots. PDF
+candidates, workers, scoring and benchmark results remain subsequent short PRs.
 
 ## Quality and documentation roadmap
 
