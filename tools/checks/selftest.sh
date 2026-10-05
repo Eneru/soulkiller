@@ -176,4 +176,75 @@ expect_failure "unexpected staged scan arguments are rejected" bash tools/checks
 expect_failure "duplicate publication body argument is rejected" bash tools/checks/check.sh secrets-publication \
     --body-file "$repo/.soulkiller-local/body.md" --body-file "$repo/.soulkiller-local/body.md"
 
+fixture python-gates
+mkdir -p experiments/text-pdf/src experiments/text-pdf/tests "$temp/python-stub"
+printf '%s\n' '#!/usr/bin/env bash' \
+    'if [[ "$1" == --version ]]; then echo "Python ${SOULKILLER_TEST_PYTHON_VERSION:-3.13.16}"; exit 0; fi' \
+    '[[ "$1" == -m ]] || exit 42' \
+    'if [[ "$2" == "${SOULKILLER_TEST_FAIL_MODULE:-}" ]]; then exit 42; fi' \
+    'exit 0' >"$temp/python-stub/python"
+chmod 0755 "$temp/python-stub/python"
+for mode in static tests audit all; do
+    env PATH="$temp/python-stub:$PATH" bash tools/checks/python.sh "$mode" >"$temp/output.log" 2>&1 \
+        || fail "Python $mode orchestration rejected clean tools"
+    pass "Python $mode invokes its clean module gates"
+done
+env PATH="$temp/python-stub:$PATH" bash tools/checks/check.sh python >"$temp/output.log" 2>&1 \
+    || fail "canonical Python wrapper rejected clean tools"
+pass "canonical Python wrapper invokes the complete component gate"
+expect_failure "canonical Python wrapper rejects extra arguments" \
+    bash tools/checks/check.sh python unexpected
+expect_failure "Python interpreter missing fails closed" \
+    env PATH=/usr/bin:/bin bash tools/checks/python.sh static
+expect_failure "Python interpreter drift fails closed" \
+    env PATH="$temp/python-stub:$PATH" SOULKILLER_TEST_PYTHON_VERSION=3.12.0 bash tools/checks/python.sh static
+expect_failure "unknown Python operation fails closed" bash tools/checks/python.sh unexpected
+expect_failure "extra Python arguments fail closed" bash tools/checks/python.sh static unexpected
+for module in ruff mypy bandit coverage pip_audit; do
+    expect_failure "Python $module failure propagates" \
+        env PATH="$temp/python-stub:$PATH" SOULKILLER_TEST_FAIL_MODULE="$module" bash tools/checks/python.sh all
+done
+# The hook must retain the staged secret scan and propagate Python findings.
+bash tools/checks/install-hooks.sh >"$temp/setup.log"
+expect_failure "Python finding rejects local commit" \
+    env PATH="$temp/python-stub:$PATH" SOULKILLER_TEST_FAIL_MODULE=bandit bash .githooks/pre-commit
+env PATH="$temp/python-stub:$PATH" bash .githooks/pre-commit >"$temp/output.log" 2>&1 \
+    || fail "clean Python hook feedback failed"
+pass "clean Python hook feedback retains the staged secret gate"
+
+fixture python-low-coverage
+mkdir -p experiments/text-pdf/src experiments/text-pdf/tests
+cp "$source_repo/experiments/text-pdf/pyproject.toml" experiments/text-pdf/pyproject.toml
+cat >experiments/text-pdf/src/source_low.py <<'PY'
+VALUE = 1
+def unexecuted_one():
+    first = 1
+    second = 2
+    third = 3
+    return first + second + third
+def unexecuted_two():
+    first = 4
+    second = 5
+    third = 6
+    return first + second + third
+PY
+cat >experiments/text-pdf/tests/test_low.py <<'PY'
+import source_low
+def test_imported_value():
+    assert source_low.VALUE == 1
+PY
+expect_failure "real Python line-coverage gate rejects unexecuted maintained source" \
+    bash tools/checks/python.sh tests
+rg --quiet 'Coverage failure' "$temp/output.log" || fail "coverage fixture did not reach the coverage gate"
+pass "low-coverage rejection is measured, not a tool stub"
+
+fixture python-bandit-finding
+mkdir -p experiments/text-pdf/src
+printf '%s\n' 'import pickle' 'def unsafe(source):' '    return pickle.loads(source)  # nosec' \
+    >experiments/text-pdf/src/unsafe.py
+expect_failure "real Bandit finding and nosec escape fail closed" \
+    python -m bandit --quiet --ignore-nosec --recursive experiments/text-pdf/src
+rg --quiet 'B301' "$temp/output.log" || fail "Bandit fixture did not reach its unsafe-deserialization rule"
+pass "Bandit nosec bypass is disabled"
+
 printf '%s\n' "Quality self-tests passed: $passed cases."

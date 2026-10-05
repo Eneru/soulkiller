@@ -5,8 +5,9 @@ Tracking: [issue #7](https://github.com/Eneru/soulkiller/issues/7).
 This plan accompanies each implemented component. The first tooling tranche,
 `configure-github-app-publication`, implements Gitleaks/Hadolint/ESLint, explicit
 local secret hooks, publisher tests with the 70% line-coverage gate and a bounded
-Actions workflow. See [runnable quality commands](quality-checks.md). The broader
-language/web/performance rollout below remains planned.
+Actions workflow. See [runnable quality commands](quality-checks.md). The first extraction seam adds isolated Python tools, strict UTF-8/evidence
+tests and the Python gates documented in [its guide](../experiments/text-pdf/README.md).
+The broader language/web/performance rollout below remains planned.
 
 ## Requirements and rollout
 

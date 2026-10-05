@@ -184,3 +184,15 @@ Issue #7 receives its first tooling tranche in `configure-github-app-publication
 70% publisher line-coverage gate and bounded PR-to-main/version-tag Actions. Broader component
 gates, web DAST and product benchmarks remain open; this PR uses Refs #7.
 Issue #8 is published but its site implementation has not started.
+
+## Extraction implementation tranches
+
+The approved PR #13 plan is being implemented in short reviewed PRs.
+[Tranche 1](../experiments/text-pdf/README.md) supplies Python/checks and pure TXT
+evidence only. Next: confined manifest/corpus reads; bounded pypdf workers;
+native Docling/scoring/reports; then the approved offline Linux comparison.
+Each requires independent tests and review; no E1 result, production-stack
+choice, Windows benchmark, provider or memory implementation is implied.
+These subdivisions are documented here rather than published via the human
+connector: the App publication tool has no Issues/subissue or native Development
+branch-link operation. R1-R5/F1-F6 proposals remain subject to their review rule.

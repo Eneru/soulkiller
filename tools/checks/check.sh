@@ -163,6 +163,10 @@ case "$command_name" in
         [[ $# -eq 0 ]] || fail "unexpected arguments"
         bash "$script_dir/coverage.sh"
         ;;
+    python)
+        [[ $# -eq 0 ]] || fail "unexpected arguments"
+        bash "$script_dir/python.sh" all
+        ;;
     all)
         [[ $# -eq 0 ]] || fail "unexpected arguments"
         bash "$script_dir/check.sh" secrets
@@ -170,6 +174,7 @@ case "$command_name" in
             bash "$script_dir/check.sh" secrets-changes "$SOULKILLER_CHECK_BASE"
         fi
         static_checks
+        bash "$script_dir/python.sh" all
         bash "$script_dir/check.sh" audit
         bash "$script_dir/coverage.sh"
         npm --prefix tools/github-app test
@@ -177,6 +182,6 @@ case "$command_name" in
         git diff --check
         git diff --cached --check
         ;;
-    *) fail "unknown check; use secrets-staged, secrets, secrets-publication, secrets-history, secrets-changes, docker, static, audit, selftest, coverage or all" ;;
+    *) fail "unknown check; use secrets-staged, secrets, secrets-publication, secrets-history, secrets-changes, docker, static, audit, selftest, coverage, python or all" ;;
 esac
 printf '%s\n' "Quality check passed: $command_name"

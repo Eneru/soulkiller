@@ -14,6 +14,6 @@ node --test --experimental-test-coverage --test-coverage-lines=70 \
     --test-coverage-include="tools/checks/ci-policy*.mjs" \
     --test-coverage-exclude="tools/checks/test/**" tools/checks/test/ci-policy*.test.mjs
 kcov --bash-method=PS4 \
-    --include-pattern=/tools/checks/check.sh,/tools/checks/install-hooks.sh,/.githooks/pre-commit \
+    --include-pattern=/tools/checks/check.sh,/tools/checks/install-hooks.sh,/tools/checks/python.sh,/.githooks/pre-commit \
     "$temp/report" "$script_dir/selftest.sh"
 node "$script_dir/coverage.mjs" "$temp/report/selftest.sh/coverage.json"

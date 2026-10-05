@@ -6,3 +6,5 @@
 !quality/
 !quality/package.json
 !quality/package-lock.json
+!python/
+!python/requirements.lock

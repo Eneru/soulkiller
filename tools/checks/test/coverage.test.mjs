@@ -11,7 +11,7 @@ const report = (covered = 80) => ({files: maintainedShellSources.map((file) => (
 }))});
 
 test('each maintained source passes at or above the floor independently', () => {
-  assert.equal(summarizeCoverage(report(), root).length, 3);
+  assert.equal(summarizeCoverage(report(), root).length, 4);
   assert.equal(summarizeCoverage(report(70), root).at(0).percentage, 70);
   assert.throws(() => summarizeCoverage(report(69), root), /below/);
   const mixed = report(); mixed.files.at(1).covered_lines = '69'; mixed.files.at(1).percent_covered = '69.00';
@@ -27,7 +27,7 @@ test('missing, duplicate or foreign paths cannot substitute for maintained sourc
   const foreign = report(); foreign.files.at(0).file = '/tmp/copied/tools/checks/check.sh';
   assert.throws(() => summarizeCoverage(foreign, root), /Missing/);
   const extra = report(); extra.files.push({file:'/tmp/copied/check.sh',covered_lines:'0',total_lines:'100',percent_covered:'0'});
-  assert.equal(summarizeCoverage(extra, root).length, 3);
+  assert.equal(summarizeCoverage(extra, root).length, 4);
 });
 
 test('invalid denominators, percentages and weakened thresholds fail closed', () => {
@@ -56,9 +56,9 @@ test('generated report files and CLI assertions handle success and unsafe inputs
   try {
     // eslint-disable-next-line security/detect-non-literal-fs-filename -- Test writes only within its owned container-local temporary fixture.
     writeFileSync(file, JSON.stringify(report()));
-    assert.equal(validateCoverageFile(file, root).length, 3);
+    assert.equal(validateCoverageFile(file, root).length, 4);
     assert.equal(main([file], output), 0);
-    assert.equal(lines.length, 3);
+    assert.equal(lines.length, 4);
     assert.equal(main([], output), 1);
     assert.throws(() => validateCoverageFile('/workspaces/forbidden.json', root), /container-local/);
     assert.throws(() => validateCoverageFile(resolve(directory, 'missing.json'), root));

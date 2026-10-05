@@ -19,13 +19,15 @@ node --version
 npm --version
 openspec --version
 rg --version
+python --version
+python -m pip check
 test "$(id -u)" -ne 0
 test "$PWD" = /workspaces/soulkiller
 test ! -S /var/run/docker.sock
 ```
 
 Expected: a non-root user, the correct workspace, Git 2.43.0, Node.js v24.21.0,
-OpenSpec 1.13.2 and ripgrep 14.1.0. No LLM credential is required.
+OpenSpec 1.13.2, ripgrep 14.1.0 and experimental CPython 3.13.16. No LLM credential is required.
 
 ## Writes and persistence
 
@@ -75,6 +77,10 @@ Initial checksum: `30cd79522ebd85148c43a931036e514e8b5cf8372776be39fc65a2f6293b0
 - Verify that devcontainer.json is valid JSON and matches the Dockerfile:
   user, workspace, build context and startup command.
 - Verify that the npm manifest and lockfile pin the same OpenSpec version.
+- For each added language, verify the container-side extension versions/settings
+  against published manifests and the image tool paths. Follow
+  [Python editor setup](python-editor.md) for native diagnostics, source navigation
+  and pytest discovery; distinguish backend/CLI checks from manual UI checks.
 - Check internal Markdown links and command consistency.
 - Verify both issue templates' YAML headers and required fields.
 - Check that project text, specifications, templates and configuration guidance

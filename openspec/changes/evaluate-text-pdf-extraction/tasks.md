@@ -1,7 +1,8 @@
 # Tasks
 
-The current delivery is the completed review packet, not harness implementation.
-Unchecked implementation tasks are intentional and require plan review first.
+The review packet was approved and merged in PR #13. Implementation is now
+authorized in small reviewable tranches. [The first tranche](../implement-python-text-foundation/proposal.md)
+adds runtime/checks and pure TXT evidence; it does not complete the parent harness.
 
 ## 1. Preparation and review packet
 
@@ -10,7 +11,7 @@ Unchecked implementation tasks are intentional and require plan review first.
 - [x] 1.3 Check primary metadata/source for the proposed native, model-free candidates.
 - [x] 1.4 Prepare proposal, experimental behavior delta, design and staged rollout.
 - [x] 1.5 Validate strict OpenSpec, changed documentation/configuration and publication scope.
-- [ ] 1.6 Obtain maintainer review of the candidate scope, resource guards and contract.
+- [x] 1.6 Obtain maintainer review of the candidate scope, resource guards and contract.
 
 ## 2. Implementation after plan review
 

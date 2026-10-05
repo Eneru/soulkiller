@@ -87,6 +87,9 @@ This setting does not authorize automatic merging.
 - Apply the [development quality plan](docs/development-quality.md) with each
   implemented language/component: at least 70% coverage, applicable security/static
   checks and reproducible local/Actions commands. Metrics and exclusions need review.
+- Update the devcontainer runtime and native editor extensions/settings alongside
+  each language/component addition. Verify the image tool paths and document
+  native diagnostics/test discovery separately from CLI/task checks.
 - Specify where checks run: container CLI, repository-local pre-commit hooks,
   container-side editor diagnostics and CI. Editor/hooks complement CI, not replace it.
 - Include reproducible benchmarks and bounded load tests as components become

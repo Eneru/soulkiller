@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 export const maintainedShellSources = Object.freeze([
   'tools/checks/check.sh',
   'tools/checks/install-hooks.sh',
+  'tools/checks/python.sh',
   '.githooks/pre-commit',
 ]);
 
