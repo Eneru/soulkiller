@@ -1,0 +1,58 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Soulkiller: Python static",
+      "type": "process",
+      "command": "bash",
+      "args": [
+        "tools/checks/python.sh",
+        "static"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Soulkiller: Python tests",
+      "type": "process",
+      "command": "bash",
+      "args": [
+        "tools/checks/python.sh",
+        "tests"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Soulkiller: Python audit",
+      "type": "process",
+      "command": "bash",
+      "args": [
+        "tools/checks/python.sh",
+        "audit"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Soulkiller: Python all",
+      "type": "process",
+      "command": "bash",
+      "args": [
+        "tools/checks/python.sh",
+        "all"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

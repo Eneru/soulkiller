@@ -43,12 +43,12 @@ one local manager with unauthenticated interlocutor labels. Local versus remote
 operation remains a comparison request. Candidate performance and native Windows packaging have not been tested;
 no production stack is adopted.
 
-The next [OpenSpec review packet](openspec/changes/evaluate-text-pdf-extraction/proposal.md)
-proposes a bounded synthetic TXT/PDF native-extraction comparison in Python,
-using pypdf and Docling's model-free native pipeline. It contains a plan and
-specifications only: no Python runtime, candidate, harness, fixture generator,
-model download or benchmark result has been added. Review its design/resource
-proposals before implementation.
+The [approved extraction plan](openspec/changes/evaluate-text-pdf-extraction/proposal.md)
+frames a bounded synthetic TXT/PDF native-extraction comparison in Python,
+using pypdf and Docling's model-free native pipeline. The first
+[implementation tranche](experiments/text-pdf/README.md) adds the runtime, Python
+quality gates and pure TXT decoding/evidence tests. PDF candidates, confined file
+reads, workers, scoring and benchmark results remain subsequent short PRs.
 
 ## Quality and documentation roadmap
 
@@ -121,6 +121,7 @@ for this initial setup.
 | Gitleaks / Hadolint | 8.30.1 / 2.15.1, verified release artifacts |
 | ESLint / security rules | 10.12.0 / eslint-plugin-security 4.2.0, locked dependencies |
 | Bash coverage | kcov 43, source archive verified with SHA-256 |
+| Experimental Python | CPython 3.13.16, verified source; isolated quality-tools venv |
 
 The [.devcontainer configuration](.devcontainer/devcontainer.json) is the source
 of truth. The [Dockerfile](.devcontainer/Dockerfile) pins direct packages; the
@@ -131,7 +132,8 @@ the mirrors, update it explicitly in a PR.
 
 To update tools, change their versions and checksums, regenerate the npm lockfile
 **inside the container** if needed, then rebuild and repeat the checks.
-Python, the .NET SDK, Angular and nested Docker are not installed.
+Python 3.13.16 is installed solely for the extraction experiment, with isolated
+quality tools. The .NET SDK, Angular and nested Docker remain deferred.
 
 ## Validate the foundation
 

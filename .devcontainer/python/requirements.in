@@ -1,0 +1,8 @@
+# Exact direct development-tool pins. Regenerate the full hash lock in the container.
+pip==26.2.1
+pytest==9.1.1
+coverage==7.16.2
+ruff==0.16.10
+mypy==2.4.0
+bandit==1.9.4
+pip-audit==2.10.1

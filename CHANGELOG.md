@@ -8,6 +8,12 @@ No version has been released yet.
 
 ### Added
 
+- First extraction-evaluation implementation tranche: isolated CPython 3.13.16,
+  hash-locked Python quality tools, strict in-memory UTF-8 outcomes and exact
+  Unicode evidence slices with independent tests. No PDF comparison or benchmark yet.
+- Python line-coverage, Ruff, mypy, Bandit and dependency-advisory gates, shared
+  through the container CLI, local hook, editor tasks and existing CI event policy.
+
 - Review-only OpenSpec extraction-evaluation proposal, contract and design for
   synthetic TXT/PDF native parsing, provenance, bounded runs and Python quality
   gates; no harness, dependency installation or experiment results.

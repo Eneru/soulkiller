@@ -23,6 +23,31 @@ RUN curl -fsSL "https://codeload.github.com/SimonKagstrom/kcov/tar.gz/refs/tags/
     && cmake --build /tmp/kcov-build --parallel 2 \
     && cmake --install /tmp/kcov-build
 
+FROM kcov-builder AS python-builder
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        libbz2-dev=1.0.8-5.1ubuntu0.1 \
+        libffi-dev=3.4.6-1build1 \
+        liblzma-dev=5.6.1+really5.4.5-1ubuntu0.3 \
+        libsqlite3-dev=3.45.1-1ubuntu2.8 \
+        xz-utils=5.6.1+really5.4.5-1ubuntu0.3 \
+        zlib1g-dev=1:1.3.dfsg-3.1ubuntu2.2 \
+    && rm -rf /var/lib/apt/lists/*
+
+ARG PYTHON_VERSION=3.13.16
+RUN curl -fsSL "https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz" -o /tmp/python.tar.xz \
+    && echo "f4b1bfb3c79b5bb11b8d228a12504163b4c0dab4d679828d8f5f26b6cb6ab35d  /tmp/python.tar.xz" | sha256sum --check --strict \
+    && tar -xJf /tmp/python.tar.xz -C /tmp
+
+WORKDIR /tmp/Python-${PYTHON_VERSION}
+RUN ./configure --prefix=/opt/python --with-ensurepip=install \
+    && make --jobs=2 \
+    && make install \
+    && install -Dm644 LICENSE /opt/python/share/licenses/CPython/LICENSE
+
 FROM ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -34,9 +59,27 @@ RUN apt-get update \
         curl=8.5.0-2ubuntu10.15 \
         git=1:2.43.0-1ubuntu7.3 \
         libdw1t64=0.190-1.1ubuntu0.1 \
+        libbz2-1.0=1.0.8-5.1ubuntu0.1 \
+        libffi8=3.4.6-1build1 \
+        liblzma5=5.6.1+really5.4.5-1ubuntu0.3 \
+        libsqlite3-0=3.45.1-1ubuntu2.8 \
+        libssl3t64=3.0.13-0ubuntu3.16 \
+        zlib1g=1:1.3.dfsg-3.1ubuntu2.2 \
         ripgrep=14.1.0-1 \
         xz-utils=5.6.1+really5.4.5-1ubuntu0.3 \
     && rm -rf /var/lib/apt/lists/*
+
+COPY --from=python-builder /opt/python /opt/python
+COPY python/requirements.lock /opt/python-tools/requirements.lock
+RUN /opt/python/bin/python3.13 -m venv /opt/python-tools \
+    && /opt/python-tools/bin/python -m pip --isolated install --no-cache-dir \
+        --require-hashes --only-binary=:all: --index-url https://pypi.org/simple \
+        --requirement /opt/python-tools/requirements.lock \
+    && /opt/python-tools/bin/python -m pip check
+
+ENV PATH="/opt/python-tools/bin:/opt/python/bin:${PATH}" \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
 
 COPY --from=kcov-builder /usr/local/bin/kcov /usr/local/bin/kcov
 COPY --from=kcov-builder /usr/local/share/doc/kcov /usr/local/share/doc/kcov

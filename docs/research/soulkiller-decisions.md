@@ -30,8 +30,10 @@ profiles are now confirmed evaluation targets, not measured minima or performanc
 guarantees. Acceptable latency, exact CPU/OS/storage and resource limits remain
 open. The maintainer requested a plan/specs-only extraction tranche before code;
 see [evaluate-text-pdf-extraction](../../openspec/changes/evaluate-text-pdf-extraction/proposal.md).
-No Python installation, experiment or production-language choice is authorized
-by this planning delivery.
+PR #13 was approved/merged and implementation is now authorized in small
+reviewed tranches. The [TXT foundation](../../experiments/text-pdf/README.md) adds
+Python/checks and in-memory evidence only; no comparison result or production
+language choice is implied.
 
 Read the [behavior decision packet](soulkiller-behavior-framing.md) for the latest
 confirmed answers, access comparison and proposed synthetic acceptance examples.

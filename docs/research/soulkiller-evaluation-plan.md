@@ -19,12 +19,15 @@ compare, not selected or authorized for data transfer. See the
 [first-increment framing](soulkiller-first-increment-framing.md). All E1-E9 remain
 unexecuted; OCR/media experiments are later priorities.
 
-## Next concrete tranche, 2026-10-04
+## Approved comparison and small implementation tranches
 
-The maintainer requested **plan/specifications only** for a synthetic Python
+The maintainer initially requested **plan/specifications only** for a synthetic Python
 TXT/PDF comparison. Read
 [evaluate-text-pdf-extraction](../../openspec/changes/evaluate-text-pdf-extraction/proposal.md)
-and its design/contract before implementation. The first proposed E1 portion
+and its design/contract, approved and merged in PR #13. The maintainer now
+authorizes implementation through short reviewed PRs.
+[The first tranche](../../experiments/text-pdf/README.md) delivers isolated Python
+checks and in-memory TXT evidence. No E1 comparison has run. The first proposed E1 portion
 compares pypdf with Docling's native, model-free pipeline; learned layout/table
 models remain separate. It does not install candidates or provide results.
 
@@ -94,7 +97,7 @@ For style, use attributed synthetic writing samples plus a human rubric.
 
 | ID | Compare | What it resolves | Execution status |
 | --- | --- | --- | --- |
-| E1 | Standard readers/pypdf versus Docling; native-only tranche proposed first | Native text/provenance first; learned-layout benefit requires a later model/assets tranche | Not run; plan/specs prepared for review |
+| E1 | Standard readers/pypdf versus Docling; native-only tranche proposed first | Native text/provenance first; learned-layout benefit requires a later model/assets tranche | Not run; approved plan, initial TXT foundation implemented |
 | E2 | Tesseract versus RapidOCR on the same rendered pages | Printed OCR quality and Windows CPU packaging | Not run |
 | E3 | Whisper versus faster-whisper with equivalent weights/settings; modular video versus Docling only if needed | ASR/time mapping/frame coverage and dependency cost | Not run |
 | E4 | SQLite lexical versus one dense candidate and hybrid search | Whether semantic recall improves the target questions | Not run |
@@ -201,5 +204,4 @@ aggregates, failures, deviations, limitations and maintainer decision.
 Publish a candidate comparison with reasons for inclusion/rejection; do not copy
 upstream speed rankings into the result column.
 
-Current result: **no E1-E9 experiment executed**. The present PR validates the
-research documents and OpenSpec structure only.
+Current result: **no E1-E9 experiment executed**. Initial TXT unit checks are separate from an E1 comparative experiment.

@@ -9,7 +9,9 @@ npm tools use the [quality lockfile](../.devcontainer/quality/package-lock.json)
 Kcov is built from a versioned, SHA-256-verified upstream source archive in a
 separate build stage. Compilers, CMake and its build-only Python dependency do
 not enter the development image. Bash tracing runs as the non-root user without
-additional Docker capabilities or relaxed seccomp.
+additional Docker capabilities or relaxed seccomp. The experiment also provides
+an isolated CPython runtime and hash-locked Python checks; see
+[the TXT foundation](../experiments/text-pdf/README.md).
 ARM64 pinning is not evidence that ARM64 runtime checks were executed.
 
 ## Canonical commands
@@ -148,3 +150,29 @@ verification.
 No application stack, coverage for absent application code, web DAST target,
 performance benchmark or load-test result is supplied by this foundation.
 Continue through the [quality plan](development-quality.md) as components arrive.
+
+The maintained Bash coverage set also includes tools/checks/python.sh, with
+measured orchestration and failure tests.
+
+## Experimental Python checks
+
+Rebuild the devcontainer before using `bash tools/checks/python.sh static|tests|audit|all`.
+The source is an in-memory TXT seam, not a parser comparison. The
+[experiment guide](../experiments/text-pdf/README.md) defines its API and coverage
+denominator. `check.sh python` runs the complete Python gate; `check.sh all`
+includes it alongside the independent existing checks. Coverage reports/caches
+remain in container /tmp so the CI workspace can stay read-only.
+
+| Execution point | Actual command / behavior |
+| --- | --- |
+| Container CLI | `python.sh static`: Ruff rules/format, strict mypy, all Bandit findings; `tests`: independent line >=70% gate then branch reporting; `audit`: pip consistency and complete locked graph advisory scan |
+| Repository-local hook | Existing explicit hook installer; staged Gitleaks first, then Python static checks against the working tree if the experiment source exists. It does not claim staged Python equivalence and never rewrites work |
+| Container editor | Checked-in VS Code tasks `Soulkiller: Python static/tests/audit/all` invoke the same image CLI explicitly. Review task terminal diagnostics; no automatic service or host interpreter |
+| Existing CI | Existing eligible PR-to-main/SemVer-tag job builds the image and calls `check.sh all`; no new trigger, runner matrix, benchmark or credential |
+
+Tests/static commands require no network. Audit uses the public advisory service
+and fails on findings or inability to collect/audit; it does not send corpus or
+source content. No blanket suppressions. Python toolchain wheels and all resolved
+versions are pinned/hashed in the [lock](../.devcontainer/python/requirements.lock);
+see its [inventory/update procedure](python-toolchain.md). UI execution and
+native Windows must be reported separately from container CLI checks.

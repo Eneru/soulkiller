@@ -19,10 +19,10 @@ context: |
   Initial access model: one local manager; interlocutors use unauthenticated labels, not verified identities or authorization boundaries. No application accounts are selected.
   Trace design, operation-specific rights, correction, retention, backups and remote deletion remain open.
   Read docs/research/soulkiller-behavior-framing.md for these decisions and proposed acceptance examples.
-  Next tranche: plan/specs-only evaluate-text-pdf-extraction, a proposed synthetic Python native-text comparison; no installation or experiment yet.
+  Approved evaluate-text-pdf-extraction is implemented in short reviewed tranches; implement-python-text-foundation adds isolated Python checks and pure TXT evidence, not a PDF comparison or benchmark.
   Read docs/research/soulkiller-first-increment-framing.md before behavioral specifications.
   The foundation uses Ubuntu 24.04, Node.js and OpenSpec in a non-root devcontainer.
-  Python, .NET, Angular and OmniRoute are candidates, not adopted technologies.
+  Python is used for the extraction evaluation only; the production language, .NET, Angular and OmniRoute remain candidates, not adopted technologies.
   Run all development and validation commands inside the container.
   Only building and launching the container are allowed on the host.
   Do not modify or mount host folders other than Soulkiller.

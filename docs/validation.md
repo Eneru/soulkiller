@@ -19,13 +19,15 @@ node --version
 npm --version
 openspec --version
 rg --version
+python --version
+python -m pip check
 test "$(id -u)" -ne 0
 test "$PWD" = /workspaces/soulkiller
 test ! -S /var/run/docker.sock
 ```
 
 Expected: a non-root user, the correct workspace, Git 2.43.0, Node.js v24.21.0,
-OpenSpec 1.13.2 and ripgrep 14.1.0. No LLM credential is required.
+OpenSpec 1.13.2, ripgrep 14.1.0 and experimental CPython 3.13.16. No LLM credential is required.
 
 ## Writes and persistence
 

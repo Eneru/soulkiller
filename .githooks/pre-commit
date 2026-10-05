@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 repo="$(git rev-parse --show-toplevel)"
-exec bash "$repo/tools/checks/check.sh" secrets-staged
+bash "$repo/tools/checks/check.sh" secrets-staged
+# Fast Python feedback uses the working tree; the secret scan still checks the index.
+if [[ -d "$repo/experiments/text-pdf/src" ]]; then
+    bash "$repo/tools/checks/python.sh" static
+fi
