@@ -77,6 +77,10 @@ Initial checksum: `30cd79522ebd85148c43a931036e514e8b5cf8372776be39fc65a2f6293b0
 - Verify that devcontainer.json is valid JSON and matches the Dockerfile:
   user, workspace, build context and startup command.
 - Verify that the npm manifest and lockfile pin the same OpenSpec version.
+- For each added language, verify the container-side extension versions/settings
+  against published manifests and the image tool paths. Follow
+  [Python editor setup](python-editor.md) for native diagnostics, source navigation
+  and pytest discovery; distinguish backend/CLI checks from manual UI checks.
 - Check internal Markdown links and command consistency.
 - Verify both issue templates' YAML headers and required fields.
 - Check that project text, specifications, templates and configuration guidance

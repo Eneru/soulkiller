@@ -87,7 +87,12 @@ Host prerequisites:
   integration enabled for Ubuntu.
 - A Dev Containers-compatible editor, such as VS Code with the Dev Containers
   extension.
-- Network access to the Ubuntu, Node.js and npm registries for the first build.
+- Network access to Ubuntu, Node.js, npm, the Python release/PyPI services for
+  the first build, and VS Code Marketplace for editor extension installation.
+
+Use VS Code **1.110 or newer** for the pinned Python editor extensions.
+See [Python editor setup](docs/python-editor.md) for native diagnostics, navigation
+and Test Explorer; other editors can use the same container CLI.
 
 Open the Soulkiller folder in your editor and choose **Dev Containers: Reopen in
 Container**. The folder is mounted at `/workspaces/soulkiller`; the terminal runs

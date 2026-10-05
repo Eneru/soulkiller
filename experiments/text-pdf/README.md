@@ -24,6 +24,11 @@ advisory services; it sends package names/versions, not source data. Findings an
 service/tool errors fail. There is no PDF parser, manifest, file reader, worker,
 CLI ingestion command, report, model download or performance result yet.
 
+For native VS Code Ruff/mypy diagnostics, source navigation and pytest Test
+Explorer, follow [Python editor setup](../../docs/python-editor.md). The full
+coverage/security gate remains the canonical CLI/task, not an individual editor
+test run.
+
 ## API behavior
 
 The public helpers are `soulkiller_text.extract_utf8(bytes)` and

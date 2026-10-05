@@ -21,10 +21,59 @@
           "--no-color",
           "--failure-threshold",
           "style"
-        ]
+        ],
+        "python.defaultInterpreterPath": "/opt/python-tools/bin/python",
+        "python.useEnvironmentsExtension": false,
+        "python.terminal.activateEnvironment": false,
+        "python-envs.terminal.autoActivationType": "off",
+        "python.testing.pytestEnabled": true,
+        "python.testing.unittestEnabled": false,
+        "python.testing.cwd": "${workspaceFolder}/experiments/text-pdf",
+        "python.testing.pytestPath": "/opt/python-tools/bin/pytest",
+        "python.testing.pytestArgs": [
+          "tests",
+          "-p",
+          "no:cacheprovider"
+        ],
+        "python.analysis.extraPaths": [
+          "${workspaceFolder}/experiments/text-pdf/src"
+        ],
+        "python.analysis.typeCheckingMode": "off",
+        "ruff.path": [
+          "/opt/python-tools/bin/ruff"
+        ],
+        "ruff.nativeServer": "on",
+        "ruff.configurationPreference": "filesystemFirst",
+        "mypy-type-checker.path": [
+          "/opt/python-tools/bin/mypy"
+        ],
+        "mypy-type-checker.importStrategy": "fromEnvironment",
+        "mypy-type-checker.interpreter": [
+          "/opt/python-tools/bin/python"
+        ],
+        "mypy-type-checker.cwd": "${workspaceFolder}/experiments/text-pdf",
+        "mypy-type-checker.args": [
+          "--config-file",
+          "${workspaceFolder}/experiments/text-pdf/pyproject.toml",
+          "--cache-dir",
+          "/tmp/soulkiller-editor-mypy"
+        ],
+        "mypy-type-checker.reportingScope": "custom",
+        "mypy-type-checker.preferDaemon": false,
+        "mypy-type-checker.showNotifications": "onError",
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.formatOnSave": false
+        }
       },
       "extensions": [
-        "exiasr.hadolint@1.1.2"
+        "exiasr.hadolint@1.1.2",
+        "ms-python.python@2026.6.0",
+        "ms-python.vscode-pylance@2026.4.1",
+        "ms-python.debugpy@2026.6.0",
+        "ms-python.vscode-python-envs@1.38.0",
+        "charliermarsh.ruff@2026.84.0",
+        "ms-python.mypy-type-checker@2026.6.0"
       ]
     }
   }

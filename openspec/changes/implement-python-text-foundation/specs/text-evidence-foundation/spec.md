@@ -47,3 +47,19 @@ network; audit network access SHALL use public package metadata only.
 #### Scenario: Existing execution points
 - **WHEN** developers use container commands, the configured local hook/editor tasks or eligible CI
 - **THEN** they reuse the image tools and the PR-to-main/SemVer-tag event policy
+
+### Requirement: Native container-side Python editor support
+The devcontainer SHALL install versioned VS Code Python, Ruff and mypy integrations
+and required Python companion extensions on the container side. Native diagnostics
+and pytest discovery SHALL use the image interpreter/tools and the experiment
+configuration. Pylance SHALL provide source navigation without a competing type
+policy. Full security and coverage gates SHALL remain available through canonical
+tasks/CLI/CI; Test Explorer SHALL NOT be presented as enforcing the coverage floor.
+
+#### Scenario: Reopen the experiment in the devcontainer
+- **WHEN** the developer rebuilds/reopens with a compatible VS Code and selects the configured image interpreter
+- **THEN** Ruff and strict mypy diagnostics are available natively and pytest discovers the synthetic experiment tests without host Python or tool installation
+
+#### Scenario: Existing editor state or tool mismatch
+- **WHEN** a prior interpreter selection overrides the configured default or the editor integration cannot use the image tools
+- **THEN** the documentation explains how to select the intended interpreter and inspect tool output without claiming that an unexecuted UI check passed

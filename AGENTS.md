@@ -46,6 +46,9 @@
   for Markdown or unimplemented code.
 - Add applicable pinned local/CI checks: Gitleaks, Hadolint, Bandit for Python,
   equivalent analysis for other languages, and ZAP for runnable web targets.
+- Evolve the devcontainer runtime, native editor extensions/settings and validation
+  guidance alongside each added language/component; command tasks alone do not
+  provide native editor integration.
 - Specify each check's execution points: container CLI, repository-local hooks,
   container-side editor integration and CI. Run Gitleaks before committing and
   Hadolint in the editor using the binary installed in the image, once implemented.

@@ -3,6 +3,10 @@
 Python is installed for the reviewed extraction evaluation only; this does not
 select Soulkiller's application language or Windows distribution strategy.
 
+[Native editor setup](python-editor.md) pins VS Code integrations separately
+from these runtime packages. `rich` is a transitive display dependency; it has no
+editor extension to install.
+
 ## Provisioning and artifacts
 
 CPython 3.13.16 is compiled without PGO/LTO, with at most two compiler jobs, from

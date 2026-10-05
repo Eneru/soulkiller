@@ -30,7 +30,18 @@ exclusions. Use independent synthetic cases and meaningful negative gate probes.
 Keep tests/static checks offline; dependency audits explicitly contact advisory
 services with public package metadata only and fail on findings/tool errors.
 Extend the existing canonical check command and repository-local hook, preserving
-its secret scan. Editor tasks reuse the image tools; editor UI is not assumed tested.
+its secret scan. Install versioned Python/Pylance/debugger/environment companion,
+Ruff and mypy VS Code extensions on the container side. Select /opt/python-tools/bin/python;
+point Ruff/mypy explicitly to the image binaries so bundled tool versions do not
+replace the CLI. Reuse the experiment pyproject for strict mypy/Ruff and pytest
+discovery from its own working directory. Pylance supplies navigation/completion,
+while mypy remains the type-checking authority. Keep formatting an explicit editor
+action and retain canonical tasks for full coverage/security checks; native Test
+Explorer does not enforce the coverage floor. No rich extension is needed: it is a
+transitive display dependency. Document the minimum editor version, existing
+interpreter-selection override and a manual diagnostic/test discovery check.
+Validate published extension schemas and native backends separately from the
+editor UI; do not claim UI execution without exercising it.
 Existing unprivileged PR-to-main/SemVer-tag workflow uses those commands, without
 new events, expensive benchmarks or credentials. ZAP is inapplicable without web.
 

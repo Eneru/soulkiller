@@ -12,6 +12,7 @@ decoding/evidence seam before adding filesystem access or PDF dependencies.
 - Decode supplied bytes strictly as UTF-8, retaining source SHA-256 and exact text.
 - Produce inspectable code-point evidence slices, rejecting invalid ranges/outcomes.
 - Run independent tests, all-source >=70% line coverage, Ruff, mypy, Bandit and dependency audit through the existing CLI/hooks/editor/CI policy.
+- Provide pinned container-side VS Code Python, Ruff and mypy integration, source navigation and native pytest discovery using the image interpreter/tools and experiment configuration.
 - Document small follow-up tranches and actual verification.
 
 ## Capabilities

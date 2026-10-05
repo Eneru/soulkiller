@@ -6,6 +6,12 @@ No version has been released yet.
 
 ## [Unreleased]
 
+### Changed
+
+- Pair the experimental Python runtime with pinned native VS Code integrations,
+  image interpreter/tool paths, Ruff/strict mypy diagnostics, source navigation and
+  pytest discovery; require future component additions to evolve the devcontainer.
+
 ### Added
 
 - First extraction-evaluation implementation tranche: isolated CPython 3.13.16,

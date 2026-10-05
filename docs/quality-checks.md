@@ -167,7 +167,7 @@ remain in container /tmp so the CI workspace can stay read-only.
 | --- | --- |
 | Container CLI | `python.sh static`: Ruff rules/format, strict mypy, all Bandit findings; `tests`: independent line >=70% gate then branch reporting; `audit`: pip consistency and complete locked graph advisory scan |
 | Repository-local hook | Existing explicit hook installer; staged Gitleaks first, then Python static checks against the working tree if the experiment source exists. It does not claim staged Python equivalence and never rewrites work |
-| Container editor | Checked-in VS Code tasks `Soulkiller: Python static/tests/audit/all` invoke the same image CLI explicitly. Review task terminal diagnostics; no automatic service or host interpreter |
+| Container editor | Pinned Python/Pylance companions, Ruff and mypy extensions provide native diagnostics/navigation/pytest discovery using image paths; see [setup](python-editor.md). Tasks `Soulkiller: Python static/tests/audit/all` retain full gates, including coverage/security/audit |
 | Existing CI | Existing eligible PR-to-main/SemVer-tag job builds the image and calls `check.sh all`; no new trigger, runner matrix, benchmark or credential |
 
 Tests/static commands require no network. Audit uses the public advisory service
