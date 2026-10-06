@@ -9,7 +9,7 @@
 - [x] Update documentation/changelog and validate OpenSpec.
 - [x] Add pinned native Python editor extensions/settings and update the devcontainer guidance.
 - [x] Verify exact extension manifests, configured tools/test discovery and current quality checks; record editor UI limitations.
-- [ ] Obtain maintainer review/manual merge.
+- [x] Obtain maintainer review/manual merge (PR #14, merged 2026-10-05).
 
 Publish through the verified App bot as a ready PR; its metadata records delivery
 without pre-checking an operation before it executes. Human review/merge stay pending.

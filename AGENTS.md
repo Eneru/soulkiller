@@ -30,6 +30,9 @@
 - Do not invent Soulkiller's stages. Python, .NET, Angular and OmniRoute are
   candidates, not adopted technologies.
 - Keep changes small and documented. Prefer rg for searches.
+- Use Conventional Commits 1.0.0 for new authored commit messages, in English,
+  with a lowercase type and optional scope (for example feat(evaluation): ...).
+  Follow CONTRIBUTING.md; preserve existing history and generated merge commits.
 - Keep tooling modules cohesive: one class per file, explicit collaborators and
   separate shared helpers/constants. Follow CONTRIBUTING.md for independent
   Arrange/Act/Assert tests and reusable synthetic fixtures.
