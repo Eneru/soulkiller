@@ -16,6 +16,8 @@ No version has been released yet.
 
 ### Added
 
+- Bounded trusted TXT worker supervision with validated limits, verified responses,
+  explicit failures and mandatory cancellation/process cleanup; PDF integration remains pending.
 - Confined Linux synthetic TXT corpus loader: strict bounded manifest validation,
   descriptor-anchored immutable byte snapshots, source/annotation verification and
   independent bilingual fixtures, with exact-byte Git attributes and boundary tests.
