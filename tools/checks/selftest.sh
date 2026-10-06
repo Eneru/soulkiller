@@ -182,6 +182,7 @@ printf '%s\n' '#!/usr/bin/env bash' \
     'if [[ "$1" == --version ]]; then echo "Python ${SOULKILLER_TEST_PYTHON_VERSION:-3.13.16}"; exit 0; fi' \
     '[[ "$1" == -m ]] || exit 42' \
     'if [[ "$2" == "${SOULKILLER_TEST_FAIL_MODULE:-}" ]]; then exit 42; fi' \
+    'if [[ "$2" == bandit ]]; then exit "${SOULKILLER_TEST_BANDIT_STATUS:-0}"; fi' \
     'exit 0' >"$temp/python-stub/python"
 chmod 0755 "$temp/python-stub/python"
 for mode in static tests audit all; do
@@ -200,10 +201,16 @@ expect_failure "Python interpreter drift fails closed" \
     env PATH="$temp/python-stub:$PATH" SOULKILLER_TEST_PYTHON_VERSION=3.12.0 bash tools/checks/python.sh static
 expect_failure "unknown Python operation fails closed" bash tools/checks/python.sh unexpected
 expect_failure "extra Python arguments fail closed" bash tools/checks/python.sh static unexpected
-for module in ruff mypy bandit coverage pip_audit; do
+for module in ruff mypy bandit soulkiller_text.bandit_policy coverage pip_audit; do
     expect_failure "Python $module failure propagates" \
         env PATH="$temp/python-stub:$PATH" SOULKILLER_TEST_FAIL_MODULE="$module" bash tools/checks/python.sh all
 done
+env PATH="$temp/python-stub:$PATH" SOULKILLER_TEST_BANDIT_STATUS=1 \
+    bash tools/checks/python.sh static >"$temp/output.log" 2>&1 \
+    || fail "Bandit finding reports must reach the checked policy"
+pass "Bandit finding exit reaches the checked report policy"
+expect_failure "Bandit execution error fails closed" \
+    env PATH="$temp/python-stub:$PATH" SOULKILLER_TEST_BANDIT_STATUS=2 bash tools/checks/python.sh static
 # The hook must retain the staged secret scan and propagate Python findings.
 bash tools/checks/install-hooks.sh >"$temp/setup.log"
 expect_failure "Python finding rejects local commit" \
