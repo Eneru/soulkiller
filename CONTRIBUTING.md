@@ -140,12 +140,23 @@ each class in its own file, separate shared constants and pure helpers from
 publication orchestration, and use explicit imports and composition. Prefer
 named operations over compact expressions that hide validation or cleanup.
 
+Prefer functions of **at most 50 lines**. Extract cohesive steps into named
+helpers when this makes the flow easier to follow. Longer functions are acceptable
+when splitting would obscure a readable operation, such as a dispatch or
+switch/match statement; explain the exception in the PR. Function length is a
+review guideline.
+
 Organize tests by capability. Keep reusable synthetic repositories and fake API
 fixtures in dedicated helper files. Each named test follows Arrange, Act, Assert
 (or Given, When, Then), using one independent scenario and a fresh fixture.
 Parameterized cases still have a descriptive name and those phases; avoid
 adding a second scenario after the first scenario's assertions. Assert behavior
 and failures rather than implementation layout.
+
+Private helpers extracted solely for readability do not require direct tests.
+Keep meaningful behavior, error, boundary and regression tests through public
+interfaces or existing integration seams, and include those helpers in the
+maintained executable coverage metric.
 
 When splitting source modules, update meaningful tests and coverage inclusion
 for all maintained executable modules; an include filter alone does not execute

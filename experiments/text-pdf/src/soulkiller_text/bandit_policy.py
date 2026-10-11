@@ -14,13 +14,8 @@ REVIEWED_CALL = """subprocess.Popen(
 )"""
 
 
-def validate_report(report: object, supervisor_source: str) -> None:
-    """Require the two expected locations and exact call syntax; reject all others."""
-    if not isinstance(report, dict) or report.get("errors") != []:
-        raise ValueError("bandit_policy_failed")
-    findings = report.get("results")
-    if not isinstance(findings, list) or len(findings) != 2:
-        raise ValueError("bandit_policy_failed")
+def _reviewed_locations(supervisor_source: str) -> dict[str, ast.Import | ast.Call]:
+    """Locate only the exact reviewed import and Popen call inside run_command."""
     try:
         tree = ast.parse(supervisor_source)
         expected_call = ast.parse(REVIEWED_CALL, mode="eval").body
@@ -53,7 +48,17 @@ def validate_report(report: object, supervisor_source: str) -> None:
     ]
     if len(functions) != 1 or calls[0] not in list(ast.walk(functions[0])):
         raise ValueError("bandit_policy_failed")
-    locations: dict[str, ast.Import | ast.Call] = {"B404": imports[0], "B603": calls[0]}
+    return {"B404": imports[0], "B603": calls[0]}
+
+
+def validate_report(report: object, supervisor_source: str) -> None:
+    """Require the two expected locations and exact call syntax; reject all others."""
+    if not isinstance(report, dict) or report.get("errors") != []:
+        raise ValueError("bandit_policy_failed")
+    findings = report.get("results")
+    if not isinstance(findings, list) or len(findings) != 2:
+        raise ValueError("bandit_policy_failed")
+    locations = _reviewed_locations(supervisor_source)
     seen: set[str] = set()
     for finding in findings:
         if not isinstance(finding, dict) or finding.get("filename") != SUPERVISOR_PATH:

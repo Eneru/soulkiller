@@ -110,6 +110,40 @@ ignores source lines, code and counts. Keep every other scanner finding active
 and verify the exception policy with independent failure/regression tests. No caller-selected command or shell
 execution is allowed. Document this rationale in the check guidance.
 
+### Maintainer review corrections (PR #16)
+
+The maintainer requested typed outcomes, named bootstrap exit codes and smaller
+pipe-transfer/completion functions in review 5480508074. These corrections keep
+the approved outcomes, JSON strings, return-code meanings, resource guard order,
+deadline precedence and cleanup boundary unchanged.
+
+- Introduce public `WorkerOutcome(StrEnum)` in `worker_outcome.py`. Preserve
+  the existing JSON values and string comparisons, and convert validated wire
+  values and decoder outcomes explicitly.
+- Define bootstrap exit codes and memory bounds by name in the standalone
+  bootstrap. Shared parent constants import those definitions; the bootstrap
+  must not import the package before resource enforcement. Import the optional
+  resource module inside guard setup so parent imports remain safe on platforms
+  without it.
+- Extract completion classification into `worker_completion.py` and cohesive
+  pipe IO phases into named helpers. Keep the fixed subprocess launch in the
+  already reviewed Bandit AST boundary.
+- Prefer functions of at most 50 lines, allowing explained exceptions where
+  splitting obscures readable dispatch. Do not add direct tests solely for the
+  structure of extracted private helpers. Preserve meaningful behavior/error
+  regression tests and the all-source coverage gate.
+
+Re-run the container checks and record their actual outcomes before publication.
+The maintainer retains review-thread resolution and manual merge.
+
+Review verification on 2026-10-11: the canonical container gate passed with
+386 Python tests and 99.41% executable line coverage (679/683 statements, no
+source exclusions). The separate combined line/branch report was 99.10% with
+210 branches. The same full Python suite passed in a fresh network-disabled
+container with a read-only Soulkiller mount, 3 GiB memory and 2 CPUs. Strict
+OpenSpec validated all 12 changes, all 172 relative Markdown file links resolved,
+and LICENSE, runtime configuration and CI triggers remained unchanged.
+
 ## Risks / Trade-offs
 
 - Bootstrap or protocol allocation can fail before a response exists -> report

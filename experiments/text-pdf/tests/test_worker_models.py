@@ -5,6 +5,7 @@ from typing import cast
 
 import pytest
 
+from soulkiller_text import WorkerOutcome
 from soulkiller_text.worker_limits import WorkerLimits
 from soulkiller_text.worker_result import WorkerResult
 
@@ -94,7 +95,35 @@ def test_worker_limits_are_immutable(attribute: str) -> None:
 @pytest.mark.parametrize("attribute", ["outcome", "source_sha256", "text"])
 def test_worker_result_is_immutable(attribute: str) -> None:
     # Arrange
-    result = WorkerResult("success", "0" * 64, "invented")
+    result = WorkerResult(WorkerOutcome.SUCCESS, "0" * 64, "invented")
     # Act / Assert
     with pytest.raises(FrozenInstanceError):
         setattr(result, attribute, "changed")
+
+
+@pytest.mark.parametrize(
+    ("outcome", "wire_value"),
+    [
+        (WorkerOutcome.SUCCESS, "success"),
+        (WorkerOutcome.NO_TEXT, "no_text"),
+        (WorkerOutcome.INVALID_ENCODING, "invalid_encoding"),
+        (WorkerOutcome.TIMEOUT, "timeout"),
+        (WorkerOutcome.RESOURCE_LIMIT, "resource_limit"),
+        (WorkerOutcome.OUTPUT_LIMIT, "output_limit"),
+        (WorkerOutcome.CANDIDATE_FAILURE, "candidate_failure"),
+        (WorkerOutcome.PROTOCOL_ERROR, "protocol_error"),
+        (WorkerOutcome.UNSUPPORTED_ENVIRONMENT, "unsupported_environment"),
+    ],
+)
+def test_public_outcomes_preserve_existing_string_values(
+    outcome: WorkerOutcome,
+    wire_value: str,
+) -> None:
+    # Arrange
+    value = wire_value
+    # Act
+    parsed = WorkerOutcome(value)
+    # Assert
+    assert parsed is outcome
+    assert outcome == value
+    assert str(outcome) == value

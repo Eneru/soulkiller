@@ -9,6 +9,7 @@ from .run_text_worker import run_text_worker
 from .text_evidence import TextEvidence
 from .worker_cleanup_error import WorkerCleanupError
 from .worker_limits import WorkerLimits
+from .worker_outcome import WorkerOutcome
 from .worker_result import WorkerResult
 
 __all__ = [
@@ -21,5 +22,6 @@ __all__ = [
     "run_text_worker",
     "WorkerCleanupError",
     "WorkerLimits",
+    "WorkerOutcome",
     "WorkerResult",
 ]

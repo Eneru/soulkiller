@@ -4,6 +4,7 @@ import json
 
 import pytest
 
+from soulkiller_text import WorkerOutcome
 from soulkiller_text.wire_protocol import decode_result, encode_result
 from soulkiller_text.worker_result import WorkerResult
 
@@ -13,7 +14,7 @@ from .worker_fixtures import result_payload
 
 def test_encoder_emits_exact_versioned_ascii_record() -> None:
     # Arrange
-    result = WorkerResult("success", BILINGUAL_SHA256, BILINGUAL_TEXT)
+    result = WorkerResult(WorkerOutcome.SUCCESS, BILINGUAL_SHA256, BILINGUAL_TEXT)
     # Act
     payload = encode_result(result)
     # Assert
@@ -32,7 +33,8 @@ def test_decoder_preserves_unicode_line_endings_and_hash() -> None:
     # Act
     result = decode_result(payload, BILINGUAL_SHA256)
     # Assert
-    assert result == WorkerResult("success", BILINGUAL_SHA256, BILINGUAL_TEXT)
+    assert result == WorkerResult(WorkerOutcome.SUCCESS, BILINGUAL_SHA256, BILINGUAL_TEXT)
+    assert result.outcome is WorkerOutcome.SUCCESS
 
 
 @pytest.mark.parametrize(
@@ -50,6 +52,7 @@ def test_supported_non_success_records_contain_no_text(outcome: str, source_hash
     result = decode_result(payload, source_hash)
     # Assert
     assert result.outcome == outcome
+    assert isinstance(result.outcome, WorkerOutcome)
     assert result.source_sha256 == source_hash
     assert result.text is None
 

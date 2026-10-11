@@ -1,5 +1,6 @@
 """Child guard setup is tested without changing pytest's own resource limits."""
 
+import builtins
 import resource
 import runpy
 import sys
@@ -173,3 +174,30 @@ def test_script_entry_exits_safely_when_resource_setup_fails(
         runpy.run_path(worker_bootstrap.__file__, run_name="__main__")
     # Assert
     assert failure.value.code == 3
+
+
+def test_missing_resource_module_fails_closed_before_candidate_execution(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Arrange
+    original_import = builtins.__import__
+    candidates: list[object] = []
+
+    def import_without_resource(
+        name: str,
+        globals: dict[str, object] | None = None,
+        locals: dict[str, object] | None = None,
+        fromlist: tuple[str, ...] = (),
+        level: int = 0,
+    ) -> object:
+        if name == "resource":
+            raise ImportError("Synthetic platform without resource enforcement.")
+        return original_import(name, globals, locals, fromlist, level)
+
+    monkeypatch.setattr(builtins, "__import__", import_without_resource)
+    monkeypatch.setattr(worker_candidate, "run_candidate", lambda: candidates.append(None))
+    # Act
+    exit_code = worker_bootstrap.main([str(LIMIT)])
+    # Assert
+    assert exit_code == 3
+    assert candidates == []

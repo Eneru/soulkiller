@@ -9,11 +9,11 @@ import time
 from hashlib import sha256
 from pathlib import Path
 from types import SimpleNamespace
-from typing import BinaryIO, Literal, cast
+from typing import BinaryIO, cast
 
 import pytest
 
-from soulkiller_text import supervise
+from soulkiller_text import WorkerOutcome, supervise
 from soulkiller_text.supervise import run_command
 from soulkiller_text.worker_cleanup_error import WorkerCleanupError
 from soulkiller_text.worker_limits import WorkerLimits
@@ -472,7 +472,7 @@ def test_nonblocking_pipe_retry_preserves_complete_response(
         source: bytes,
         deadline: float,
         output_limit: int,
-    ) -> tuple[Literal["timeout", "output_limit", "candidate_failure"] | None, bytes]:
+    ) -> tuple[WorkerOutcome | None, bytes]:
         with monkeypatch.context() as context:
             context.setattr(os, channel, retry_read if channel == "read" else retry_write)
             return original_capture(stdin, stdout, stderr, source, deadline, output_limit)

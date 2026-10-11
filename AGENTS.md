@@ -36,6 +36,10 @@
 - Keep tooling modules cohesive: one class per file, explicit collaborators and
   separate shared helpers/constants. Follow CONTRIBUTING.md for independent
   Arrange/Act/Assert tests and reusable synthetic fixtures.
+- Prefer functions of at most 50 lines and extract cohesive phases into named
+  helpers. Explain exceptions when splitting would harm readability, such as a
+  clear dispatch. Private helpers extracted for readability need no direct tests
+  solely for their structure; preserve behavior tests and all-source coverage.
 
 ## Quality and secrets
 

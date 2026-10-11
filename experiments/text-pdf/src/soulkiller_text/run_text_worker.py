@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .supervise import run_command, validate_source
 from .worker_limits import WorkerLimits
+from .worker_outcome import WorkerOutcome
 from .worker_result import WorkerResult
 
 
@@ -16,7 +17,7 @@ def run_text_worker(source: bytes, limits: WorkerLimits | None = None) -> Worker
     if type(limits) is not WorkerLimits:
         raise ValueError("invalid_worker_limits")
     if sys.platform != "linux":
-        return WorkerResult("unsupported_environment", sha256(source).hexdigest(), None)
+        return WorkerResult(WorkerOutcome.UNSUPPORTED_ENVIRONMENT, sha256(source).hexdigest(), None)
     command = (
         sys.executable,
         "-I",

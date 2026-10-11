@@ -1,12 +1,11 @@
 """Strict JSON for bounded worker responses; never deserialize executable data."""
 
 import json
-from typing import Literal, cast
+from typing import cast
 
 from .worker_constants import MAX_OUTPUT_BYTES
+from .worker_outcome import WorkerOutcome
 from .worker_result import WorkerResult
-
-type LiteralOutcome = Literal["success", "no_text", "invalid_encoding", "resource_limit"]
 
 
 def encode_result(result: WorkerResult) -> bytes:
@@ -14,7 +13,7 @@ def encode_result(result: WorkerResult) -> bytes:
     return json.dumps(
         {
             "version": 1,
-            "outcome": result.outcome,
+            "outcome": result.outcome.value,
             "source_sha256": result.source_sha256,
             "text": result.text,
         },
@@ -37,8 +36,8 @@ def _reject_constant(value: str) -> object:
     raise ValueError("invalid_worker_response")
 
 
-def decode_result(payload: bytes, source_sha256: str) -> WorkerResult:
-    """Verify the complete schema, original source revision and text invariants."""
+def _read_fields(payload: bytes, source_sha256: str) -> dict[str, object]:
+    """Validate framing, exact record fields, version and source revision."""
     if len(payload) > MAX_OUTPUT_BYTES:
         raise ValueError("invalid_worker_response")
     try:
@@ -60,17 +59,45 @@ def decode_result(payload: bytes, source_sha256: str) -> WorkerResult:
         raise ValueError("invalid_worker_response")
     if fields["source_sha256"] != source_sha256:
         raise ValueError("invalid_worker_response")
-    outcome = fields["outcome"]
-    if outcome not in ("success", "no_text", "invalid_encoding", "resource_limit"):
+    return cast("dict[str, object]", fields)
+
+
+def _decode_outcome(value: object) -> WorkerOutcome:
+    """Only candidate-reported outcomes may cross the child JSON boundary."""
+    if not isinstance(value, str):
         raise ValueError("invalid_worker_response")
-    text = fields["text"]
-    if outcome == "success":
+    try:
+        outcome = WorkerOutcome(value)
+    except ValueError:
+        raise ValueError("invalid_worker_response") from None
+    if outcome not in (
+        WorkerOutcome.SUCCESS,
+        WorkerOutcome.NO_TEXT,
+        WorkerOutcome.INVALID_ENCODING,
+        WorkerOutcome.RESOURCE_LIMIT,
+    ):
+        raise ValueError("invalid_worker_response")
+    return outcome
+
+
+def _decode_text(value: object, outcome: WorkerOutcome) -> str | None:
+    """Preserve exact Unicode success text and exclude text from other outcomes."""
+    if outcome == WorkerOutcome.SUCCESS:
         if (
-            not isinstance(text, str)
-            or not text
-            or any(0xD800 <= ord(character) <= 0xDFFF for character in text)
+            not isinstance(value, str)
+            or not value
+            or any(0xD800 <= ord(character) <= 0xDFFF for character in value)
         ):
             raise ValueError("invalid_worker_response")
-    elif text is not None:
+        return value
+    if value is not None:
         raise ValueError("invalid_worker_response")
-    return WorkerResult(cast("LiteralOutcome", outcome), source_sha256, cast("str | None", text))
+    return None
+
+
+def decode_result(payload: bytes, source_sha256: str) -> WorkerResult:
+    """Verify the complete schema, original source revision and text invariants."""
+    fields = _read_fields(payload, source_sha256)
+    outcome = _decode_outcome(fields["outcome"])
+    text = _decode_text(fields["text"], outcome)
+    return WorkerResult(outcome, source_sha256, text)

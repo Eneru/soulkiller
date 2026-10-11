@@ -28,6 +28,9 @@ without reopening its source. Each call starts a fresh worker; the example waits
 for one result before starting the next. No source file is changed.
 
 The frozen `WorkerResult` contains `outcome`, `source_sha256` and `text`.
+Its outcome uses the public `WorkerOutcome` string enum: Python callers can use
+named members such as `WorkerOutcome.SUCCESS`. Existing string comparisons and
+JSON values remain unchanged, including `"success"` and `"no_text"`.
 Successful text preserves strict UTF-8 decoding exactly, including accents,
 combining characters, BOM, NUL and LF/CRLF. Empty input yields `no_text`; invalid
 UTF-8 yields `invalid_encoding`. Failed/empty results contain `text=None`.
@@ -71,8 +74,10 @@ or child traceback.
 | `protocol_error` | Successful exit but invalid, incomplete or inconsistent response |
 
 A crash or signal alone does not establish memory exhaustion. The trusted
-bootstrap reserves exit 3 for unavailable enforcement and exit 4 for a caught
-`MemoryError`; ordinary nonzero exits remain candidate failures.
+bootstrap names these exits `UNSUPPORTED_EXIT` (3) for unavailable enforcement
+and `MEMORY_FAILURE_EXIT` (4) for a caught `MemoryError`; ordinary nonzero exits
+remain candidate failures. The standalone bootstrap defines its guard constants
+without importing the candidate or package before enforcement.
 
 ## Execution and protocol boundary
 
@@ -112,6 +117,16 @@ trusted code are **not a hostile-parser sandbox**.
 The worker makes no network calls or model downloads, but the API does not
 disable networking. The complete evaluation's offline topology, run-level limits
 and persisted interruption records remain future work.
+
+## Maintaining the worker modules
+
+`worker_outcome.py` owns the string enum; `worker_completion.py` classifies
+reserved exits and validates completed responses. Pipe setup, bounded stream
+transfer and exit waiting use cohesive named helpers so orchestration remains
+readable. The fixed launch and mandatory cleanup still belong to `supervise.py`.
+Follow the [function and test guidance](../CONTRIBUTING.md#maintainable-tooling-and-tests):
+prefer at most 50 lines with explained readability exceptions, and preserve
+behavior tests without adding tests solely for extracted private helper structure.
 
 ## Checks and an offline launch
 
