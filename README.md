@@ -52,8 +52,10 @@ quality gates and pure TXT decoding/evidence tests. The next
 source revisions and annotations before returning verified byte snapshots. The
 [TXT worker foundation](docs/text-worker-supervision.md) adds bounded process
 supervision for the trusted decoder. The [native pypdf adapter](docs/native-pdf-adapter.md)
-adds independently tested page records and synthetic fixtures. PDF corpus/worker
-integration, Docling, scoring and benchmark results remain subsequent short PRs.
+adds independently tested page records and synthetic fixtures. The
+[mixed PDF corpus](docs/pdf-corpus-input.md) adds parser-free verified snapshots
+and independent page facts. PDF worker integration, Docling, scoring and
+benchmark results remain subsequent short PRs.
 
 ## Quality and documentation roadmap
 

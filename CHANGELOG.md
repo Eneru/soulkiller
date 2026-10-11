@@ -20,6 +20,10 @@ No version has been released yet.
 
 ### Added
 
+- Version-2 mixed synthetic TXT/PDF manifests with independent physical-page
+  facts and parser-free confined PDF snapshots; preserve version-1 TXT rules
+  and defer PDF extraction validation to supervised evaluation.
+
 - Add an internal native pypdf page adapter with immutable results, safe failures
   and partial coverage; independently generated bilingual/blank/image/protected
   PDF fixtures; base pypdf 6.20.0 in the hash-locked devcontainer. PDF corpus/worker

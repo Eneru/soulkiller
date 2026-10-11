@@ -24,7 +24,9 @@ tranche: explicit TXT manifests, verified byte snapshots and independently annot
 literal fixtures. The [third tranche](../../docs/text-worker-supervision.md)
 supervises the trusted TXT baseline with explicit process guards. The
 [fourth tranche](../../docs/native-pdf-adapter.md) adds the internal pypdf adapter
-and independently expected native-page fixtures. PDF corpus/worker and
+and independently expected native-page fixtures. The
+[fifth tranche](../../docs/pdf-corpus-input.md) adds versioned mixed corpus selection
+and independently declared PDF page facts without parsing. PDF worker and
 runner/report integration and comparisons remain later tranches.
 
 Tests/static analysis are offline. Audit explicitly queries public package
@@ -44,7 +46,8 @@ The public helpers are `soulkiller_text.extract_utf8(bytes)` and
 tests add that path through pyproject.toml without installing the experiment.
 Callers can obtain verified bytes with load_corpus(workspace_root, corpus_path).
 Its trusted workspace/corpus boundary and exact schema are documented in the
-[corpus guide](../../docs/text-corpus-input.md); the Linux loader does no source scan.
+[TXT guide](../../docs/text-corpus-input.md) and
+[PDF extension](../../docs/pdf-corpus-input.md); the Linux loader does no source scan.
 
 `run_text_worker(source, limits=None)` supervises the same UTF-8 baseline in a
 fixed isolated child. `WorkerLimits` defaults to 60 seconds, 2 GiB virtual address
@@ -95,8 +98,8 @@ native Windows performance or the 8/16 GiB CPU-only reference profiles.
 Base pypdf 6.20.0 is image-installed with its verified wheel hash and no extras.
 The internal native_pdf module returns immutable one-based page records, source
 revision hashes and explicit outcomes. It runs only against tiny trusted synthetic
-fixtures in this tranche; it does not extend the TXT manifest or expose a
-user-file PDF runner. See [the adapter guide](../../docs/native-pdf-adapter.md)
+fixtures in this tranche. The later mixed corpus loader does not invoke it
+or expose a user-file PDF runner. See [the adapter guide](../../docs/native-pdf-adapter.md)
 for exact bounds, partial/missing pages and offline test execution.
 
 ## Small follow-ups
@@ -104,7 +107,7 @@ for exact bounds, partial/missing pages and offline test execution.
 The confined TXT corpus and trusted TXT worker foundation are implemented.
 Remaining short PRs:
 
-1. PDF corpus support and supervised pypdf protocol with the complete offline execution boundary.
+1. Supervised pypdf protocol and runner integration with the complete offline execution boundary.
 2. Native Docling candidate, scoring and bounded inspectable reports.
 3. Explicit approved offline Linux comparison; review findings before choosing a stack.
 
