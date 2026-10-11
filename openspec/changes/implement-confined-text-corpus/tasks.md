@@ -7,7 +7,7 @@
 - [x] Verify source-inclusive coverage, static/security gates and existing devcontainer/editor suitability.
 - [x] Document Conventional Commits, input API/limits and roadmap progress; update changelog.
 - [x] Run canonical checks, strict OpenSpec, metadata/link/diff/LICENSE checks.
-- [ ] Obtain maintainer review/manual merge.
+- [x] Obtain maintainer review/manual merge (confirmed PR #15 merge).
 
 Publish through the verified App bot as a ready PR with Conventional Commit
 metadata and actual results; publication status is recorded in the PR.

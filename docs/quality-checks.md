@@ -157,7 +157,7 @@ measured orchestration and failure tests.
 ## Experimental Python checks
 
 Rebuild the devcontainer before using `bash tools/checks/python.sh static|tests|audit|all`.
-The source is an in-memory TXT seam, not a parser comparison. The
+The source provides a confined TXT corpus and trusted bounded workers, not a parser comparison. The
 [experiment guide](../experiments/text-pdf/README.md) defines its API and coverage
 denominator. `check.sh python` runs the complete Python gate; `check.sh all`
 includes it alongside the independent existing checks. Coverage reports/caches
@@ -165,14 +165,16 @@ remain in container /tmp so the CI workspace can stay read-only.
 
 | Execution point | Actual command / behavior |
 | --- | --- |
-| Container CLI | `python.sh static`: Ruff rules/format, strict mypy, all Bandit findings; `tests`: independent line >=70% gate then branch reporting; `audit`: pip consistency and complete locked graph advisory scan |
+| Container CLI | `python.sh static`: Ruff rules/format, strict mypy, full Bandit scan plus exact worker exception policy; `tests`: independent line >=70% gate then branch reporting; `audit`: pip consistency and complete locked graph advisory scan |
 | Repository-local hook | Existing explicit hook installer; staged Gitleaks first, then Python static checks against the working tree if the experiment source exists. It does not claim staged Python equivalence and never rewrites work |
 | Container editor | Pinned Python/Pylance companions, Ruff and mypy extensions provide native diagnostics/navigation/pytest discovery using image paths; see [setup](python-editor.md). Tasks `Soulkiller: Python static/tests/audit/all` retain full gates, including coverage/security/audit |
 | Existing CI | Existing eligible PR-to-main/SemVer-tag job builds the image and calls `check.sh all`; no new trigger, runner matrix, benchmark or credential |
 
 Tests/static commands require no network. Audit uses the public advisory service
 and fails on findings or inability to collect/audit; it does not send corpus or
-source content. No blanket suppressions. Python toolchain wheels and all resolved
+source content. Bandit's only exceptions are the two AST-checked fixed-worker
+heuristics described in [worker supervision](text-worker-supervision.md);
+extra findings or scanner/policy failures remain errors. No blanket suppressions. Python toolchain wheels and all resolved
 versions are pinned/hashed in the [lock](../.devcontainer/python/requirements.lock);
 see its [inventory/update procedure](python-toolchain.md). UI execution and
 native Windows must be reported separately from container CLI checks.

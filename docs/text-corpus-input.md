@@ -87,8 +87,10 @@ are closed on success/error and path replacement cannot redirect them.
 | `unsupported_platform` | Linux descriptor flags/relative-open capability unavailable |
 
 This boundary is not a parser sandbox, physical-storage immutability guarantee or
-protection against privileged mount changes. Regular-file I/O can block; wall-time,
-worker resource limits and actual PDF page bounds remain the next separate tranche.
+protection against privileged mount changes. Regular-file I/O can block; the
+[TXT worker foundation](text-worker-supervision.md) separately bounds decoder
+execution after loading. Loader I/O deadlines and actual PDF page bounds remain
+future integration work.
 No file is written/deleted by the loader; failed runs leave source content alone.
 
 ## Verify and continue
@@ -105,4 +107,6 @@ hook/CLI and eligible CI already cover this src/tests tree; no new environment
 package or workflow is needed. [Editor guidance](python-editor.md) explains the
 current suite and remaining UI checks. PR #14's editor operation was confirmed by
 the maintainer; this tranche's CLI/backend results are reported separately.
-Continue with a reviewed bounded pypdf worker, then native Docling/scoring/reports.
+The [trusted TXT worker tranche](text-worker-supervision.md) adds process guards
+without a PDF parser. Continue with reviewed pypdf/PDF integration, then native
+Docling/scoring/reports.

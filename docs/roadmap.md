@@ -85,8 +85,9 @@ capabilities being pursued.
 A proposed first experimental tranche is
 [evaluate-text-pdf-extraction](../openspec/changes/evaluate-text-pdf-extraction/proposal.md):
 a synthetic native TXT/PDF comparison, not application-language adoption.
-Its proposal, experimental contract, design and tasks are prepared for review
-only. No candidate/harness or R2 acceptance criterion is completed by this packet.
+Its proposal, experimental contract, design and tasks were approved in PR #13.
+The short implementation tranches below build the evaluation foundation; they
+do not complete a parser comparison or an R2 architecture acceptance criterion.
 
 ## R3 — Establish a reproducible testing strategy
 
@@ -190,7 +191,10 @@ Issue #8 is published but its site implementation has not started.
 The approved PR #13 plan is being implemented in short reviewed PRs.
 [Tranche 1](../experiments/text-pdf/README.md) supplies Python/checks and pure TXT
 evidence. The [second tranche](text-corpus-input.md) adds confined TXT manifest/corpus
-reads and literal annotations. Next: bounded pypdf workers and PDF corpus support;
+reads and literal annotations; its review and merge were confirmed in PR #15.
+The [third tranche](text-worker-supervision.md) adds process supervision around
+the trusted TXT baseline, with timeout/output guards and mandatory cleanup.
+Next: pypdf and PDF corpus support with the full offline execution boundary;
 native Docling/scoring/reports; then the approved offline Linux comparison.
 Each requires independent tests and review; no E1 result, production-stack
 choice, Windows benchmark, provider or memory implementation is implied.

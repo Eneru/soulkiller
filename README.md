@@ -49,8 +49,10 @@ using pypdf and Docling's model-free native pipeline. The first
 [implementation tranche](experiments/text-pdf/README.md) adds the runtime, Python
 quality gates and pure TXT decoding/evidence tests. The next
 [confined TXT corpus tranche](docs/text-corpus-input.md) validates explicit manifests,
-source revisions and annotations before returning verified byte snapshots. PDF
-candidates, workers, scoring and benchmark results remain subsequent short PRs.
+source revisions and annotations before returning verified byte snapshots. The
+[TXT worker foundation](docs/text-worker-supervision.md) adds bounded process
+supervision for the trusted decoder. PDF candidates, full runner integration,
+scoring and benchmark results remain subsequent short PRs.
 
 ## Quality and documentation roadmap
 

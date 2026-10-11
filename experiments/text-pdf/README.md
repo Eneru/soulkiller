@@ -21,12 +21,14 @@ bash tools/checks/check.sh all
 
 The [confined corpus guide](../../docs/text-corpus-input.md) documents the second
 tranche: explicit TXT manifests, verified byte snapshots and independently annotated
-literal fixtures. PDF candidates/workers and comparisons remain later tranches.
+literal fixtures. The [third tranche](../../docs/text-worker-supervision.md)
+supervises the trusted TXT baseline with explicit process guards. PDF candidates,
+runner/report integration and comparisons remain later tranches.
 
 Tests/static analysis are offline. Audit explicitly queries public package
 advisory services; it sends package names/versions, not source data. Findings and
-service/tool errors fail. There is no PDF parser, worker, CLI ingestion command,
-report, model download or performance result yet.
+service/tool errors fail. There is no PDF parser, CLI ingestion command, report,
+model download or performance result yet.
 
 For native VS Code Ruff/mypy diagnostics, source navigation and pytest Test
 Explorer, follow [Python editor setup](../../docs/python-editor.md). The full
@@ -41,6 +43,14 @@ tests add that path through pyproject.toml without installing the experiment.
 Callers can obtain verified bytes with load_corpus(workspace_root, corpus_path).
 Its trusted workspace/corpus boundary and exact schema are documented in the
 [corpus guide](../../docs/text-corpus-input.md); the Linux loader does no source scan.
+
+`run_text_worker(source, limits=None)` supervises the same UTF-8 baseline in a
+fixed isolated child. `WorkerLimits` defaults to 60 seconds, 2 GiB virtual address
+space and 10 MiB combined output. `WorkerResult` retains the original hash and
+exact text only for verified success; timeout, output, protocol and cleanup
+failures remain explicit. See the [worker guide](../../docs/text-worker-supervision.md)
+for numeric ranges, errors and an actual network-disabled container launch. The
+API itself does not disable networking and is not a hostile-parser sandbox.
 
 Decoding retains the original SHA-256 and unchanged UTF-8 text. Empty bytes
 produce `no_text`; invalid UTF-8 produces `invalid_encoding` with no decoded text.
@@ -66,7 +76,10 @@ ValueError. Callers should use the extraction helper rather than forge records.
   separately so a combined branch metric cannot replace the line gate.
 - Ruff: selected E/F/I/UP/B rules and formatting; mypy: strict source/test types.
 - Bandit: all default severity/confidence findings in maintained source, ignoring
-  inline nosec escapes. Tests' intentional assertions are outside that scan.
+  inline nosec escapes. Only the reviewed fixed-command B404/B603 findings in
+  `supervise.py` are accepted through an exact AST-checked exception policy;
+  extra/duplicate findings, unsafe call options and scanner errors fail.
+  Tests' intentional assertions are outside that scan.
 - pip-audit: complete pinned/hash-locked tool graph, strict advisory/error failure.
 - Existing Gitleaks/Hadolint/JavaScript/Bash gates remain independent.
 
@@ -77,10 +90,10 @@ native Windows performance or the 8/16 GiB CPU-only reference profiles.
 
 ## Small follow-ups
 
-The confined TXT manifest/source tranche and literal annotations are implemented;
-PDF corpus support will be added alongside its worker. Remaining short PRs:
+The confined TXT corpus and trusted TXT worker foundation are implemented.
+Remaining short PRs:
 
-1. Bounded worker, pypdf and failure-containment tests.
+1. pypdf, PDF corpus support and integration of the complete offline execution boundary.
 2. Native Docling candidate, scoring and bounded inspectable reports.
 3. Explicit approved offline Linux comparison; review findings before choosing a stack.
 

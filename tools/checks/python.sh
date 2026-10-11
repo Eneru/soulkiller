@@ -20,7 +20,13 @@ static_checks() {
     python -m ruff check --no-cache src tests
     python -m ruff format --check --no-cache src tests
     python -m mypy --config-file pyproject.toml src tests
-    python -m bandit --quiet --ignore-nosec --recursive src
+    # Scan every finding; allow only the two AST-checked fixed-worker heuristics.
+    local bandit_status=0
+    python -m bandit --quiet --ignore-nosec --recursive src \
+        --format json --output "$temp/bandit.json" || bandit_status=$?
+    [[ "$bandit_status" -eq 0 || "$bandit_status" -eq 1 ]] || fail "Bandit execution error"
+    PYTHONPATH="$repo/experiments/text-pdf/src" \
+        python -m soulkiller_text.bandit_policy "$temp/bandit.json"
 }
 test_checks() {
     # The threshold measures executable lines alone. Branches are a separate report.

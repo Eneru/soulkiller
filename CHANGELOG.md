@@ -8,6 +8,10 @@ No version has been released yet.
 
 ### Changed
 
+- Refactor TXT workers with named string-enum outcomes, explicit bootstrap exit
+  constants and cohesive transfer/completion helpers, preserving protocol values
+  and supervision behavior. Prefer functions of at most 50 lines with explained
+  readability exceptions and behavior-focused tests.
 - Standardize new authored English commit messages on Conventional Commits 1.0.0,
   preserving existing signed history and generated merge commits.
 - Pair the experimental Python runtime with pinned native VS Code integrations,
@@ -16,6 +20,8 @@ No version has been released yet.
 
 ### Added
 
+- Bounded trusted TXT worker supervision with validated limits, verified responses,
+  explicit failures and mandatory cancellation/process cleanup; PDF integration remains pending.
 - Confined Linux synthetic TXT corpus loader: strict bounded manifest validation,
   descriptor-anchored immutable byte snapshots, source/annotation verification and
   independent bilingual fixtures, with exact-byte Git attributes and boundary tests.
