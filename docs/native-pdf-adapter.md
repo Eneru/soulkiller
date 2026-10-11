@@ -8,8 +8,10 @@ was approved in PR #13; TXT worker supervision was reviewed and merged in PR #16
 This seam handles trusted synthetic bytes for adapter tests. It is not a PDF
 ingestion command or a complete evaluation runner. The
 [PDF corpus extension](pdf-corpus-input.md) adds parser-free manifest/snapshot
-validation. Supervised PDF protocol, the full offline execution boundary, scoring, persisted
-page evidence and Docling comparison remain subsequent short PRs.
+validation. The [supervised PDF worker](pdf-worker-supervision.md) now wraps
+this adapter with early resource/offline guards and independent response checks.
+Whole-run integration, scoring, persisted page evidence and Docling comparison
+remain subsequent short PRs.
 
 ## Runtime and native editor
 
@@ -66,7 +68,8 @@ A rejected page-limit result records its count with empty covered/missing tuples
 it does not allocate a tuple proportional to an arbitrarily large rejected count.
 A later independent fixture remains eligible after a failure.
 `MemoryError` and cancellation propagate so future supervision can enforce its
-own result boundary; they are not converted into partial success.
+own result boundary; they are not converted into partial success. The supervised
+PDF bootstrap maps explicit MemoryError to resource_limit after cleanup.
 
 ## Parser behavior and limits
 
@@ -87,8 +90,9 @@ No native text does not prove that a PDF is a scan. Plain extraction does not
 guarantee visible reading order, accurate pre-existing OCR or table semantics.
 Counting pages can flatten a page tree; decompression/extraction can allocate
 before returning. The adapter itself does not enforce time, memory or network
-isolation. The separately reviewed PDF worker integration must establish those
-guards before a user-file run interface is delivered.
+isolation. Use the [supervised PDF worker](pdf-worker-supervision.md) under its
+externally supplied offline boundary for guarded byte extraction; no corpus-run
+interface has been delivered.
 
 ## Synthetic fixtures and checks
 

@@ -113,6 +113,19 @@ Record the tested architecture and distinguish a local equivalent from an actual
 hosted Actions run. Verify container-side editor diagnostics manually; configuring
 an extension does not prove that its UI ran.
 
+## PDF worker execution
+
+The [native PDF worker guide](pdf-worker-supervision.md) describes its byte API,
+strict page protocol and externally supplied offline boundary. A normal connected
+devcontainer checks refusal before parser imports. The same complete Python
+suite in the documented fresh `--network none --memory 3g --cpus 2` container
+asserts actual PDF extraction and parser failures. Both lanes are required:
+connected refusal alone cannot prove extraction success.
+
+The existing image interpreter, Python editor settings and quality entrypoints
+cover these source-only additions. Record actual line coverage and both lane
+results in the PR; neither proves native Windows performance or manual editor UI.
+
 ## Limitations
 
 This procedure does not test an application yet. Editor UI startup and each

@@ -5,6 +5,9 @@ from .evidence_slice import evidence_slice
 from .extract_utf8 import extract_utf8
 from .extraction_result import ExtractionResult
 from .load_corpus import load_corpus
+from .pdf_worker import run_pdf_worker
+from .pdf_worker_outcome import PdfWorkerOutcome
+from .pdf_worker_result import PdfWorkerResult
 from .run_text_worker import run_text_worker
 from .text_evidence import TextEvidence
 from .worker_cleanup_error import WorkerCleanupError
@@ -15,10 +18,13 @@ from .worker_result import WorkerResult
 __all__ = [
     "CorpusError",
     "ExtractionResult",
+    "PdfWorkerOutcome",
+    "PdfWorkerResult",
     "TextEvidence",
     "evidence_slice",
     "extract_utf8",
     "load_corpus",
+    "run_pdf_worker",
     "run_text_worker",
     "WorkerCleanupError",
     "WorkerLimits",

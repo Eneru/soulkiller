@@ -51,8 +51,10 @@ Malformed/protected fixtures remain eligible snapshots when their declared
 hash matches. Misleading extensions do not change explicit format selection.
 
 Declared page counts and quotes are **unverified extraction expectations**.
-Actual pages, outcomes and recovered fact locations must be checked by the
-later supervised PDF worker/evaluation. A declaration cannot bound parser
+The [supervised PDF worker](pdf-worker-supervision.md) independently validates
+actual page coverage, outcomes and response text. Matching recovered fact
+locations against these expectations remains whole-run evaluation work.
+A declaration cannot bound parser
 allocation or replace the external execution boundary. The
 [internal adapter](native-pdf-adapter.md) remains a separate trusted-fixture seam;
 no arbitrary-file runner is exposed.
@@ -79,6 +81,6 @@ tree; see [editor setup](python-editor.md) and
 [CLI/hooks/eligible CI checks](quality-checks.md#experimental-python-checks).
 CLI results do not claim manual editor UI or native Windows execution.
 
-Next: the supervised PDF protocol with independently enforced resources and
-offline run boundary, then Docling/scoring/reports. No benchmark, production
+Next: integrate these snapshots and supervised TXT/PDF workers into a bounded
+whole-run evaluation, then Docling/scoring/reports. No benchmark, production
 stack choice, provider, model or personal-data run is delivered here.

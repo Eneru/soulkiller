@@ -20,17 +20,23 @@ No version has been released yet.
 
 ### Added
 
+- Supervised native PDF byte extraction with immutable page results, strict
+  independent version-2 protocol checks, shared deadline/output/cleanup handling
+  and fail-closed early memory/offline topology guards. Actual PDF worker tests
+  run in an externally network-disabled container; whole-run comparison remains
+  pending.
 - Version-2 mixed synthetic TXT/PDF manifests with independent physical-page
   facts and parser-free confined PDF snapshots; preserve version-1 TXT rules
   and defer PDF extraction validation to supervised evaluation.
 
 - Add an internal native pypdf page adapter with immutable results, safe failures
   and partial coverage; independently generated bilingual/blank/image/protected
-  PDF fixtures; base pypdf 6.20.0 in the hash-locked devcontainer. PDF corpus/worker
-  integration and complete comparison remain subsequent tranches.
+  PDF fixtures; base pypdf 6.20.0 in the hash-locked devcontainer. Corpus selection
+  and supervised PDF bytes are now available; complete comparison remains pending.
 
 - Bounded trusted TXT worker supervision with validated limits, verified responses,
-  explicit failures and mandatory cancellation/process cleanup; PDF integration remains pending.
+  explicit failures and mandatory cancellation/process cleanup; its lifecycle
+  is also reused by the separately validated PDF worker.
 - Confined Linux synthetic TXT corpus loader: strict bounded manifest validation,
   descriptor-anchored immutable byte snapshots, source/annotation verification and
   independent bilingual fixtures, with exact-byte Git attributes and boundary tests.
