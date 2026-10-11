@@ -51,8 +51,9 @@ quality gates and pure TXT decoding/evidence tests. The next
 [confined TXT corpus tranche](docs/text-corpus-input.md) validates explicit manifests,
 source revisions and annotations before returning verified byte snapshots. The
 [TXT worker foundation](docs/text-worker-supervision.md) adds bounded process
-supervision for the trusted decoder. PDF candidates, full runner integration,
-scoring and benchmark results remain subsequent short PRs.
+supervision for the trusted decoder. The [native pypdf adapter](docs/native-pdf-adapter.md)
+adds independently tested page records and synthetic fixtures. PDF corpus/worker
+integration, Docling, scoring and benchmark results remain subsequent short PRs.
 
 ## Quality and documentation roadmap
 
@@ -131,6 +132,7 @@ for this initial setup.
 | ESLint / security rules | 10.12.0 / eslint-plugin-security 4.2.0, locked dependencies |
 | Bash coverage | kcov 43, source archive verified with SHA-256 |
 | Experimental Python | CPython 3.13.16, verified source; isolated quality-tools venv |
+| Experimental native PDF | Base pypdf 6.20.0, hash-locked wheel; no extras |
 
 The [.devcontainer configuration](.devcontainer/devcontainer.json) is the source
 of truth. The [Dockerfile](.devcontainer/Dockerfile) pins direct packages; the

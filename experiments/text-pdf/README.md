@@ -22,13 +22,15 @@ bash tools/checks/check.sh all
 The [confined corpus guide](../../docs/text-corpus-input.md) documents the second
 tranche: explicit TXT manifests, verified byte snapshots and independently annotated
 literal fixtures. The [third tranche](../../docs/text-worker-supervision.md)
-supervises the trusted TXT baseline with explicit process guards. PDF candidates,
+supervises the trusted TXT baseline with explicit process guards. The
+[fourth tranche](../../docs/native-pdf-adapter.md) adds the internal pypdf adapter
+and independently expected native-page fixtures. PDF corpus/worker and
 runner/report integration and comparisons remain later tranches.
 
 Tests/static analysis are offline. Audit explicitly queries public package
 advisory services; it sends package names/versions, not source data. Findings and
-service/tool errors fail. There is no PDF parser, CLI ingestion command, report,
-model download or performance result yet.
+service/tool errors fail. There is no CLI ingestion command, report, model download or performance result.
+The internal PDF adapter does not provide the future run/supervision boundary.
 
 For native VS Code Ruff/mypy diagnostics, source navigation and pytest Test
 Explorer, follow [Python editor setup](../../docs/python-editor.md). The full
@@ -88,12 +90,21 @@ and the existing PR-to-main/SemVer-tag CI lane. No benchmark is a default check.
 No web service exists, so ZAP is not applicable. Linux checks do not validate
 native Windows performance or the 8/16 GiB CPU-only reference profiles.
 
+## Internal PDF adapter
+
+Base pypdf 6.20.0 is image-installed with its verified wheel hash and no extras.
+The internal native_pdf module returns immutable one-based page records, source
+revision hashes and explicit outcomes. It runs only against tiny trusted synthetic
+fixtures in this tranche; it does not extend the TXT manifest or expose a
+user-file PDF runner. See [the adapter guide](../../docs/native-pdf-adapter.md)
+for exact bounds, partial/missing pages and offline test execution.
+
 ## Small follow-ups
 
 The confined TXT corpus and trusted TXT worker foundation are implemented.
 Remaining short PRs:
 
-1. pypdf, PDF corpus support and integration of the complete offline execution boundary.
+1. PDF corpus support and supervised pypdf protocol with the complete offline execution boundary.
 2. Native Docling candidate, scoring and bounded inspectable reports.
 3. Explicit approved offline Linux comparison; review findings before choosing a stack.
 

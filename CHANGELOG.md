@@ -20,6 +20,11 @@ No version has been released yet.
 
 ### Added
 
+- Add an internal native pypdf page adapter with immutable results, safe failures
+  and partial coverage; independently generated bilingual/blank/image/protected
+  PDF fixtures; base pypdf 6.20.0 in the hash-locked devcontainer. PDF corpus/worker
+  integration and complete comparison remain subsequent tranches.
+
 - Bounded trusted TXT worker supervision with validated limits, verified responses,
   explicit failures and mandatory cancellation/process cleanup; PDF integration remains pending.
 - Confined Linux synthetic TXT corpus loader: strict bounded manifest validation,

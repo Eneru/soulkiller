@@ -30,8 +30,8 @@ ARM64 hashes are provisioning intent, not execution evidence.
 
 ## Dependency terms and inventory
 
-Snapshot: 2026-10-05. The table records declared upstream package terms, with
-links to the exact version metadata. It is not a legal interpretation. Distribution
+Tool snapshot: 2026-10-05; pypdf addition checked 2026-10-11. The table records
+declared upstream package terms, with links to the exact version metadata. It is not a legal interpretation. Distribution
 license files remain installed under /opt/python-tools/lib/python3.13/site-packages
 (in dist-info or package license directories). CPython's source license is retained
 in /opt/python/share/licenses/CPython/LICENSE, with its stdlib notices.
@@ -73,6 +73,7 @@ pip-audit package advisories are not a complete OS/interpreter/vendored-code aud
 | [py-serializable](https://pypi.org/project/py-serializable/2.1.0/) | 2.1.0 | Apache Software License |
 | [Pygments](https://pypi.org/project/Pygments/2.21.0/) | 2.21.0 | BSD-2-Clause |
 | [pyparsing](https://pypi.org/project/pyparsing/3.3.3/) | 3.3.3 | MIT |
+| [pypdf](https://pypi.org/project/pypdf/6.20.0/) | 6.20.0 | BSD-3-Clause |
 | [pytest](https://pypi.org/project/pytest/9.1.1/) | 9.1.1 | MIT |
 | [PyYAML](https://pypi.org/project/PyYAML/6.0.3/) | 6.0.3 | MIT License |
 | [requests](https://pypi.org/project/requests/2.34.2/) | 2.34.2 | Apache Software License |
@@ -84,6 +85,30 @@ pip-audit package advisories are not a complete OS/interpreter/vendored-code aud
 | [tomli_w](https://pypi.org/project/tomli_w/1.2.0/) | 1.2.0 | MIT License |
 | [typing_extensions](https://pypi.org/project/typing_extensions/4.16.0/) | 4.16.0 | PSF-2.0 |
 | [urllib3](https://pypi.org/project/urllib3/2.8.0/) | 2.8.0 | MIT |
+
+## Native PDF candidate
+
+The [pypdf adapter tranche](../openspec/changes/implement-pypdf-adapter/design.md)
+adds base `pypdf==6.20.0` to the same image environment. The reviewed evaluation
+snapshot proposed 6.19.0; the [6.20.0 upstream release](https://github.com/py-pdf/pypdf/releases/tag/6.20.0)
+adds per-stream filter-count and accumulated-decoding-work guards. This small
+version update does not adopt a production parser or make parsing a sandbox.
+
+The verified `pypdf-6.20.0-py3-none-any.whl` SHA-256 is
+`f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad`;
+[PyPI release metadata](https://pypi.org/project/pypdf/6.20.0/#files) publishes the
+same hash. The [tagged dependency metadata](https://github.com/py-pdf/pypdf/blob/6.20.0/pyproject.toml)
+requires Python >=3.9 and only conditionally requires `typing_extensions` below
+Python 3.11. Base pypdf adds no transitive package on CPython 3.13.16; all existing
+tool pins and hashes are preserved. No crypto, image, font, Brotli, model or other
+optional extras are requested.
+
+The wheel includes `pypdf/py.typed` and
+`pypdf-6.20.0.dist-info/licenses/LICENSE`. Image installation retains the BSD-3-Clause
+notice under `/opt/python-tools/lib/python3.13/site-packages/`; Soulkiller's root
+LICENSE is unchanged. Rebuild the devcontainer to install the new locked candidate;
+no separate user-level pip command is needed. See [editor setup](python-editor.md)
+for import/type navigation and CLI verification.
 
 ## Update procedure
 
