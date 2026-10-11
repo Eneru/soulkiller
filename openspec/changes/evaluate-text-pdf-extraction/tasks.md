@@ -6,7 +6,9 @@ adds runtime/checks and pure TXT evidence. [The second tranche](../implement-con
 adds confined TXT corpus reads and literal annotations. [The third tranche](../implement-bounded-text-workers/proposal.md)
 adds trusted TXT worker supervision. [The fourth tranche](../implement-pypdf-adapter/proposal.md)
 adds the internal pypdf native-page adapter, synthetic writer/fixtures and pinned
-candidate runtime; PDF corpus/workers and the parent harness remain incomplete.
+candidate runtime. [The fifth tranche](../implement-pdf-corpus-input/proposal.md)
+adds versioned mixed selection and parser-free PDF snapshots; PDF workers and
+the parent harness remain incomplete.
 
 ## 1. Preparation and review packet
 

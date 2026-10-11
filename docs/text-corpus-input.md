@@ -1,5 +1,8 @@
 # Confined synthetic TXT corpus
 
+This guide documents version 1. The [PDF corpus extension](pdf-corpus-input.md)
+adds explicit version 2 while preserving these TXT-only rules and expectations.
+
 The [second extraction tranche](../openspec/changes/implement-confined-text-corpus/proposal.md)
 adds input validation before PDF candidates. Python remains an evaluation tool;
 this is a Linux devcontainer library, not an application ingestion command or a

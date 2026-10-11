@@ -18,4 +18,6 @@
 - [x] 3.2 Run canonical quality/security checks and all-source Python line coverage >=70%; execute real fixture tests in the bounded network-disabled container.
 - [x] 3.3 Validate strict OpenSpec, file links, Git whitespace and unchanged LICENSE/CI triggers.
 - [x] 3.4 Prepare exact staged tree and Conventional Commit/ready-PR inputs; run App publication preflight and record live bot/tree/signature verification in the PR.
-- [ ] 3.5 Obtain maintainer review and confirm manual merge before reporting this tranche complete.
+- [x] 3.5 Obtain maintainer review and confirm manual merge before reporting this tranche complete.
+
+Maintainer review and manual merge were confirmed in PR #17 on 2026-10-11.

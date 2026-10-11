@@ -6,8 +6,9 @@ fixtures. The [parent evaluation](../openspec/changes/evaluate-text-pdf-extracti
 was approved in PR #13; TXT worker supervision was reviewed and merged in PR #16.
 
 This seam handles trusted synthetic bytes for adapter tests. It is not a PDF
-ingestion command or a complete evaluation runner. PDF manifest validation,
-supervised PDF protocol, the full offline execution boundary, scoring, persisted
+ingestion command or a complete evaluation runner. The
+[PDF corpus extension](pdf-corpus-input.md) adds parser-free manifest/snapshot
+validation. Supervised PDF protocol, the full offline execution boundary, scoring, persisted
 page evidence and Docling comparison remain subsequent short PRs.
 
 ## Runtime and native editor
