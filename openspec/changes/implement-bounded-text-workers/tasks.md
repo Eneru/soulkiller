@@ -20,7 +20,7 @@
 - [x] 3.3 Update README, CHANGELOG and parent progress; verify internal links and keep unfinished evaluation tasks unmarked.
 - [x] 3.4 Run strict OpenSpec validation and git diff --check; verify LICENSE and CI triggers remain unchanged.
 - [x] 3.5 Prepare the exact staged tree, Conventional Commit metadata and ready-PR inputs; run publication preflight. Record live publication/signature/tree verification in the delivery PR.
-- [ ] 3.6 Obtain maintainer review and confirm manual merge before reporting this tranche complete.
+- [x] 3.6 Obtain maintainer review and confirm manual merge before reporting this tranche complete.
 
 ## 4. Maintainer review corrections (PR #16)
 
@@ -29,3 +29,5 @@
 - [x] 4.3 Document the preferred 50-line function limit and justified readability exceptions; require behavior tests rather than private-helper structure tests.
 - [x] 4.4 Re-run canonical container checks, coverage, strict OpenSpec and diff validation; record actual results and verify LICENSE is unchanged.
 - [x] 4.5 Prepare the exact staged correction tree, Conventional Commit and PR/reply inputs; run publication preflight. Record live App publication, signature/tree verification and inline replies in the delivery PR; leave acceptance and merge to the maintainer.
+
+Maintainer review and manual merge were confirmed in PR #16 on 2026-10-11.

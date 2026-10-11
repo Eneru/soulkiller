@@ -193,8 +193,11 @@ The approved PR #13 plan is being implemented in short reviewed PRs.
 evidence. The [second tranche](text-corpus-input.md) adds confined TXT manifest/corpus
 reads and literal annotations; its review and merge were confirmed in PR #15.
 The [third tranche](text-worker-supervision.md) adds process supervision around
-the trusted TXT baseline, with timeout/output guards and mandatory cleanup.
-Next: pypdf and PDF corpus support with the full offline execution boundary;
+the trusted TXT baseline, with timeout/output guards and mandatory cleanup;
+its review and merge were confirmed in PR #16. The
+[fourth tranche](native-pdf-adapter.md) adds the internal pypdf native-page adapter
+and independent PDF fixture writer/tests, with the dependency in the image.
+Next: PDF corpus support and supervised protocol with the full offline boundary;
 native Docling/scoring/reports; then the approved offline Linux comparison.
 Each requires independent tests and review; no E1 result, production-stack
 choice, Windows benchmark, provider or memory implementation is implied.
