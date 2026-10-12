@@ -5,11 +5,13 @@ import signal
 import subprocess
 from hashlib import sha256
 from time import monotonic, sleep
+from typing import overload
 
 from .corpus_constants import MAX_SOURCE_BYTES
 from .worker_cleanup_error import WorkerCleanupError
 from .worker_completion import classify_completion
-from .worker_constants import CLEANUP_SECONDS
+from .worker_completion_type import CompletionClassifier
+from .worker_constants import CLEANUP_SECONDS, UNSUPPORTED_EXIT
 from .worker_limits import WorkerLimits
 from .worker_outcome import WorkerOutcome
 from .worker_pipes import capture_pipes
@@ -59,29 +61,67 @@ def _wait_for_exit(process_id: int, deadline: float) -> int | None:
         sleep(min(remaining, 0.01))
 
 
-def _complete_result(
+def _complete_result[T](
     process_id: int,
     pipe_failure: WorkerOutcome | None,
     response: bytes,
     deadline: float,
     source_sha256: str,
-) -> WorkerResult:
+    completion_classifier: CompletionClassifier[T],
+) -> T:
     """Observe bounded exit only while its result can still meet the deadline."""
     return_code = None
     if pipe_failure not in (WorkerOutcome.TIMEOUT, WorkerOutcome.OUTPUT_LIMIT):
         if monotonic() < deadline:
             return_code = _wait_for_exit(process_id, deadline)
-    return classify_completion(return_code, pipe_failure, response, source_sha256)
+    return completion_classifier(return_code, pipe_failure, response, source_sha256)
 
 
-def run_command(command: tuple[str, ...], source: bytes, limits: WorkerLimits) -> WorkerResult:
-    """Internal trusted-command test seam; the public API selects one fixed worker."""
+def _capture_result[T](
+    process: subprocess.Popen[bytes],
+    source: bytes,
+    limits: WorkerLimits,
+    deadline: float,
+    source_sha256: str,
+    completion_classifier: CompletionClassifier[T],
+) -> T:
+    """Transfer the snapshot, then delegate only completion interpretation."""
+    if process.stdin is None or process.stdout is None or process.stderr is None:
+        return completion_classifier(-1, WorkerOutcome.CANDIDATE_FAILURE, b"", source_sha256)
+    failure, response = capture_pipes(
+        process.stdin, process.stdout, process.stderr, source, deadline, limits.output_bytes
+    )
+    return _complete_result(
+        process.pid, failure, response, deadline, source_sha256, completion_classifier
+    )
+
+
+@overload
+def run_command(command: tuple[str, ...], source: bytes, limits: WorkerLimits) -> WorkerResult: ...
+
+
+@overload
+def run_command[T](
+    command: tuple[str, ...],
+    source: bytes,
+    limits: WorkerLimits,
+    completion_classifier: CompletionClassifier[T],
+) -> T: ...
+
+
+def run_command[T](
+    command: tuple[str, ...],
+    source: bytes,
+    limits: WorkerLimits,
+    completion_classifier: CompletionClassifier[T | WorkerResult] = (classify_completion),
+) -> T | WorkerResult:
+    """Own the reviewed process lifecycle and delegate format-specific completion."""
     validate_source(source)
     if type(limits) is not WorkerLimits:
         raise ValueError("invalid_worker_limits")
     source_hash = sha256(source).hexdigest()
     if not hasattr(os, "waitid") or not hasattr(os, "WNOWAIT"):
-        return WorkerResult(WorkerOutcome.UNSUPPORTED_ENVIRONMENT, source_hash, None)
+        return completion_classifier(UNSUPPORTED_EXIT, None, b"", source_hash)
     deadline = monotonic() + limits.wall_seconds
     try:
         process = subprocess.Popen(
@@ -95,15 +135,12 @@ def run_command(command: tuple[str, ...], source: bytes, limits: WorkerLimits) -
             env={"LANG": "C.UTF-8", "LC_ALL": "C.UTF-8"},
         )
     except OSError:
-        return WorkerResult(WorkerOutcome.CANDIDATE_FAILURE, source_hash, None)
+        return completion_classifier(-1, WorkerOutcome.CANDIDATE_FAILURE, b"", source_hash)
     try:
-        if process.stdin is None or process.stdout is None or process.stderr is None:
-            return WorkerResult(WorkerOutcome.CANDIDATE_FAILURE, source_hash, None)
-        failure, response = capture_pipes(
-            process.stdin, process.stdout, process.stderr, source, deadline, limits.output_bytes
+        return _capture_result(
+            process, source, limits, deadline, source_hash, completion_classifier
         )
-        return _complete_result(process.pid, failure, response, deadline, source_hash)
     except OSError:
-        return WorkerResult(WorkerOutcome.CANDIDATE_FAILURE, source_hash, None)
+        return completion_classifier(-1, WorkerOutcome.CANDIDATE_FAILURE, b"", source_hash)
     finally:
         _cleanup(process)

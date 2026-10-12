@@ -209,3 +209,42 @@ def test_cli_accepts_a_report_matching_the_actual_reviewed_source(
     # Assert
     assert status == 0
     assert capsys.readouterr() == ("", "")
+
+
+def test_declaration_only_overload_keeps_the_single_reviewed_launch() -> None:
+    # Arrange
+    declaration = "@overload\ndef run_command(command):\n    ...\n"
+    source = SUPERVISOR_SOURCE.replace(
+        "def run_command(command):", declaration + "def run_command(command):", 1
+    )
+    report = clean_report()
+    findings = report["results"]
+    assert isinstance(findings, list)
+    findings[1]["line_number"] = 6
+    # Act
+    bandit_policy.validate_report(report, source)
+    # Assert
+    assert len(findings) == 2
+
+
+@pytest.mark.parametrize(
+    "declaration",
+    [
+        "def run_command(command):\n    ...\n",
+        "@overload\ndef run_command(command):\n    pass\n",
+        "@overload\ndef run_command(command):\n    return None\n",
+        "@overload\ndef run_command(command=arbitrary()):\n    ...\n",
+        "@overload\ndef run_command(command, *, callback=arbitrary()):\n    ...\n",
+        "@extra\n@overload\ndef run_command(command):\n    ...\n",
+        "@typing.overload\ndef run_command(command):\n    ...\n",
+    ],
+)
+def test_extra_concrete_or_executable_overloads_cannot_hide_duplicate_owners(
+    declaration: str,
+) -> None:
+    # Arrange
+    source = SUPERVISOR_SOURCE + declaration
+    report = clean_report()
+    # Act / Assert
+    with pytest.raises(ValueError, match="^bandit_policy_failed$"):
+        bandit_policy.validate_report(report, source)

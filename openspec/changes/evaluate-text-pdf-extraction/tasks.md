@@ -7,8 +7,10 @@ adds confined TXT corpus reads and literal annotations. [The third tranche](../i
 adds trusted TXT worker supervision. [The fourth tranche](../implement-pypdf-adapter/proposal.md)
 adds the internal pypdf native-page adapter, synthetic writer/fixtures and pinned
 candidate runtime. [The fifth tranche](../implement-pdf-corpus-input/proposal.md)
-adds versioned mixed selection and parser-free PDF snapshots; PDF workers and
-the parent harness remain incomplete.
+adds versioned mixed selection and parser-free PDF snapshots, reviewed and merged
+in PR #18. [The sixth tranche](../implement-supervised-pdf-worker/proposal.md)
+adds the supervised native PDF worker and early externally supplied offline
+boundary. The complete parent harness and Docling comparison remain incomplete.
 
 ## 1. Preparation and review packet
 

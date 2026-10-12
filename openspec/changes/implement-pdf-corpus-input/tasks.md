@@ -14,4 +14,4 @@
 - [x] 3.1 Run canonical security/static/tests/audits and all-source line coverage >=70%; repeat the Python suite offline.
 - [x] 3.2 Validate strict OpenSpec, file links and Git whitespace; verify unchanged LICENSE, dependency/image settings and CI triggers.
 - [x] 3.3 Prepare the exact staged tree and Conventional Commit/ready-PR inputs; run App preflight. Record live bot/signature/tree verification in the delivery PR.
-- [ ] 3.4 Obtain human review and confirm manual merge before reporting this tranche complete.
+- [x] 3.4 Obtain human review and confirm manual merge before reporting this tranche complete; PR #18 merge confirmed on 2026-10-11.

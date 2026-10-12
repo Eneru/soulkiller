@@ -54,8 +54,10 @@ source revisions and annotations before returning verified byte snapshots. The
 supervision for the trusted decoder. The [native pypdf adapter](docs/native-pdf-adapter.md)
 adds independently tested page records and synthetic fixtures. The
 [mixed PDF corpus](docs/pdf-corpus-input.md) adds parser-free verified snapshots
-and independent page facts. PDF worker integration, Docling, scoring and
-benchmark results remain subsequent short PRs.
+and independent page facts. The [supervised PDF worker](docs/pdf-worker-supervision.md)
+adds independently verified page results, resource guards and early refusal
+outside the externally supplied offline topology. Whole-run integration,
+Docling, scoring and benchmark results remain subsequent short PRs.
 
 ## Quality and documentation roadmap
 

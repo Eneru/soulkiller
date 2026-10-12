@@ -199,9 +199,12 @@ its review and merge were confirmed in PR #16. The
 and independent PDF fixture writer/tests, with the dependency in the image;
 its review and merge were confirmed in PR #17. The
 [fifth tranche](pdf-corpus-input.md) adds strict mixed manifests and independently
-annotated, hash-verified PDF snapshots without parsing.
-Next: supervised PDF protocol and runner integration with the full offline boundary;
-native Docling/scoring/reports; then the approved offline Linux comparison.
+annotated, hash-verified PDF snapshots without parsing; its review and merge
+were confirmed in PR #18. The [sixth tranche](pdf-worker-supervision.md) adds the
+fixed native PDF worker, independently checked page protocol and early guards
+under an externally supplied network-disabled container.
+Next: whole-run ordering/aggregate budgets and worker integration; native
+Docling/scoring/reports; then the approved offline Linux comparison.
 Each requires independent tests and review; no E1 result, production-stack
 choice, Windows benchmark, provider or memory implementation is implied.
 These subdivisions are documented here rather than published via the human

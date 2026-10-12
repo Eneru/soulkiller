@@ -26,13 +26,17 @@ supervises the trusted TXT baseline with explicit process guards. The
 [fourth tranche](../../docs/native-pdf-adapter.md) adds the internal pypdf adapter
 and independently expected native-page fixtures. The
 [fifth tranche](../../docs/pdf-corpus-input.md) adds versioned mixed corpus selection
-and independently declared PDF page facts without parsing. PDF worker and
-runner/report integration and comparisons remain later tranches.
+and independently declared PDF page facts without parsing. The
+[sixth tranche](../../docs/pdf-worker-supervision.md) adds the supervised native
+PDF byte worker with independent protocol checks and early offline/resource
+guards. Whole-run integration, reports and comparisons remain later tranches.
 
 Tests/static analysis are offline. Audit explicitly queries public package
 advisory services; it sends package names/versions, not source data. Findings and
 service/tool errors fail. There is no CLI ingestion command, report, model download or performance result.
-The internal PDF adapter does not provide the future run/supervision boundary.
+The internal PDF adapter remains a trusted-fixture seam. The public PDF worker
+requires an externally supplied network-disabled container; it refuses in the
+ordinary connected devcontainer before importing pypdf.
 
 For native VS Code Ruff/mypy diagnostics, source navigation and pytest Test
 Explorer, follow [Python editor setup](../../docs/python-editor.md). The full
@@ -98,16 +102,18 @@ native Windows performance or the 8/16 GiB CPU-only reference profiles.
 Base pypdf 6.20.0 is image-installed with its verified wheel hash and no extras.
 The internal native_pdf module returns immutable one-based page records, source
 revision hashes and explicit outcomes. It runs only against tiny trusted synthetic
-fixtures in this tranche. The later mixed corpus loader does not invoke it
-or expose a user-file PDF runner. See [the adapter guide](../../docs/native-pdf-adapter.md)
-for exact bounds, partial/missing pages and offline test execution.
+fixtures through its internal seam and under the supervised byte worker.
+The mixed corpus loader does not invoke it or expose a corpus evaluation runner.
+See [the adapter guide](../../docs/native-pdf-adapter.md) for native extraction
+semantics and [PDF worker supervision](../../docs/pdf-worker-supervision.md)
+for independently validated responses and offline execution.
 
 ## Small follow-ups
 
 The confined TXT corpus and trusted TXT worker foundation are implemented.
 Remaining short PRs:
 
-1. Supervised pypdf protocol and runner integration with the complete offline execution boundary.
+1. Whole-run integration with explicit corpus ordering and aggregate budgets.
 2. Native Docling candidate, scoring and bounded inspectable reports.
 3. Explicit approved offline Linux comparison; review findings before choosing a stack.
 

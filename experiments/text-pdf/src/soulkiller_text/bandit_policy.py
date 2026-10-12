@@ -14,6 +14,21 @@ REVIEWED_CALL = """subprocess.Popen(
 )"""
 
 
+def _is_overload_declaration(node: ast.FunctionDef) -> bool:
+    """Ignore only an exact declaration with no executable body or extra decorator."""
+    return (
+        len(node.decorator_list) == 1
+        and isinstance(node.decorator_list[0], ast.Name)
+        and node.decorator_list[0].id == "overload"
+        and len(node.body) == 1
+        and isinstance(node.body[0], ast.Expr)
+        and isinstance(node.body[0].value, ast.Constant)
+        and node.body[0].value.value is Ellipsis
+        and not node.args.defaults
+        and not any(default is not None for default in node.args.kw_defaults)
+    )
+
+
 def _reviewed_locations(supervisor_source: str) -> dict[str, ast.Import | ast.Call]:
     """Locate only the exact reviewed import and Popen call inside run_command."""
     try:
@@ -44,7 +59,9 @@ def _reviewed_locations(supervisor_source: str) -> dict[str, ast.Import | ast.Ca
     functions = [
         node
         for node in tree.body
-        if isinstance(node, ast.FunctionDef) and node.name == "run_command"
+        if isinstance(node, ast.FunctionDef)
+        and node.name == "run_command"
+        and not _is_overload_declaration(node)
     ]
     if len(functions) != 1 or calls[0] not in list(ast.walk(functions[0])):
         raise ValueError("bandit_policy_failed")
