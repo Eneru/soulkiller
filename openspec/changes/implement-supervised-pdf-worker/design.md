@@ -36,7 +36,10 @@ and [kernel proc network tables](https://docs.kernel.org/filesystems/proc.html#n
 The parent deadline covers launch, input transfer, guard setup, parsing and exit.
 Address space is not RSS; the approved worker and output ceilings remain intact.
 Missing enforcement uses reserved exit 3; explicit MemoryError uses exit 4;
-unexplained crashes remain candidate failures. Preserve cancellation and cleanup.
+unexplained crashes remain candidate failures. Keep those early-import fallback
+exits as named constants in the standalone PDF entry: obtaining them from the
+package or guard helper would make failure handling depend on the import that
+failed. Preserve cancellation and cleanup.
 
 ### Reuse process lifecycle
 Keep the single subprocess import and exact Popen call/options in

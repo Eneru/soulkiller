@@ -47,6 +47,7 @@ def process_is_stopped(pid: int) -> bool:
     path = Path(f"/proc/{pid}/stat")
     try:
         state = path.read_text(encoding="ascii").split(") ", 1)[1].split()[0]
-    except FileNotFoundError:
+    except (FileNotFoundError, ProcessLookupError):
+        # Init may reap the child before opening or while reading its proc entry.
         return True
     return state == "Z"

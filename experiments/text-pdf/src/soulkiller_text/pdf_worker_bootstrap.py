@@ -4,6 +4,10 @@ import os
 import sys
 from typing import TYPE_CHECKING
 
+# Fallback exits must remain available when standalone guard imports fail.
+FALLBACK_UNSUPPORTED_EXIT = 3
+FALLBACK_MEMORY_FAILURE_EXIT = 4
+
 
 def _configure_guards(address_space: int) -> bool:
     """Reuse the reviewed memory guard and verify the externally offline topology."""
@@ -48,8 +52,7 @@ def _run_guarded(arguments: list[str]) -> int:
         if not _configure_guards(address_space):
             return worker_bootstrap.UNSUPPORTED_EXIT
     except ImportError:
-        # The guard definition itself may be unavailable, including its exit constant.
-        return 3
+        return FALLBACK_UNSUPPORTED_EXIT
     # The package and candidate may load only after memory/network enforcement.
     sys.path.insert(0, os.path.dirname(source_directory))
     from soulkiller_text.pdf_worker_candidate import run_candidate
@@ -63,8 +66,7 @@ def main(arguments: list[str] | None = None) -> int:
     try:
         return _run_guarded(arguments)
     except MemoryError:
-        # Preserve the existing reserved allocation exit even during early imports.
-        return 4
+        return FALLBACK_MEMORY_FAILURE_EXIT
 
 
 if __name__ == "__main__":

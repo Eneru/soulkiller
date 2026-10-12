@@ -124,7 +124,13 @@ def test_explicit_process_arguments_are_used(monkeypatch: pytest.MonkeyPatch) ->
     assert code == 0
 
 
-def test_script_entry_fails_closed_without_memory_module(monkeypatch: pytest.MonkeyPatch) -> None:
+@pytest.mark.parametrize(
+    "helper_name", ["pdf_constants", "worker_bootstrap", "worker_network_guard"]
+)
+def test_script_entry_fails_closed_without_guard_helper(
+    helper_name: str,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # Arrange
     monkeypatch.setattr(sys, "path", list(sys.path))
     monkeypatch.setattr(sys, "argv", ["pdf_worker_bootstrap.py", str(LIMIT), "20"])
@@ -137,7 +143,7 @@ def test_script_entry_fails_closed_without_memory_module(monkeypatch: pytest.Mon
         fromlist: tuple[str, ...] = (),
         level: int = 0,
     ) -> object:
-        if name == "worker_bootstrap":
+        if name == helper_name:
             raise ImportError("private synthetic missing guard")
         return original_import(name, globals, locals, fromlist, level)
 
@@ -147,3 +153,40 @@ def test_script_entry_fails_closed_without_memory_module(monkeypatch: pytest.Mon
         runpy.run_path(pdf_worker_bootstrap.__file__, run_name="__main__")
     # Assert
     assert failure.value.code == 3
+
+
+@pytest.mark.parametrize(
+    "helper_name", ["pdf_constants", "worker_bootstrap", "worker_network_guard"]
+)
+def test_script_entry_contains_allocation_failure_during_guard_helper_import(
+    helper_name: str,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    # Arrange
+    monkeypatch.setattr(sys, "path", list(sys.path))
+    monkeypatch.setattr(sys, "argv", ["pdf_worker_bootstrap.py", str(LIMIT), "20"])
+    original_import = builtins.__import__
+
+    def allocation_failure(
+        name: str,
+        globals: dict[str, object] | None = None,
+        locals: dict[str, object] | None = None,
+        fromlist: tuple[str, ...] = (),
+        level: int = 0,
+    ) -> object:
+        if name == helper_name:
+            raise MemoryError("private synthetic helper allocation diagnostic")
+        if "pdf_worker_candidate" in name or name == "pypdf":
+            raise AssertionError("An early allocation failure must prevent parser imports.")
+        return original_import(name, globals, locals, fromlist, level)
+
+    monkeypatch.setattr(builtins, "__import__", allocation_failure)
+    # Act
+    with pytest.raises(SystemExit) as failure:
+        runpy.run_path(pdf_worker_bootstrap.__file__, run_name="__main__")
+    captured = capsys.readouterr()
+    # Assert
+    assert failure.value.code == 4
+    assert captured.out == ""
+    assert captured.err == ""

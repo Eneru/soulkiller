@@ -8,6 +8,8 @@ No version has been released yet.
 
 ### Changed
 
+- Name standalone PDF bootstrap fallback exit codes while preserving guard-import
+  and early allocation failure handling before parser imports.
 - Refactor TXT workers with named string-enum outcomes, explicit bootstrap exit
   constants and cohesive transfer/completion helpers, preserving protocol values
   and supervision behavior. Prefer functions of at most 50 lines with explained

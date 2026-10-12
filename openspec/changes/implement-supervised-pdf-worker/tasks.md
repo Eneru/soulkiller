@@ -17,3 +17,7 @@
 - [x] 3.3 Validate strict OpenSpec, file links and whitespace; verify unchanged LICENSE, runtime/dependency settings and CI triggers.
 - [x] 3.4 Prepare exact staged tree/Conventional Commit/ready PR and run App preflight; record live bot/signature/tree verification in the PR.
 - [ ] 3.5 Obtain human review and confirm manual merge.
+
+## 4. Maintainer review correction
+- [x] 4.1 Name standalone bootstrap fallback exits and verify early guard-helper import failures without changing the exit contract.
+- [x] 4.2 Handle a child disappearing during test-only process observation and rerun connected/offline verification.
