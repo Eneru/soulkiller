@@ -126,6 +126,12 @@ The existing image interpreter, Python editor settings and quality entrypoints
 cover these source-only additions. Record actual line coverage and both lane
 results in the PR; neither proves native Windows performance or manual editor UI.
 
+The [bounded corpus run](bounded-corpus-run.md) uses the same two lanes. Offline
+regressions assert actual mixed TXT/PDF extraction and aggregate guards; connected
+regressions assert early refusal, including TXT-only runs. The existing eligible
+quality job reuses the built image for a bounded offline Python invocation after
+its canonical connected gates.
+
 ## Limitations
 
 This procedure does not test an application yet. Editor UI startup and each

@@ -29,7 +29,9 @@ and independently expected native-page fixtures. The
 and independently declared PDF page facts without parsing. The
 [sixth tranche](../../docs/pdf-worker-supervision.md) adds the supervised native
 PDF byte worker with independent protocol checks and early offline/resource
-guards. Whole-run integration, reports and comparisons remain later tranches.
+guards. The [seventh tranche](../../docs/bounded-corpus-run.md) connects verified
+snapshots and workers with observed aggregate guards and in-memory interrupted
+records. Durable reports and comparisons remain later tranches.
 
 Tests/static analysis are offline. Audit explicitly queries public package
 advisory services; it sends package names/versions, not source data. Findings and
@@ -103,7 +105,8 @@ Base pypdf 6.20.0 is image-installed with its verified wheel hash and no extras.
 The internal native_pdf module returns immutable one-based page records, source
 revision hashes and explicit outcomes. It runs only against tiny trusted synthetic
 fixtures through its internal seam and under the supervised byte worker.
-The mixed corpus loader does not invoke it or expose a corpus evaluation runner.
+The mixed corpus loader does not invoke it; the separate bounded run dispatches
+only the fixed supervised workers.
 See [the adapter guide](../../docs/native-pdf-adapter.md) for native extraction
 semantics and [PDF worker supervision](../../docs/pdf-worker-supervision.md)
 for independently validated responses and offline execution.
@@ -113,8 +116,8 @@ for independently validated responses and offline execution.
 The confined TXT corpus and trusted TXT worker foundation are implemented.
 Remaining short PRs:
 
-1. Whole-run integration with explicit corpus ordering and aggregate budgets.
-2. Native Docling candidate, scoring and bounded inspectable reports.
+1. Confined persisted reports and interruption records, then independent scoring.
+2. Native Docling candidate under the same reviewed run guards.
 3. Explicit approved offline Linux comparison; review findings before choosing a stack.
 
 Each tranche gets a tested ready PR and human review before continuing. Native

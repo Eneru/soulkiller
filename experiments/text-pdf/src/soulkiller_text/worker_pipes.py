@@ -2,6 +2,7 @@
 
 import os
 import selectors
+from collections.abc import Callable
 from time import monotonic
 from typing import IO
 
@@ -68,6 +69,8 @@ def capture_pipes(
     source: bytes,
     deadline: float,
     output_limit: int,
+    *,
+    output_observer: Callable[[int], None] | None = None,
 ) -> tuple[WorkerOutcome | None, bytes]:
     """Use one deadline and a combined cap; discard stderr instead of exposing it."""
     response = bytearray()
@@ -88,6 +91,8 @@ def capture_pipes(
                 chunk = _read_output(selector, stream, output_limit - output_size)
                 if not chunk:
                     continue
+                if output_observer is not None:
+                    output_observer(len(chunk))
                 output_size += len(chunk)
                 if output_size > output_limit:
                     return WorkerOutcome.OUTPUT_LIMIT, b""

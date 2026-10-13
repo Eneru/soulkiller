@@ -22,6 +22,10 @@ No version has been released yet.
 
 ### Added
 
+- Ordered in-memory synthetic corpus runs with validated aggregate wall/output
+  budgets, exact combined pipe-byte observations, early offline refusal and
+  inspectable completed/unfinished records on cancellation or cleanup failure.
+  Reuse the existing CI image for bounded offline Python regressions.
 - Supervised native PDF byte extraction with immutable page results, strict
   independent version-2 protocol checks, shared deadline/output/cleanup handling
   and fail-closed early memory/offline topology guards. Actual PDF worker tests
