@@ -140,6 +140,13 @@ each class in its own file, separate shared constants and pure helpers from
 publication orchestration, and use explicit imports and composition. Prefer
 named operations over compact expressions that hide validation or cleanup.
 
+Document every new or changed function, including private helpers, with a useful
+docstring or the language-native equivalent. Explain the purpose, constraints and
+relevant failure behavior. For low-level or OS-specific operations, explain the
+concept, platform assumptions and resource ownership/cleanup. Avoid comments that
+only repeat the function name. This rule applies going forward, without requiring
+a repository-wide documentation rewrite.
+
 Prefer functions of **at most 50 lines**. Extract cohesive steps into named
 helpers when this makes the flow easier to follow. Longer functions are acceptable
 when splitting would obscure a readable operation, such as a dispatch or

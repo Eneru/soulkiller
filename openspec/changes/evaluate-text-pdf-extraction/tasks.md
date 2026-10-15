@@ -14,8 +14,10 @@ boundary, reviewed and merged in PR #19.
 [The seventh tranche](../implement-bounded-corpus-run/proposal.md) adds ordered
 in-memory runs with observed aggregate guards and interrupted records.
 [The eighth tranche](../implement-confined-run-storage/proposal.md) adds a
-confined opaque record store. Typed report serialization, automatic runner
-checkpoints, the complete parent harness and Docling comparison remain incomplete.
+confined opaque record store, reviewed and merged in PR #21.
+[The ninth tranche](../implement-versioned-fixture-records/proposal.md) adds strict
+versioned fixture rows. Whole-run context, automatic runner checkpoints,
+the complete parent harness and Docling comparison remain incomplete.
 
 ## 1. Preparation and review packet
 

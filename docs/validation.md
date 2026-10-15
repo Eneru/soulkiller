@@ -149,6 +149,14 @@ dpkg-query -W curl libcurl4t64
 Both packages must report `8.5.0-2ubuntu10.16`. Python, pypdf, editor extensions
 and workflow configuration remain unchanged.
 
+## Versioned fixture-record checks
+
+The [fixture codec](versioned-fixture-records.md) uses the existing Python gates.
+Independent known-wire and forged-input cases complement round trips; exact
+encoded limits include the store frame. Real-store/offline worker cases exercise
+the bridge without claiming automatic checkpoints. Review documentation for every
+new/changed function, including private helpers and OS assumptions.
+
 ## Limitations
 
 This procedure does not test an application yet. Editor UI startup and each

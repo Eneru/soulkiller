@@ -8,6 +8,9 @@ No version has been released yet.
 
 ### Changed
 
+- Require useful documentation for new/changed functions, including private
+  helpers and relevant OS concepts, resource ownership and cleanup assumptions.
+
 - Align pinned curl/libcurl development packages with Ubuntu revision .16 to
   restore fresh devcontainer builds after APT dependency drift.
 - Name standalone PDF bootstrap fallback exit codes while preserving guard-import
@@ -23,6 +26,9 @@ No version has been released yet.
   pytest discovery; require future component additions to evolve the devcontainer.
 
 ### Added
+
+- Strict version-1 fixture result records for explicit confined storage, retaining
+  TXT/PDF evidence, supervisor outcomes and unavailable observations.
 
 - Confined create-only run directories and bounded opaque framed records with
   exclusive publication, integrity-checked inspection and preserved interrupted
