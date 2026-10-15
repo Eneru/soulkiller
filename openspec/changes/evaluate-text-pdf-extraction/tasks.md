@@ -13,7 +13,9 @@ adds the supervised native PDF worker and early externally supplied offline
 boundary, reviewed and merged in PR #19.
 [The seventh tranche](../implement-bounded-corpus-run/proposal.md) adds ordered
 in-memory runs with observed aggregate guards and interrupted records.
-The complete parent harness, durable reports and Docling comparison remain incomplete.
+[The eighth tranche](../implement-confined-run-storage/proposal.md) adds a
+confined opaque record store. Typed report serialization, automatic runner
+checkpoints, the complete parent harness and Docling comparison remain incomplete.
 
 ## 1. Preparation and review packet
 

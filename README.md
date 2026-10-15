@@ -59,8 +59,10 @@ adds independently verified page results, resource guards and early refusal
 outside the externally supplied offline topology. The
 [bounded corpus run](docs/bounded-corpus-run.md) connects snapshots and workers
 in manifest order with observed aggregate output/time guards and explicit
-unfinished records. Persisted reports, Docling, scoring and benchmark results
-remain subsequent short PRs.
+unfinished records. The [confined run store](docs/confined-run-storage.md)
+provides create-only bounded opaque records for the next persistence step.
+Typed reports, automatic runner persistence, Docling, scoring and benchmark
+results remain subsequent short PRs.
 
 ## Quality and documentation roadmap
 

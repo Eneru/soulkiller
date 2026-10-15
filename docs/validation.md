@@ -132,6 +132,15 @@ regressions assert early refusal, including TXT-only runs. The existing eligible
 quality job reuses the built image for a bounded offline Python invocation after
 its canonical connected gates.
 
+## Confined run-storage checks
+
+The [run-store guide](confined-run-storage.md) covers create-only namespace and
+framed byte inspection. Tests exercise exact bounds, source separation, links,
+write/publication/sync failures, interruptions and reopened reads in temporary
+container folders; they do not inspect local credentials or claim automatic
+runner persistence. The existing connected/offline gates, runtime and native
+editor integration cover these modules without image or workflow changes.
+
 ## Limitations
 
 This procedure does not test an application yet. Editor UI startup and each

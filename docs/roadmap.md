@@ -205,9 +205,11 @@ fixed native PDF worker, independently checked page protocol and early guards
 under an externally supplied network-disabled container; its review/merge was
 confirmed in PR #19. The [seventh tranche](bounded-corpus-run.md) adds one
 ordered in-memory corpus pass, observed aggregate budgets and explicit
-interruption records.
-Next: confined durable reports/independent scoring, native Docling, then the
-approved offline Linux comparison.
+interruption records; its review/merge was confirmed in PR #20. The
+[eighth tranche](confined-run-storage.md) adds the confined opaque record store,
+without typed report serialization or automatic runner checkpoints.
+Next: typed reports/checkpoints and independent scoring, native Docling, then
+the approved offline Linux comparison.
 Each requires independent tests and review; no E1 result, production-stack
 choice, Windows benchmark, provider or memory implementation is implied.
 These subdivisions are documented here rather than published via the human
