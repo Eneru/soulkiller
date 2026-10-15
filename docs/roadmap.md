@@ -215,3 +215,7 @@ choice, Windows benchmark, provider or memory implementation is implied.
 These subdivisions are documented here rather than published via the human
 connector: the App publication tool has no Issues/subissue or native Development
 branch-link operation. R1-R5/F1-F6 proposals remain subject to their review rule.
+
+The extraction implementation includes a
+[versioned fixture codec](versioned-fixture-records.md). Whole-run context and
+automatic checkpoints remain next; comparison and automatic persistence are pending.
