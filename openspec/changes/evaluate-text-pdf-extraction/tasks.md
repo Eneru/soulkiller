@@ -10,7 +10,10 @@ candidate runtime. [The fifth tranche](../implement-pdf-corpus-input/proposal.md
 adds versioned mixed selection and parser-free PDF snapshots, reviewed and merged
 in PR #18. [The sixth tranche](../implement-supervised-pdf-worker/proposal.md)
 adds the supervised native PDF worker and early externally supplied offline
-boundary. The complete parent harness and Docling comparison remain incomplete.
+boundary, reviewed and merged in PR #19.
+[The seventh tranche](../implement-bounded-corpus-run/proposal.md) adds ordered
+in-memory runs with observed aggregate guards and interrupted records.
+The complete parent harness, durable reports and Docling comparison remain incomplete.
 
 ## 1. Preparation and review packet
 

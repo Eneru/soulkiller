@@ -45,3 +45,9 @@ jobs:
           --mount "type=bind,source=${GITHUB_WORKSPACE},target=/workspaces/soulkiller,readonly"
           --env SOULKILLER_CHECK_BASE
           soulkiller-quality bash tools/checks/check.sh all
+      - name: Run bounded offline extraction regressions
+        if: steps.eligibility.outputs.eligible == 'true'
+        run: >-
+          docker run --rm --init --network none --memory 3g --cpus 2
+          --mount "type=bind,source=${GITHUB_WORKSPACE},target=/workspaces/soulkiller,readonly"
+          soulkiller-quality bash tools/checks/python.sh tests

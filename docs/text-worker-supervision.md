@@ -115,8 +115,9 @@ creating another session can escape group termination: these guards around
 trusted code are **not a hostile-parser sandbox**.
 
 The worker makes no network calls or model downloads, but the API does not
-disable networking. The complete evaluation's offline topology, run-level limits
-and persisted interruption records remain future work.
+disable networking. The separate [bounded corpus runner](bounded-corpus-run.md)
+checks the inherited offline topology before its first TXT/PDF worker and applies
+observed aggregate guards. Persisted interruption records remain future work.
 
 ## Maintaining the worker modules
 

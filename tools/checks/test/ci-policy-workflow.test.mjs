@@ -12,18 +12,21 @@ const accepted = [
   ['prerelease/build tag', { ...tag, ref: 'refs/tags/v1.2.3-rc.1+build.007' }],
 ];
 for (const [name, context] of accepted) {
-  test('parsed workflow executes build and canonical checks for ' + name, (t) => {
+  test('parsed workflow executes build and connected/offline checks for ' + name, (t) => {
     // Arrange
     const fixture = new CiWorkflowFixture(t);
     // Act
     const result = fixture.run(context);
     // Assert
     assert.equal(result.eligible, 'true');
-    assert.equal(result.calls.length, 2);
+    assert.equal(result.calls.length, 3);
     assert.equal(result.calls.at(0), 'build --tag soulkiller-quality .devcontainer');
     assert.match(result.calls.at(1), /^run --rm --init --mount /);
     assert.match(result.calls.at(1), /target=\/workspaces\/soulkiller,readonly/);
     assert.match(result.calls.at(1), /soulkiller-quality bash tools\/checks\/check.sh all$/);
+    assert.match(result.calls.at(2), /^run --rm --init --network none --memory 3g --cpus 2 --mount /);
+    assert.match(result.calls.at(2), /target=\/workspaces\/soulkiller,readonly/);
+    assert.match(result.calls.at(2), /soulkiller-quality bash tools\/checks\/python.sh tests$/);
   });
 }
 const rejected = [

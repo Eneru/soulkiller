@@ -81,6 +81,7 @@ tree; see [editor setup](python-editor.md) and
 [CLI/hooks/eligible CI checks](quality-checks.md#experimental-python-checks).
 CLI results do not claim manual editor UI or native Windows execution.
 
-Next: integrate these snapshots and supervised TXT/PDF workers into a bounded
-whole-run evaluation, then Docling/scoring/reports. No benchmark, production
+The separate [bounded corpus run](bounded-corpus-run.md) now connects these
+snapshots and supervised TXT/PDF workers in manifest order. Next: confined
+durable reports, independent scoring and Docling. No benchmark, production
 stack choice, provider, model or personal-data run is delivered here.

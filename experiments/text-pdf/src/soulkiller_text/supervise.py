@@ -3,6 +3,7 @@
 import os
 import signal
 import subprocess
+from collections.abc import Callable
 from hashlib import sha256
 from time import monotonic, sleep
 from typing import overload
@@ -84,13 +85,25 @@ def _capture_result[T](
     deadline: float,
     source_sha256: str,
     completion_classifier: CompletionClassifier[T],
+    output_observer: Callable[[int], None] | None,
 ) -> T:
     """Transfer the snapshot, then delegate only completion interpretation."""
     if process.stdin is None or process.stdout is None or process.stderr is None:
         return completion_classifier(-1, WorkerOutcome.CANDIDATE_FAILURE, b"", source_sha256)
-    failure, response = capture_pipes(
-        process.stdin, process.stdout, process.stderr, source, deadline, limits.output_bytes
-    )
+    if output_observer is None:
+        failure, response = capture_pipes(
+            process.stdin, process.stdout, process.stderr, source, deadline, limits.output_bytes
+        )
+    else:
+        failure, response = capture_pipes(
+            process.stdin,
+            process.stdout,
+            process.stderr,
+            source,
+            deadline,
+            limits.output_bytes,
+            output_observer=output_observer,
+        )
     return _complete_result(
         process.pid, failure, response, deadline, source_sha256, completion_classifier
     )
@@ -98,6 +111,16 @@ def _capture_result[T](
 
 @overload
 def run_command(command: tuple[str, ...], source: bytes, limits: WorkerLimits) -> WorkerResult: ...
+
+
+@overload
+def run_command(
+    command: tuple[str, ...],
+    source: bytes,
+    limits: WorkerLimits,
+    *,
+    output_observer: Callable[[int], None] | None,
+) -> WorkerResult: ...
 
 
 @overload
@@ -109,11 +132,24 @@ def run_command[T](
 ) -> T: ...
 
 
+@overload
+def run_command[T](
+    command: tuple[str, ...],
+    source: bytes,
+    limits: WorkerLimits,
+    completion_classifier: CompletionClassifier[T],
+    *,
+    output_observer: Callable[[int], None] | None,
+) -> T: ...
+
+
 def run_command[T](
     command: tuple[str, ...],
     source: bytes,
     limits: WorkerLimits,
     completion_classifier: CompletionClassifier[T | WorkerResult] = (classify_completion),
+    *,
+    output_observer: Callable[[int], None] | None = None,
 ) -> T | WorkerResult:
     """Own the reviewed process lifecycle and delegate format-specific completion."""
     validate_source(source)
@@ -138,7 +174,7 @@ def run_command[T](
         return completion_classifier(-1, WorkerOutcome.CANDIDATE_FAILURE, b"", source_hash)
     try:
         return _capture_result(
-            process, source, limits, deadline, source_hash, completion_classifier
+            process, source, limits, deadline, source_hash, completion_classifier, output_observer
         )
     except OSError:
         return completion_classifier(-1, WorkerOutcome.CANDIDATE_FAILURE, b"", source_hash)
