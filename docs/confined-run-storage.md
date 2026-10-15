@@ -103,8 +103,9 @@ The existing bounded offline Python invocation also exercises these synthetic
 filesystem tests with container-internal temporary folders. All maintained
 storage source participates in the >=70% executable-line coverage gate, Ruff,
 strict mypy and full Bandit. Gitleaks/Hadolint and advisory audits remain active.
-The existing runtime, native editor integration and eligible CI cover this
-source-only addition; no image, dependency, extension or workflow change is needed.
+The storage modules use the existing Python runtime, native editor integration
+and eligible CI. A curl package-pin repair requires rebuilding the devcontainer;
+Python, pypdf, editor extensions and workflow configuration remain unchanged.
 
 Next: versioned typed result records and automatic runner checkpoints before a
 CLI, scoring, Docling and the reviewed comparison. This foundation does not yet

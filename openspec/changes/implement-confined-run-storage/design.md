@@ -98,6 +98,16 @@ Exercise frame/fsync/link failures without personal data or paid/network calls.
 Retain all worker/corpus regressions in connected and fresh bounded offline lanes.
 All maintained source enters existing >=70% executable-line coverage, Ruff,
 strict mypy, full Bandit, Gitleaks/Hadolint and dependency checks.
-No dependency, image/editor setting or workflow trigger changes.
+The storage API needs no new dependency, editor setting or workflow trigger.
+The separate curl package-pin repair below requires rebuilding the image.
 Document limits and incomplete runner/report integration, update CHANGELOG and
 parent progress, publish one verified App-bot ready PR, await human review/manual merge.
+
+## Hosted rebuild correction
+After initial publication, hosted run 38781103668 failed before tests: Ubuntu APT
+selected libcurl4t64 8.5.0-2ubuntu10.16 while curl and libcurl4-openssl-dev still
+required 8.5.0-2ubuntu10.15. Align the three direct curl-family pins to .16 in
+builder/runtime stages, confirm repository availability and rebuild/test the
+image. Preserve all Python/Node/candidate/editor pins and workflow triggers.
+This repairs fresh image construction; the existing cached image had passed
+all foundation and storage checks. Do not report the failed hosted run as passed.

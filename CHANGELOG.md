@@ -8,6 +8,8 @@ No version has been released yet.
 
 ### Changed
 
+- Align pinned curl/libcurl development packages with Ubuntu revision .16 to
+  restore fresh devcontainer builds after APT dependency drift.
 - Name standalone PDF bootstrap fallback exit codes while preserving guard-import
   and early allocation failure handling before parser imports.
 - Refactor TXT workers with named string-enum outcomes, explicit bootstrap exit

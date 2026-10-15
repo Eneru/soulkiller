@@ -13,9 +13,13 @@
 ## 3. Verification and delivery
 - [x] 3.1 Run canonical quality/security/audit/tests and all-source line coverage >=70%.
 - [x] 3.2 Run the complete Python suite in a fresh bounded offline container.
-- [x] 3.3 Validate strict OpenSpec, links, whitespace and unchanged LICENSE/runtime/editor/CI.
+- [x] 3.3 Validate strict OpenSpec, links, whitespace and unchanged LICENSE/Python runtime/editor/CI.
 - [x] 3.4 Prepare exact staged Conventional Commit/ready-PR inputs and run offline App preflight.
 - [ ] 3.5 Obtain human review and confirm manual merge.
 
 After preflight, publish through the App and record live bot identity/signature/tree
 verification in the PR; maintainer review and manual merge remain required.
+
+## 4. Hosted build correction
+- [x] 4.1 Confirm current APT artifacts and align curl-family patch pins after the hosted build failure.
+- [x] 4.2 Rebuild/start the corrected image; rerun canonical/offline checks and document actual results.

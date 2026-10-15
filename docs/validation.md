@@ -138,8 +138,16 @@ The [run-store guide](confined-run-storage.md) covers create-only namespace and
 framed byte inspection. Tests exercise exact bounds, source separation, links,
 write/publication/sync failures, interruptions and reopened reads in temporary
 container folders; they do not inspect local credentials or claim automatic
-runner persistence. The existing connected/offline gates, runtime and native
-editor integration cover these modules without image or workflow changes.
+runner persistence. The existing connected/offline gates, Python runtime and
+native editor integration cover these modules. Rebuild the devcontainer for the
+curl package-pin repair and verify the matching installed revisions:
+
+```sh
+dpkg-query -W curl libcurl4t64
+```
+
+Both packages must report `8.5.0-2ubuntu10.16`. Python, pypdf, editor extensions
+and workflow configuration remain unchanged.
 
 ## Limitations
 
