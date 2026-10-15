@@ -88,8 +88,10 @@ Interruption before corpus acceptance has no accepted snapshot list to report.
 
 These records live in memory. Catching an exception lets the caller inspect
 them; process exit/crash does not create durable evidence. Confined output
-directories, persisted interruption records, scoring, Docling, three-run
-comparison measurements and a CLI remain subsequent reviewed work.
+directories and bounded opaque records are now available through the separate
+[run-store foundation](confined-run-storage.md). Typed report records, automatic
+interruption checkpoints, scoring, Docling, three-run comparison measurements
+and a CLI remain subsequent reviewed work.
 
 ## Verification and integrations
 

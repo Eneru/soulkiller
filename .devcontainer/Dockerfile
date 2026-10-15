@@ -8,8 +8,8 @@ RUN apt-get update \
         build-essential=12.10ubuntu1 \
         ca-certificates=20260601~24.04.1 \
         cmake=3.28.3-1build7 \
-        curl=8.5.0-2ubuntu10.15 \
-        libcurl4-openssl-dev=8.5.0-2ubuntu10.15 \
+        curl=8.5.0-2ubuntu10.16 \
+        libcurl4-openssl-dev=8.5.0-2ubuntu10.16 \
         libdw-dev=0.190-1.1ubuntu0.1 \
         libssl-dev=3.0.13-0ubuntu3.16 \
         python3-minimal=3.12.3-0ubuntu2.1 \
@@ -56,7 +56,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         ca-certificates=20260601~24.04.1 \
-        curl=8.5.0-2ubuntu10.15 \
+        curl=8.5.0-2ubuntu10.16 \
         git=1:2.43.0-1ubuntu7.3 \
         libdw1t64=0.190-1.1ubuntu0.1 \
         libbz2-1.0=1.0.8-5.1ubuntu0.1 \

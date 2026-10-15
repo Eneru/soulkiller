@@ -15,6 +15,8 @@ from .pdf_worker_result import PdfWorkerResult
 from .run_corpus import run_corpus
 from .run_limits import RunLimits
 from .run_status import RunStatus
+from .run_store import RunStore, create_run_store, open_run_store
+from .run_store_error import RunStoreError
 from .run_text_worker import run_text_worker
 from .text_evidence import TextEvidence
 from .worker_cleanup_error import WorkerCleanupError
@@ -38,6 +40,10 @@ __all__ = [
     "run_corpus",
     "RunLimits",
     "RunStatus",
+    "RunStore",
+    "RunStoreError",
+    "create_run_store",
+    "open_run_store",
     "run_pdf_worker",
     "run_text_worker",
     "WorkerCleanupError",

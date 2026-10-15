@@ -8,6 +8,8 @@ No version has been released yet.
 
 ### Changed
 
+- Align pinned curl/libcurl development packages with Ubuntu revision .16 to
+  restore fresh devcontainer builds after APT dependency drift.
 - Name standalone PDF bootstrap fallback exit codes while preserving guard-import
   and early allocation failure handling before parser imports.
 - Refactor TXT workers with named string-enum outcomes, explicit bootstrap exit
@@ -22,6 +24,9 @@ No version has been released yet.
 
 ### Added
 
+- Confined create-only run directories and bounded opaque framed records with
+  exclusive publication, integrity-checked inspection and preserved interrupted
+  scratch state; typed report serialization/runner checkpoints remain pending.
 - Ordered in-memory synthetic corpus runs with validated aggregate wall/output
   budgets, exact combined pipe-byte observations, early offline refusal and
   inspectable completed/unfinished records on cancellation or cleanup failure.
