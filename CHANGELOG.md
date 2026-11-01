@@ -8,6 +8,9 @@ No version has been released yet.
 
 ### Changed
 
+- Refresh removed Ubuntu CA/Git/xz/zlib-family package pins so clean devcontainer
+  builds use currently available matching revisions.
+
 - Refresh hash-pinned pypdf, certifi and filelock after the canonical audit
   identified advisories; rebuild the devcontainer for the corrected versions.
 

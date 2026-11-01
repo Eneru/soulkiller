@@ -59,3 +59,13 @@ https://github.com/advisories/GHSA-g3hv-75wg-m249
 
 Declare the two PDF example artifacts binary in Git attributes: their fixed-width
 xref entries contain required padding, not source-code trailing whitespace.
+
+## Hosted clean-build repair
+Hosted run 41337284256 failed before tests: removed APT pins were hidden by local
+cached layers. Current repository metadata requires ca-certificates
+20260816ubuntu0.24.04.1, git 1:2.43.0-1ubuntu7.4 and xz/liblzma revision 0.4.
+Update the matching family pins, check all pinned package availability and build
+with --no-cache before claiming a fresh installation. No CI trigger is changed.
+
+The complete availability check also found removed zlib runtime/dev revision 2.2;
+align both pins to the available 2.3 revision before rebuilding.
