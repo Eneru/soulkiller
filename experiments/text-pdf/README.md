@@ -32,8 +32,9 @@ PDF byte worker with independent protocol checks and early offline/resource
 guards. The [seventh tranche](../../docs/bounded-corpus-run.md) connects verified
 snapshots and workers with observed aggregate guards and in-memory interrupted
 records. The [eighth tranche](../../docs/confined-run-storage.md) adds the
-confined create-only opaque record store; typed records and automatic runner
-persistence remain subsequent work.
+confined create-only opaque record store. The
+[ninth tranche](../../docs/versioned-fixture-records.md) adds typed per-row JSON;
+whole-run context and automatic runner persistence remain subsequent work.
 
 Tests/static analysis are offline. Audit explicitly queries public package
 advisory services; it sends package names/versions, not source data. Findings and
@@ -118,10 +119,14 @@ for independently validated responses and offline execution.
 The confined TXT corpus and trusted TXT worker foundation are implemented.
 Remaining short PRs:
 
-1. Typed report records and automatic interruption checkpoints using the confined store, then independent scoring.
+1. Whole-run report context and automatic interruption checkpoints using the confined store/fixture codec, then independent scoring.
 2. Native Docling candidate under the same reviewed run guards.
 3. Explicit approved offline Linux comparison; review findings before choosing a stack.
 
 Each tranche gets a tested ready PR and human review before continuing. Native
 Windows remains a separate reviewed lane. Detailed parent tasks remain unchecked
 until complete, rather than treating this foundation as a finished experiment.
+
+The [versioned fixture codec](../../docs/versioned-fixture-records.md) adds strict
+per-row JSON for explicit opaque storage. It preserves unavailable observations
+and evidence without source I/O. Whole-run reports/automatic persistence remain pending.

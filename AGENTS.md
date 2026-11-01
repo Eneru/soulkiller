@@ -36,6 +36,10 @@
 - Keep tooling modules cohesive: one class per file, explicit collaborators and
   separate shared helpers/constants. Follow CONTRIBUTING.md for independent
   Arrange/Act/Assert tests and reusable synthetic fixtures.
+- Document every new or changed function, including private helpers, with a
+  meaningful docstring or language-native equivalent. Explain its role, constraints
+  and failure behavior; for low-level/OS-specific code, explain the underlying
+  concept, platform assumptions, resource ownership and cleanup where relevant.
 - Prefer functions of at most 50 lines and extract cohesive phases into named
   helpers. Explain exceptions when splitting would harm readability, such as a
   clear dispatch. Private helpers extracted for readability need no direct tests

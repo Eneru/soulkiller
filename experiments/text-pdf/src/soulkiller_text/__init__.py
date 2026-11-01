@@ -7,6 +7,8 @@ from .corpus_run_result import CorpusRunResult
 from .evidence_slice import evidence_slice
 from .extract_utf8 import extract_utf8
 from .extraction_result import ExtractionResult
+from .fixture_record import decode_fixture_record, encode_fixture_record
+from .fixture_record_error import FixtureRecordError
 from .fixture_run import FixtureRun
 from .load_corpus import load_corpus
 from .pdf_worker import run_pdf_worker
@@ -30,10 +32,13 @@ __all__ = [
     "CorpusRunCleanupError",
     "CorpusRunResult",
     "ExtractionResult",
+    "FixtureRecordError",
     "FixtureRun",
     "PdfWorkerOutcome",
     "PdfWorkerResult",
     "TextEvidence",
+    "decode_fixture_record",
+    "encode_fixture_record",
     "evidence_slice",
     "extract_utf8",
     "load_corpus",

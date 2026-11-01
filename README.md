@@ -61,7 +61,9 @@ outside the externally supplied offline topology. The
 in manifest order with observed aggregate output/time guards and explicit
 unfinished records. The [confined run store](docs/confined-run-storage.md)
 provides create-only bounded opaque records for the next persistence step.
-Typed reports, automatic runner persistence, Docling, scoring and benchmark
+The [versioned fixture codec](docs/versioned-fixture-records.md) binds one typed
+TXT/PDF row to accepted fixture metadata for explicit storage/re-reading.
+Whole-run context, automatic runner persistence, Docling, scoring and benchmark
 results remain subsequent short PRs.
 
 ## Quality and documentation roadmap

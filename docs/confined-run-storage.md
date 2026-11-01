@@ -3,7 +3,8 @@
 The [eighth extraction tranche](../openspec/changes/implement-confined-run-storage/proposal.md)
 adds the filesystem boundary required before saving comparison reports. It
 stores **opaque bytes**, independently of the [in-memory runner](bounded-corpus-run.md).
-There is no automatic runner persistence, report schema or CLI yet.
+The separate [versioned fixture codec](versioned-fixture-records.md) provides
+typed row bytes. Automatic runner persistence, whole-run reports and CLI remain pending.
 
 ## Create, write and reopen
 
@@ -107,6 +108,7 @@ The storage modules use the existing Python runtime, native editor integration
 and eligible CI. A curl package-pin repair requires rebuilding the devcontainer;
 Python, pypdf, editor extensions and workflow configuration remain unchanged.
 
-Next: versioned typed result records and automatic runner checkpoints before a
-CLI, scoring, Docling and the reviewed comparison. This foundation does not yet
-save a `CorpusRunResult` automatically or make interrupted runs durable.
+The [versioned fixture codec](versioned-fixture-records.md) bridges typed rows
+and opaque storage. Whole-run context and automatic checkpoints still precede
+CLI, scoring, Docling and the reviewed comparison. This foundation does not save
+a `CorpusRunResult` automatically or make interrupted runs durable.
