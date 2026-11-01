@@ -1,2 +1,3 @@
 # Preserve hash-annotated synthetic source bytes, including CRLF and invalid UTF-8.
 experiments/text-pdf/corpus/texts/*.txt -text whitespace=cr-at-eol
+experiments/text-pdf/examples/mixed/*.pdf binary

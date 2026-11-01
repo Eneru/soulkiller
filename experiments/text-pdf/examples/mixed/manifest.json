@@ -1,0 +1,72 @@
+{
+  "schema_version": 2,
+  "fixtures": [
+    {
+      "id": "text-fr",
+      "path": "french.txt",
+      "format": "txt",
+      "language": "fr",
+      "sha256": "84f651b11d0e255d3fd5a21de12ffcea1656e599318b563ae9e07c005ac52ec6",
+      "author_label": "Invented author",
+      "subject_label": "Invented subject",
+      "outcome": "success",
+      "annotations": []
+    },
+    {
+      "id": "text-en",
+      "path": "english.txt",
+      "format": "txt",
+      "language": "en",
+      "sha256": "6f027df51e15ec8ca922c62cc600d197bdb882ea128583d8c31ac26d3a1490de",
+      "author_label": "Invented author",
+      "subject_label": "Invented subject",
+      "outcome": "success",
+      "annotations": []
+    },
+    {
+      "id": "invalid-text",
+      "path": "invalid.txt",
+      "format": "txt",
+      "language": "en",
+      "sha256": "a8100ae6aa1940d0b663bb31cd466142ebbdbd5187131b92d93818987832eb89",
+      "author_label": "Invented author",
+      "subject_label": "Invented subject",
+      "outcome": "invalid_encoding",
+      "annotations": []
+    },
+    {
+      "id": "pdf-fr",
+      "path": "french.pdf",
+      "format": "pdf",
+      "language": "fr",
+      "sha256": "a437490e3b1a7ee41cc97df19a97db6e0d1fc5d7e527e8c3e716f3fe2e01bf6e",
+      "author_label": "Invented author",
+      "subject_label": "Invented subject",
+      "outcome": "success",
+      "annotations": [
+        {
+          "page_number": 1,
+          "quote": "Inez garde une lampe bleue."
+        }
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "pdf-en",
+      "path": "english.pdf",
+      "format": "pdf",
+      "language": "en",
+      "sha256": "ddbb70a6e709e6bc6801c91d7396d453ec9d81e3e97a57a85e1bb6184ec32634",
+      "author_label": "Invented author",
+      "subject_label": "Invented subject",
+      "outcome": "success",
+      "annotations": [
+        {
+          "page_number": 1,
+          "quote": "Corin collects paper stars."
+        }
+      ],
+      "page_count": 1
+    }
+  ]
+}

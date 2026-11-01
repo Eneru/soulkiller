@@ -34,7 +34,7 @@ snapshots and workers with observed aggregate guards and in-memory interrupted
 records. The [eighth tranche](../../docs/confined-run-storage.md) adds the
 confined create-only opaque record store. The
 [ninth tranche](../../docs/versioned-fixture-records.md) adds typed per-row JSON;
-whole-run context and automatic runner persistence remain subsequent work.
+the manual workflow below now adds incremental persistence.
 
 Tests/static analysis are offline. Audit explicitly queries public package
 advisory services; it sends package names/versions, not source data. Findings and
@@ -104,7 +104,7 @@ native Windows performance or the 8/16 GiB CPU-only reference profiles.
 
 ## Internal PDF adapter
 
-Base pypdf 6.20.0 is image-installed with its verified wheel hash and no extras.
+Base pypdf 6.21.4 is image-installed with its verified wheel hash and no extras.
 The internal native_pdf module returns immutable one-based page records, source
 revision hashes and explicit outcomes. It runs only against tiny trusted synthetic
 fixtures through its internal seam and under the supervised byte worker.
@@ -129,4 +129,7 @@ until complete, rather than treating this foundation as a finished experiment.
 
 The [versioned fixture codec](../../docs/versioned-fixture-records.md) adds strict
 per-row JSON for explicit opaque storage. It preserves unavailable observations
-and evidence without source I/O. Whole-run reports/automatic persistence remain pending.
+and evidence without source I/O. Full benchmark reports remain pending.
+
+Start with the [manual extraction walkthrough](../../docs/try-extraction.md)
+for the complete run/show journey and the shipped mixed example.

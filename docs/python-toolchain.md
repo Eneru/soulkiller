@@ -46,12 +46,12 @@ pip-audit package advisories are not a complete OS/interpreter/vendored-code aud
 | [bandit](https://pypi.org/project/bandit/1.9.4/) | 1.9.4 | Apache-2.0 |
 | [boolean.py](https://pypi.org/project/boolean.py/5.0/) | 5.0 | BSD-2-Clause |
 | [CacheControl](https://pypi.org/project/CacheControl/0.14.4/) | 0.14.4 | Apache-2.0 |
-| [certifi](https://pypi.org/project/certifi/2026.7.22/) | 2026.7.22 | Mozilla Public License 2.0 (MPL 2.0) |
+| [certifi](https://pypi.org/project/certifi/2026.10.18/) | 2026.10.18 | Mozilla Public License 2.0 (MPL 2.0) |
 | [charset-normalizer](https://pypi.org/project/charset-normalizer/3.5.2/) | 3.5.2 | MIT |
 | [coverage](https://pypi.org/project/coverage/7.16.2/) | 7.16.2 | Apache-2.0 |
 | [cyclonedx-python-lib](https://pypi.org/project/cyclonedx-python-lib/11.12.0/) | 11.12.0 | Apache Software License |
 | [defusedxml](https://pypi.org/project/defusedxml/0.7.1/) | 0.7.1 | Python Software Foundation License |
-| [filelock](https://pypi.org/project/filelock/4.0.12/) | 4.0.12 | MIT |
+| [filelock](https://pypi.org/project/filelock/4.2.1/) | 4.2.1 | MIT |
 | [idna](https://pypi.org/project/idna/3.20/) | 3.20 | BSD-3-Clause |
 | [iniconfig](https://pypi.org/project/iniconfig/2.3.0/) | 2.3.0 | MIT |
 | [librt](https://pypi.org/project/librt/0.16.0/) | 0.16.0 | MIT |
@@ -73,7 +73,7 @@ pip-audit package advisories are not a complete OS/interpreter/vendored-code aud
 | [py-serializable](https://pypi.org/project/py-serializable/2.1.0/) | 2.1.0 | Apache Software License |
 | [Pygments](https://pypi.org/project/Pygments/2.21.0/) | 2.21.0 | BSD-2-Clause |
 | [pyparsing](https://pypi.org/project/pyparsing/3.3.3/) | 3.3.3 | MIT |
-| [pypdf](https://pypi.org/project/pypdf/6.20.0/) | 6.20.0 | BSD-3-Clause |
+| [pypdf](https://pypi.org/project/pypdf/6.21.4/) | 6.21.4 | BSD-3-Clause |
 | [pytest](https://pypi.org/project/pytest/9.1.1/) | 9.1.1 | MIT |
 | [PyYAML](https://pypi.org/project/PyYAML/6.0.3/) | 6.0.3 | MIT License |
 | [requests](https://pypi.org/project/requests/2.34.2/) | 2.34.2 | Apache Software License |
@@ -89,22 +89,21 @@ pip-audit package advisories are not a complete OS/interpreter/vendored-code aud
 ## Native PDF candidate
 
 The [pypdf adapter tranche](../openspec/changes/implement-pypdf-adapter/design.md)
-adds base `pypdf==6.20.0` to the same image environment. The reviewed evaluation
-snapshot proposed 6.19.0; the [6.20.0 upstream release](https://github.com/py-pdf/pypdf/releases/tag/6.20.0)
-adds per-stream filter-count and accumulated-decoding-work guards. This small
-version update does not adopt a production parser or make parsing a sandbox.
+introduced the native candidate. The manual CLI security refresh now pins base
+pypdf 6.21.4 after the canonical audit flagged the previous 6.20.0. This is an
+evaluation dependency update, not production parser adoption or a parsing sandbox.
 
-The verified `pypdf-6.20.0-py3-none-any.whl` SHA-256 is
-`f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad`;
-[PyPI release metadata](https://pypi.org/project/pypdf/6.20.0/#files) publishes the
-same hash. The [tagged dependency metadata](https://github.com/py-pdf/pypdf/blob/6.20.0/pyproject.toml)
+The verified `pypdf-6.21.4-py3-none-any.whl` SHA-256 is
+`33e4fb41ca352810eb4e9838aa0d82d6888a5f8bf682f43e99cce5faa666255c`;
+[PyPI release metadata](https://pypi.org/project/pypdf/6.21.4/#files) publishes the
+same hash. The [tagged dependency metadata](https://github.com/py-pdf/pypdf/blob/6.21.4/pyproject.toml)
 requires Python >=3.9 and only conditionally requires `typing_extensions` below
 Python 3.11. Base pypdf adds no transitive package on CPython 3.13.16; all existing
-tool pins and hashes are preserved. No crypto, image, font, Brotli, model or other
+tool pins and hashes are preserved except the audited certifi/filelock refresh. No crypto, image, font, Brotli, model or other
 optional extras are requested.
 
 The wheel includes `pypdf/py.typed` and
-`pypdf-6.20.0.dist-info/licenses/LICENSE`. Image installation retains the BSD-3-Clause
+`pypdf-6.21.4.dist-info/licenses/LICENSE`. Image installation retains the BSD-3-Clause
 notice under `/opt/python-tools/lib/python3.13/site-packages/`; Soulkiller's root
 LICENSE is unchanged. Rebuild the devcontainer to install the new locked candidate;
 no separate user-level pip command is needed. See [editor setup](python-editor.md)
@@ -137,3 +136,13 @@ Advisory scans send public package metadata only, require no account, and fail
 on findings/tool/feed errors. Report actual results with their date; neither
 a hash lock nor a clean audit proves absence of future vulnerabilities.
 [pip-audit](https://github.com/pypa/pip-audit).
+
+## Manual CLI security refresh (2026-11-01)
+
+The first audit found 31 advisory entries in the old certifi/filelock/pypdf pins.
+Only those three resolved packages were changed, with official wheel hashes
+verified before rebuilding. New pins: certifi 2026.10.18, filelock 4.2.1 and
+pypdf 6.21.4. No advisory was suppressed. See official metadata for
+[certifi](https://pypi.org/pypi/certifi/2026.10.18/json),
+[filelock](https://pypi.org/pypi/filelock/4.2.1/json) and
+[pypdf](https://pypi.org/pypi/pypdf/6.21.4/json).

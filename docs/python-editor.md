@@ -50,7 +50,7 @@ apply configuration changes.
 
 ## Native PDF dependency integration
 
-Rebuild the devcontainer after the pypdf lock addition. Base pypdf 6.20.0 is
+Rebuild the devcontainer after the pypdf lock addition. Base pypdf 6.21.4 is
 installed in the existing `/opt/python-tools/bin/python` environment, with its
 module at `/opt/python-tools/lib/python3.13/site-packages/pypdf/__init__.py` and
 its bundled `py.typed` marker. Pylance navigation and strict mypy use those native
@@ -65,7 +65,7 @@ Check the runtime from the rebuilt container:
 python -c 'import sys, pypdf; print(sys.executable); print(pypdf.__version__); print(pypdf.__file__)'
 ```
 
-Expect the image interpreter, `6.20.0` and the module path above. In VS Code,
+Expect the image interpreter, `6.21.4` and the module path above. In VS Code,
 navigate from the adapter's `PdfReader` import to its installed definition and
 refresh the PDF tests. These manual navigation/Test Explorer observations remain
 separate from a successful CLI import, mypy run or test suite.

@@ -178,3 +178,14 @@ extra findings or scanner/policy failures remain errors. No blanket suppressions
 versions are pinned/hashed in the [lock](../.devcontainer/python/requirements.lock);
 see its [inventory/update procedure](python-toolchain.md). UI execution and
 native Windows must be reported separately from container CLI checks.
+
+## Temporary minimatch security override
+
+The 2026-11-01 dependency audit flagged
+[GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249)
+in the ESLint dependency tree. The quality-tools manifest temporarily overrides
+minimatch to 11.0.1 while retaining ESLint 10.12.0 and other direct pins.
+Current upstream ESLint/config-array still declare the affected major range.
+This crosses the transitive declared range: validate actual lint and tooling
+behavior with the rebuilt image, and remove the override when upstream accepts
+a patched dependency. No finding is ignored or scanner disabled.

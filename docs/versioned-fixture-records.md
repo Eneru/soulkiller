@@ -1,5 +1,8 @@
 # Versioned fixture result records
 
+For the current user-facing run/show workflow, see [Try extraction](try-extraction.md).
+The sections below describe the earlier standalone foundation.
+
 The [ninth extraction tranche](../openspec/changes/implement-versioned-fixture-records/proposal.md)
 bridges one [in-memory fixture result](bounded-corpus-run.md) and the
 [opaque run store](confined-run-storage.md). Saving remains an explicit caller
