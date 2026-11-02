@@ -1,9 +1,14 @@
-# TXT/PDF evaluation: initial implementation tranches
+# TXT/PDF extraction evaluation
 
-This is an experimental Python seam, not an application stack or a completed
-parser comparison. [The parent plan](../../openspec/changes/evaluate-text-pdf-extraction/design.md)
-was approved in PR #13. PR #14 delivers byte-to-TXT decoding, evidence
-and quality gates; see [its contract](../../openspec/changes/implement-python-text-foundation/specs/text-evidence-foundation/spec.md).
+This experimental Python program extracts a selected synthetic TXT/PDF corpus,
+persists outcomes and checks independently annotated facts. Start with the
+[current extraction guide](../../docs/try-extraction.md) for run/show/score and
+the bilingual example. No model, account or paid call is needed.
+
+The [approved parent plan](../../openspec/changes/evaluate-text-pdf-extraction/design.md)
+defines the native comparison. This is not the production application stack or
+a completed parser comparison. Historical implementation steps remain in
+[OpenSpec](../../openspec/changes).
 
 ## Run in the rebuilt devcontainer
 
@@ -19,26 +24,10 @@ bash tools/checks/python.sh audit
 bash tools/checks/check.sh all
 ```
 
-The [confined corpus guide](../../docs/text-corpus-input.md) documents the second
-tranche: explicit TXT manifests, verified byte snapshots and independently annotated
-literal fixtures. The [third tranche](../../docs/text-worker-supervision.md)
-supervises the trusted TXT baseline with explicit process guards. The
-[fourth tranche](../../docs/native-pdf-adapter.md) adds the internal pypdf adapter
-and independently expected native-page fixtures. The
-[fifth tranche](../../docs/pdf-corpus-input.md) adds versioned mixed corpus selection
-and independently declared PDF page facts without parsing. The
-[sixth tranche](../../docs/pdf-worker-supervision.md) adds the supervised native
-PDF byte worker with independent protocol checks and early offline/resource
-guards. The [seventh tranche](../../docs/bounded-corpus-run.md) connects verified
-snapshots and workers with observed aggregate guards and in-memory interrupted
-records. The [eighth tranche](../../docs/confined-run-storage.md) adds the
-confined create-only opaque record store. The
-[ninth tranche](../../docs/versioned-fixture-records.md) adds typed per-row JSON;
-the manual workflow below now adds incremental persistence.
-
 Tests/static analysis are offline. Audit explicitly queries public package
 advisory services; it sends package names/versions, not source data. Findings and
-service/tool errors fail. There is no CLI ingestion command, report, model download or performance result.
+service/tool errors fail. The CLI accepts explicit synthetic manifests only;
+no personal-directory scan, model download or performance comparison is provided.
 The internal PDF adapter remains a trusted-fixture seam. The public PDF worker
 requires an externally supplied network-disabled container; it refuses in the
 ordinary connected devcontainer before importing pypdf.
@@ -114,22 +103,14 @@ See [the adapter guide](../../docs/native-pdf-adapter.md) for native extraction
 semantics and [PDF worker supervision](../../docs/pdf-worker-supervision.md)
 for independently validated responses and offline execution.
 
-## Small follow-ups
+## Remaining evaluation work
 
-The confined TXT corpus and trusted TXT worker foundation are implemented.
-Remaining short PRs:
+The current CLI supplies incremental checkpoints and read-only exact fact/location
+checks. Full benchmark environment/measurement context, reading-order scoring,
+the native Docling candidate and an actual bounded Linux comparison remain
+pending under the parent plan. No parser ranking, production stack or Windows
+performance conclusion follows from the current synthetic checks.
 
-1. Whole-run report context and automatic interruption checkpoints using the confined store/fixture codec, then independent scoring.
-2. Native Docling candidate under the same reviewed run guards.
-3. Explicit approved offline Linux comparison; review findings before choosing a stack.
-
-Each tranche gets a tested ready PR and human review before continuing. Native
-Windows remains a separate reviewed lane. Detailed parent tasks remain unchecked
-until complete, rather than treating this foundation as a finished experiment.
-
-The [versioned fixture codec](../../docs/versioned-fixture-records.md) adds strict
-per-row JSON for explicit opaque storage. It preserves unavailable observations
-and evidence without source I/O. Full benchmark reports remain pending.
-
-Start with the [manual extraction walkthrough](../../docs/try-extraction.md)
-for the complete run/show journey and the shipped mixed example.
+Retrieval and the first sourced dialogue need their own reviewed contract;
+comparison work does not silently adopt a model/provider. Native Windows remains
+a separate reviewed lane. Detailed parent tasks stay unchecked until complete.

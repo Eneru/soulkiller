@@ -8,6 +8,9 @@ No version has been released yet.
 
 ### Changed
 
+- Keep README focused on the current usable workflow; historical implementation
+  steps remain in OpenSpec.
+
 - Refresh removed Ubuntu CA/Git/xz/zlib-family package pins so clean devcontainer
   builds use currently available matching revisions.
 
@@ -32,6 +35,10 @@ No version has been released yet.
   pytest discovery; require future component additions to evolve the devcontainer.
 
 ### Added
+
+- Read-only score command for saved extraction: exact reference quote recovery,
+  independent location correctness, expected outcome agreement and explicit
+  incomplete/unannotated evidence, with readable and JSON output.
 
 - Manually usable offline run/show commands: save example TXT/PDF results as
   work completes, inspect text/pages/errors later, and follow a short walkthrough.

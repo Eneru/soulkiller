@@ -5,6 +5,9 @@ from pathlib import Path
 
 import pytest
 
+from soulkiller_text.corpus_fixture import CorpusFixture
+from soulkiller_text.text_annotation import TextAnnotation
+
 from .corpus_run_fixtures import (
     WorkerCall,
     ordered_text_corpus,
@@ -23,3 +26,18 @@ def prepare_run(
     monkeypatch.setattr(module, "has_offline_topology", lambda: True)
     calls = recording_workers(monkeypatch, fault=fault)
     return calls
+
+
+def text_reference() -> CorpusFixture:
+    """Declare an accented, literal reference independently of candidate output."""
+    return CorpusFixture(
+        "text-fr",
+        "notes.txt",
+        "a" * 64,
+        "txt",
+        "fr",
+        "Invented",
+        "Invented",
+        "success",
+        (TextAnnotation(2, 6, "café"),),
+    )

@@ -55,3 +55,34 @@ def render_saved(
         lines.extend(_row_text(index, row))
         lines.append("")
     return safe_display("\n".join(lines))
+
+
+def render_score(report: dict[str, object], *, as_json: bool) -> str:
+    """Render bounded reference checks with escaped terminal controls or exact JSON."""
+    if as_json:
+        return json.dumps(report, ensure_ascii=True, allow_nan=False, separators=(",", ":"))
+    lines = [
+        f"Run status: {report['status']}",
+        f"Exact quote recovery: {report['recovered_facts']}/{report['expected_facts']}",
+        f"Correct reference locations: {report['correct_locations']}/{report['expected_facts']}",
+        f"Expected outcome matches: {report['outcome_matches']}/{report['expected_outcomes']}",
+        f"Documents without reference facts: {report['unannotated_documents']}",
+        f"Matching: {report['matching']}",
+        "No semantic, reading-order, performance or acceptance-threshold evaluation.",
+    ]
+    documents = report["documents"]
+    if not isinstance(documents, list):
+        raise ValueError("invalid_score_report")
+    for document in documents:
+        lines.append(
+            f"{document['fixture_id']}: expected {document['expected_outcome']}, "
+            f"observed {document['observed_outcome']}"
+        )
+        lines.append(f"SHA-256: {document['source_sha256']}")
+        for fact in document["facts"]:
+            lines.append(
+                f"  {fact['quote']!r}: expected (page, start, end) "
+                f"{fact['expected_location']}; observed {fact['observed_location']}; "
+                f"location matched: {fact['location_matched']}"
+            )
+    return safe_display("\n".join(lines))

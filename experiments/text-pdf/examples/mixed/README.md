@@ -9,3 +9,10 @@ The independently declared facts are Inez's blue lamp on French page 1 and
 Corin's paper stars on English page 1. They were not derived from parser output.
 Manifest SHA-256 values freeze these bytes. Changing a source requires explicitly
 updating its reference metadata/hash. Follow the repository's try-extraction guide.
+
+
+Reference annotations are authored from the invented source text: three TXT
+facts and three PDF page facts. Scoring uses exact code points and source
+locations, without generating expectations from candidate extraction.
+Existing source bytes/hashes are unchanged; saved older manifests retain their
+original reference set.

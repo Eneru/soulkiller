@@ -186,39 +186,18 @@ Issue #7 receives its first tooling tranche in `configure-github-app-publication
 gates, web DAST and product benchmarks remain open; this PR uses Refs #7.
 Issue #8 is published but its site implementation has not started.
 
-## Extraction implementation tranches
+## Current extraction milestone
 
-The approved PR #13 plan is being implemented in short reviewed PRs.
-[Tranche 1](../experiments/text-pdf/README.md) supplies Python/checks and pure TXT
-evidence. The [second tranche](text-corpus-input.md) adds confined TXT manifest/corpus
-reads and literal annotations; its review and merge were confirmed in PR #15.
-The [third tranche](text-worker-supervision.md) adds process supervision around
-the trusted TXT baseline, with timeout/output guards and mandatory cleanup;
-its review and merge were confirmed in PR #16. The
-[fourth tranche](native-pdf-adapter.md) adds the internal pypdf native-page adapter
-and independent PDF fixture writer/tests, with the dependency in the image;
-its review and merge were confirmed in PR #17. The
-[fifth tranche](pdf-corpus-input.md) adds strict mixed manifests and independently
-annotated, hash-verified PDF snapshots without parsing; its review and merge
-were confirmed in PR #18. The [sixth tranche](pdf-worker-supervision.md) adds the
-fixed native PDF worker, independently checked page protocol and early guards
-under an externally supplied network-disabled container; its review/merge was
-confirmed in PR #19. The [seventh tranche](bounded-corpus-run.md) adds one
-ordered in-memory corpus pass, observed aggregate budgets and explicit
-interruption records; its review/merge was confirmed in PR #20. The
-[eighth tranche](confined-run-storage.md) adds the confined opaque record store,
-without typed report serialization or automatic runner checkpoints.
-Next: typed reports/checkpoints and independent scoring, native Docling, then
-the approved offline Linux comparison.
-Each requires independent tests and review; no E1 result, production-stack
-choice, Windows benchmark, provider or memory implementation is implied.
-These subdivisions are documented here rather than published via the human
-connector: the App publication tool has no Issues/subissue or native Development
-branch-link operation. R1-R5/F1-F6 proposals remain subject to their review rule.
+The [current extraction guide](try-extraction.md) covers a complete synthetic
+run/show/score journey: persistent text/pages/errors and independent exact
+quote/location checks. Historical subdivisions and review records are retained
+in the [OpenSpec changes](../openspec/changes), rather than a running walkthrough.
 
-The extraction implementation includes a
-[versioned fixture codec](versioned-fixture-records.md). The manual workflow below now supplies incremental persistence; full comparison
-and benchmark context remain pending.
+The approved extraction comparison still needs Docling, reading-order evaluation,
+complete benchmark context and actual bounded comparison results. These are
+evaluation follow-ups, not prerequisites for separately proposing the first
+retrieval and sourced-dialogue contract. Local versus remote inference remains
+a comparison request, not authorization for a provider or data transfer.
 
-The [manual extraction journey](try-extraction.md) now assembles the example
-runner and persisted rows; full benchmark reporting and conversational RAG remain pending.
+The App publisher has no Issues/subissue or native Development branch-link
+operation. R1-R5/F1-F6 proposals retain their maintainer-review publication rule.

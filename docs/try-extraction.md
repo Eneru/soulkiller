@@ -45,7 +45,34 @@ integrity framing: use show rather than opening them as ordinary text files.
 The folder and saved results persist when you exit and relaunch the container
 with the same Soulkiller mount. Repeat the export after opening a new terminal.
 
-## 4. Try the errors
+## 4. Check the reference facts
+
+~~~sh
+python -m soulkiller_text score --run-id demo-001
+python -m soulkiller_text score --run-id demo-001 --json
+~~~
+
+For a newly extracted current example, expect **6/6 exact quotes**, **6/6 correct
+reference locations** and **5/5 expected outcomes**, including invalid encoding.
+These are observations for six invented reference facts, not a general quality
+score or an approved acceptance threshold. No worker runs and no files change.
+The command also works in the ordinary connected editor container.
+
+Each fact shows its quote, expected location and one observed resolving location.
+Locations are (page, start, end): TXT has no page, while PDF references one-based
+pages. Offsets are zero-based, end-exclusive Unicode code points within saved TXT
+or the saved PDF page text. No normalization is applied; case, accents and
+whitespace matter. Recovery on a wrong page or at wrong TXT offsets is visible
+separately from location correctness.
+
+Failures and missing rows retain their expected facts in the totals. Outcome
+agreement is separate from quote recovery. Unannotated documents are counted;
+zero reference facts means 0/0, never a perfect score. Partial/incomplete runs
+remain visibly partial/incomplete. Score uses saved annotations: older runs may
+contain fewer reference facts, even after the current manifest changes. Extract
+under a new run ID to try the current six-fact example.
+
+## 5. Try the errors
 
 - Repeat run with demo-001: it refuses to replace the earlier result.
 - Show an unknown ID: it fails without creating a run.
@@ -55,7 +82,9 @@ with the same Soulkiller mount. Repeat the export after opening a new terminal.
 
 Exit 0 means the schedule completed (inspect individual errors); exit 1 means
 failure/incomplete state; exit 2 means incorrect arguments; exit 130 means
-cancellation. Unexpected stop/storage failure can leave an incomplete folder:
+cancellation. Score uses these same status-based exits: a quality mismatch is
+reported without making a complete run fail an unapproved quality gate.
+Unexpected stop/storage failure can leave an incomplete folder:
 show labels missing observations unknown instead of claiming completion.
 
 ## Boundaries
@@ -65,8 +94,8 @@ another prepared relative corpus, not a folder to scan. Do not use personal data
 Source files are not needed for later reading, but the selected source directory
 must still exist for the store's separation check.
 Existing bounds and no-overwrite rules remain active. No crash/power-loss
-durability, native Windows performance, parser ranking or full benchmark report
+durability, native Windows performance, semantic/reading-order evaluation, parser ranking or full benchmark report
 is claimed. Plain display escapes terminal controls; JSON retains exact text.
 
 Next milestone: retrieval and a first sourced dialogue, after the local/remote
-model comparison. This PR does not add RAG or persona memory.
+model comparison. The current tool has no RAG or persona memory.

@@ -8,18 +8,17 @@ or demonstrated.
 
 ## Try the first extraction program
 
-Follow the [short manual walkthrough](docs/try-extraction.md): run the synthetic
-example, inspect saved text/PDF pages and try errors. This is an extraction tool,
+Follow the [current extraction guide](docs/try-extraction.md): run the synthetic
+example, inspect saved text/PDF pages and check reference facts. This is an extraction tool,
 not a conversational Soulkiller application yet.
 
 ## Project status
 
-This initial setup provides a development environment and contribution rules.
-There is no application code or server yet. Tested GitHub App publication tooling
-and native quality checks are available; these are development tools, not application
-features. Python, .NET
-and possibly Angular are candidates; their use and versions will be decided in
-future specifications.
+The current runnable tool extracts an explicitly selected synthetic TXT/PDF
+corpus, persists results and checks reference facts against saved evidence.
+It is an evaluation program, not a persona conversation or application server.
+Python is used for this experiment; the production language, .NET and any
+frontend remain undecided. No model/provider starts automatically.
 
 The canonical repository is [Eneru/soulkiller](https://github.com/Eneru/soulkiller).
 Every change goes through a branch and a pull request reviewed by the maintainer.
@@ -49,29 +48,14 @@ one local manager with unauthenticated interlocutor labels. Local versus remote
 operation remains a comparison request. Candidate performance and native Windows packaging have not been tested;
 no production stack is adopted.
 
-The [approved extraction plan](openspec/changes/evaluate-text-pdf-extraction/proposal.md)
-frames a bounded synthetic TXT/PDF native-extraction comparison in Python,
-using pypdf and Docling's model-free native pipeline. The first
-[implementation tranche](experiments/text-pdf/README.md) adds the runtime, Python
-quality gates and pure TXT decoding/evidence tests. The next
-[confined TXT corpus tranche](docs/text-corpus-input.md) validates explicit manifests,
-source revisions and annotations before returning verified byte snapshots. The
-[TXT worker foundation](docs/text-worker-supervision.md) adds bounded process
-supervision for the trusted decoder. The [native pypdf adapter](docs/native-pdf-adapter.md)
-adds independently tested page records and synthetic fixtures. The
-[mixed PDF corpus](docs/pdf-corpus-input.md) adds parser-free verified snapshots
-and independent page facts. The [supervised PDF worker](docs/pdf-worker-supervision.md)
-adds independently verified page results, resource guards and early refusal
-outside the externally supplied offline topology. The
-[bounded corpus run](docs/bounded-corpus-run.md) connects snapshots and workers
-in manifest order with observed aggregate output/time guards and explicit
-unfinished records. The [confined run store](docs/confined-run-storage.md)
-provides create-only bounded opaque records for the next persistence step.
-The [versioned fixture codec](docs/versioned-fixture-records.md) binds one typed
-TXT/PDF row to accepted fixture metadata for explicit storage/re-reading.
-The [manual extraction command](docs/try-extraction.md) now connects accepted
-snapshots, workers and incremental persistence with a readable run/show journey.
-Full benchmark context, Docling, scoring and comparison results remain pending.
+The [current extraction guide](docs/try-extraction.md) covers run, show and score:
+extract the bilingual example, inspect saved text/pages/errors, then check exact
+reference quote recovery and source locations. Historical implementation steps
+and their decisions live in [OpenSpec changes](openspec/changes).
+The [approved evaluation plan](openspec/changes/evaluate-text-pdf-extraction/proposal.md)
+still has Docling, complete benchmark reporting and comparison results pending.
+Retrieval and a first sourced dialogue follow separately; local versus remote
+inference needs comparison before a model or provider is selected.
 
 ## Quality and documentation roadmap
 
