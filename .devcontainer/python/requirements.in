@@ -9,4 +9,4 @@ bandit==1.9.4
 pip-audit==2.10.1
 
 # Base native PDF candidate only; no model, crypto or image extras.
-pypdf==6.20.0
+pypdf==6.21.4

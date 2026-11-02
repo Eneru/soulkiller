@@ -32,7 +32,10 @@ class CorpusRunner:
         limits: RunLimits,
         started_at: float,
         clock: Callable[[], float],
+        on_record: Callable[[FixtureRun], None] | None = None,
     ) -> None:
+        """Borrow accepted snapshots; optional checkpoint errors stop further scheduling."""
+        self._on_record = on_record
         self._fixtures = fixtures
         self._limits = limits
         self._deadline = started_at + limits.wall_seconds
@@ -61,6 +64,7 @@ class CorpusRunner:
         )
 
     def _schedule(self) -> CorpusRunResult:
+        """Publish each returned row before another launch; propagate storage failures."""
         for fixture in self._fixtures:
             worker_limits = self._next_allowance()
             if isinstance(worker_limits, RunStatus):
@@ -72,6 +76,8 @@ class CorpusRunner:
             )
             self._output_bytes += execution.output_bytes
             self._active_index = None
+            if self._on_record is not None:
+                self._on_record(self._records[-1])
             status = self._returned_status(execution.result)
             if status is not None:
                 return self._finish(status)

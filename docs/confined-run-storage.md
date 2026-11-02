@@ -1,5 +1,8 @@
 # Confined run-storage foundation
 
+For the current user-facing run/show workflow, see [Try extraction](try-extraction.md).
+The sections below describe the earlier standalone foundation.
+
 The [eighth extraction tranche](../openspec/changes/implement-confined-run-storage/proposal.md)
 adds the filesystem boundary required before saving comparison reports. It
 stores **opaque bytes**, independently of the [in-memory runner](bounded-corpus-run.md).

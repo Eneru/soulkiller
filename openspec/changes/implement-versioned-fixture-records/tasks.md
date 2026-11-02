@@ -15,7 +15,7 @@
 - [x] 3.2 Run the complete Python suite in a fresh bounded offline container.
 - [x] 3.3 Validate strict OpenSpec, links, documented functions, whitespace and unchanged LICENSE/runtime/editor/CI.
 - [x] 3.4 Prepare exact staged Conventional Commit/ready-PR inputs and run offline App preflight.
-- [ ] 3.5 Obtain maintainer review and confirm manual merge.
+- [x] 3.5 Obtain maintainer review and confirm manual merge.
 
 After preflight, publish through the App and record bot identity/signature/tree
 verification in the PR. Maintainer review and manual merge remain required.

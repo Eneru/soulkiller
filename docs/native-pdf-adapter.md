@@ -15,10 +15,10 @@ remain subsequent short PRs.
 
 ## Runtime and native editor
 
-Rebuild the devcontainer to provision base pypdf **6.20.0** in
+Rebuild the devcontainer to provision base pypdf **6.21.4** in
 `/opt/python-tools`, with the exact wheel hash in the existing Python lock.
 The plan's 6.19.0 metadata snapshot is updated because
-[6.20.0 adds stream-decoding security guards](https://github.com/py-pdf/pypdf/releases/tag/6.20.0).
+[6.21.4 adds stream-decoding security guards](https://github.com/py-pdf/pypdf/releases/tag/6.21.4).
 No optional crypto/image/font/Brotli extras, model or provider is installed.
 See [the artifact/license inventory](python-toolchain.md#native-pdf-candidate)
 and [native editor setup](python-editor.md).
@@ -107,7 +107,7 @@ it does not add an optional crypto dependency.
 From the root inside the rebuilt devcontainer:
 
 ```sh
-python -c 'import pypdf; assert pypdf.__version__ == "6.20.0"'
+python -c 'import pypdf; assert pypdf.__version__ == "6.21.4"'
 bash tools/checks/python.sh static
 bash tools/checks/python.sh tests
 bash tools/checks/python.sh audit

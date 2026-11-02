@@ -21,14 +21,14 @@ openspec --version
 rg --version
 python --version
 python -m pip check
-python -c 'import pypdf; assert pypdf.__version__ == "6.20.0"'
+python -c 'import pypdf; assert pypdf.__version__ == "6.21.4"'
 test "$(id -u)" -ne 0
 test "$PWD" = /workspaces/soulkiller
 test ! -S /var/run/docker.sock
 ```
 
 Expected: a non-root user, the correct workspace, Git 2.43.0, Node.js v24.21.0,
-OpenSpec 1.13.2, ripgrep 14.1.0, experimental CPython 3.13.16 and base pypdf 6.20.0. No LLM credential is required.
+OpenSpec 1.13.2, ripgrep 14.1.0, experimental CPython 3.13.16 and base pypdf 6.21.4. No LLM credential is required.
 
 ## Writes and persistence
 
@@ -162,3 +162,6 @@ new/changed function, including private helpers and OS assumptions.
 This procedure does not test an application yet. Editor UI startup and each
 hardware architecture must be distinguished from checks performed through the
 Docker CLI; do not claim they were tested unless they were actually exercised.
+
+For observable extraction acceptance, follow [Try extraction](try-extraction.md).
+The existing offline regression lane also executes the real module CLI.

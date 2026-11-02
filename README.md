@@ -6,6 +6,12 @@ an application that uses LLMs. Its stages, data and expected behavior still need
 to be specified: no "consciousness digitization" capability has been implemented
 or demonstrated.
 
+## Try the first extraction program
+
+Follow the [short manual walkthrough](docs/try-extraction.md): run the synthetic
+example, inspect saved text/PDF pages and try errors. This is an extraction tool,
+not a conversational Soulkiller application yet.
+
 ## Project status
 
 This initial setup provides a development environment and contribution rules.
@@ -63,8 +69,9 @@ unfinished records. The [confined run store](docs/confined-run-storage.md)
 provides create-only bounded opaque records for the next persistence step.
 The [versioned fixture codec](docs/versioned-fixture-records.md) binds one typed
 TXT/PDF row to accepted fixture metadata for explicit storage/re-reading.
-Whole-run context, automatic runner persistence, Docling, scoring and benchmark
-results remain subsequent short PRs.
+The [manual extraction command](docs/try-extraction.md) now connects accepted
+snapshots, workers and incremental persistence with a readable run/show journey.
+Full benchmark context, Docling, scoring and comparison results remain pending.
 
 ## Quality and documentation roadmap
 
@@ -143,7 +150,7 @@ for this initial setup.
 | ESLint / security rules | 10.12.0 / eslint-plugin-security 4.2.0, locked dependencies |
 | Bash coverage | kcov 43, source archive verified with SHA-256 |
 | Experimental Python | CPython 3.13.16, verified source; isolated quality-tools venv |
-| Experimental native PDF | Base pypdf 6.20.0, hash-locked wheel; no extras |
+| Experimental native PDF | Base pypdf 6.21.4, hash-locked wheel; no extras |
 
 The [.devcontainer configuration](.devcontainer/devcontainer.json) is the source
 of truth. The [Dockerfile](.devcontainer/Dockerfile) pins direct packages; the

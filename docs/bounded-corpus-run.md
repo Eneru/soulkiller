@@ -1,5 +1,8 @@
 # Bounded sequential corpus run
 
+For the current user-facing run/show workflow, see [Try extraction](try-extraction.md).
+The sections below describe the earlier standalone foundation.
+
 The [seventh extraction tranche](../openspec/changes/implement-bounded-corpus-run/proposal.md)
 connects [verified corpus snapshots](pdf-corpus-input.md) to the fixed TXT and
 [native PDF workers](pdf-worker-supervision.md). It provides one in-memory pass,

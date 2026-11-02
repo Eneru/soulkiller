@@ -217,5 +217,8 @@ connector: the App publication tool has no Issues/subissue or native Development
 branch-link operation. R1-R5/F1-F6 proposals remain subject to their review rule.
 
 The extraction implementation includes a
-[versioned fixture codec](versioned-fixture-records.md). Whole-run context and
-automatic checkpoints remain next; comparison and automatic persistence are pending.
+[versioned fixture codec](versioned-fixture-records.md). The manual workflow below now supplies incremental persistence; full comparison
+and benchmark context remain pending.
+
+The [manual extraction journey](try-extraction.md) now assembles the example
+runner and persisted rows; full benchmark reporting and conversational RAG remain pending.

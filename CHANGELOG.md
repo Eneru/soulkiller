@@ -8,6 +8,12 @@ No version has been released yet.
 
 ### Changed
 
+- Refresh removed Ubuntu CA/Git/xz/zlib-family package pins so clean devcontainer
+  builds use currently available matching revisions.
+
+- Refresh hash-pinned pypdf, certifi and filelock after the canonical audit
+  identified advisories; rebuild the devcontainer for the corrected versions.
+
 - Require useful documentation for new/changed functions, including private
   helpers and relevant OS concepts, resource ownership and cleanup assumptions.
 
@@ -26,6 +32,9 @@ No version has been released yet.
   pytest discovery; require future component additions to evolve the devcontainer.
 
 ### Added
+
+- Manually usable offline run/show commands: save example TXT/PDF results as
+  work completes, inspect text/pages/errors later, and follow a short walkthrough.
 
 - Strict version-1 fixture result records for explicit confined storage, retaining
   TXT/PDF evidence, supervisor outcomes and unavailable observations.
