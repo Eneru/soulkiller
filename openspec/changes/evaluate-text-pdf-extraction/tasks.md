@@ -17,7 +17,8 @@ in-memory runs with observed aggregate guards and interrupted records.
 confined opaque record store, reviewed and merged in PR #21.
 [The ninth tranche](../implement-versioned-fixture-records/proposal.md) adds strict
 versioned fixture rows. The [manual journey](../deliver-manual-extraction-cli/proposal.md) now assembles
-run/show and row checkpoints. Full benchmark context, the complete parent harness
+run/show and row checkpoints. The saved-fact checks add exact quote/location scores through
+score-saved-extraction-facts. Full benchmark context, the complete parent harness
 and Docling comparison remain incomplete.
 
 ## 1. Preparation and review packet

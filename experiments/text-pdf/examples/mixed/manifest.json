@@ -10,7 +10,18 @@
       "author_label": "Invented author",
       "subject_label": "Invented subject",
       "outcome": "success",
-      "annotations": []
+      "annotations": [
+        {
+          "start": 0,
+          "end": 13,
+          "quote": "Je suis Inez."
+        },
+        {
+          "start": 14,
+          "end": 29,
+          "quote": "J'aime le café."
+        }
+      ]
     },
     {
       "id": "text-en",
@@ -21,7 +32,13 @@
       "author_label": "Invented author",
       "subject_label": "Invented subject",
       "outcome": "success",
-      "annotations": []
+      "annotations": [
+        {
+          "start": 12,
+          "end": 34,
+          "quote": "I collect paper stars."
+        }
+      ]
     },
     {
       "id": "invalid-text",
@@ -47,6 +64,10 @@
         {
           "page_number": 1,
           "quote": "Inez garde une lampe bleue."
+        },
+        {
+          "page_number": 2,
+          "quote": "Une archive inventée."
         }
       ],
       "page_count": 2

@@ -1,27 +1,28 @@
-"""Manual run/show commands for the synthetic extraction example."""
+"""Manual extraction and saved-reference commands for the synthetic extraction example."""
 
 import argparse
 import sys
 from pathlib import Path
 
 from .corpus_error import CorpusError
-from .extraction_display import render_saved
+from .extraction_display import render_saved, render_score
+from .extraction_scoring import score_extraction
 from .manual_cli_constants import CANCELLED, DEFAULT_CORPUS, FAILURE, SUCCESS
 from .run_status import RunStatus
 from .run_store_error import RunStoreError
 from .saved_run import run_saved_corpus
-from .saved_run_reader import read_saved_run
+from .saved_run_reader import read_saved_evaluation
 
 
 def _arguments(arguments: list[str] | None) -> argparse.Namespace:
     """Parse a small explicit interface; argparse handles usage errors before any writes."""
     parser = argparse.ArgumentParser(description="Run and inspect synthetic TXT/PDF extraction.")
     commands = parser.add_subparsers(dest="command", required=True)
-    for command in ("run", "show"):
+    for command in ("run", "show", "score"):
         child = commands.add_parser(command)
         child.add_argument("--run-id", required=True)
         child.add_argument("--corpus", default=DEFAULT_CORPUS)
-        if command == "show":
+        if command != "run":
             child.add_argument("--json", action="store_true")
     return parser.parse_args(arguments)
 
@@ -32,8 +33,11 @@ def main(arguments: list[str] | None = None) -> int:
     try:
         if args.command == "run":
             run_saved_corpus(Path.cwd(), args.corpus, args.run_id)
-        status, rows = read_saved_run(Path.cwd(), args.corpus, args.run_id)
-        print(render_saved(status, rows, as_json=getattr(args, "json", False)))
+        status, specifications, rows = read_saved_evaluation(Path.cwd(), args.corpus, args.run_id)
+        if args.command == "score":
+            print(render_score(score_extraction(status, specifications, rows), as_json=args.json))
+        else:
+            print(render_saved(status, rows, as_json=getattr(args, "json", False)))
         if args.command == "run":
             print(f"Saved under .soulkiller-local/evaluation/{args.run_id}/")
         if status is RunStatus.CANCELLED:

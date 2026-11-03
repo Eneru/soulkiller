@@ -5,6 +5,6 @@
 - [x] Write and execute the manual walkthrough.
 - [x] Run canonical/offline/security/coverage/spec/documentation checks.
 - [x] Prepare exact staged publication inputs and offline preflight.
-- [ ] Obtain maintainer review and confirm manual merge.
+- [x] Obtain maintainer review and confirm manual merge (PR #23).
 
 Publish through the App; record actual verification and CI status in the PR.

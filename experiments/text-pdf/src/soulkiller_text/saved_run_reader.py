@@ -2,10 +2,12 @@
 
 from pathlib import Path
 
+from .corpus_fixture import CorpusFixture
 from .corpus_run_result import CorpusRunResult
 from .evaluation_manifest import parse_evaluation_manifest
 from .fixture_record import decode_fixture_record
 from .fixture_run import FixtureRun
+from .pdf_corpus_fixture import PdfCorpusFixture
 from .run_constants import MAX_RUN_OUTPUT_BYTES
 from .run_status import RunStatus
 from .run_store import RunStore, open_run_store
@@ -60,11 +62,15 @@ def _summary(payload: bytes, rows: tuple[FixtureRun | None, ...]) -> CorpusRunRe
     return CorpusRunResult(status, records, count)
 
 
-def read_saved_run(
+def read_saved_evaluation(
     workspace: Path,
     corpus: str,
     run_id: str,
-) -> tuple[RunStatus | None, tuple[FixtureRun | None, ...]]:
+) -> tuple[
+    RunStatus | None,
+    tuple[CorpusFixture | PdfCorpusFixture, ...],
+    tuple[FixtureRun | None, ...],
+]:
     """Return saved observations, leaving missing rows unknown when no summary exists.
 
     The existing store still checks the source directory's disjoint identity;
@@ -80,4 +86,12 @@ def read_saved_run(
         )
         summary = _optional(store, "summary")
         status = None if summary is None else _summary(summary, rows).status
+    return status, specifications, rows
+
+
+def read_saved_run(
+    workspace: Path, corpus: str, run_id: str
+) -> tuple[RunStatus | None, tuple[FixtureRun | None, ...]]:
+    """Inspect saved evidence without current source files, preserving the run/show interface."""
+    status, _specifications, rows = read_saved_evaluation(workspace, corpus, run_id)
     return status, rows
