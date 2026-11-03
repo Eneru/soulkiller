@@ -1,4 +1,4 @@
-## Decision proposed for this experiment
+## Approved decision for this experiment
 
 Search the already validated saved evidence directly using literal string search.
 This gives a useful source-finding action without an index lifecycle or another
@@ -31,7 +31,7 @@ Stable order is for reproducibility, not a confidence or truth ranking.
 
 ## Experimental bounds and command semantics
 
-Propose --limit default 3, accepted integer range 1..20, and --query length 1..200
+Use --limit default 3, accepted integer range 1..20, and --query length 1..200
 code points with at least one non-whitespace character. Reject invalid arguments
 before opening the store. Do not trim an accepted query or interpret shell syntax.
 These are small fixture-experiment output guards, not household-PC capacity,
@@ -54,7 +54,7 @@ saved cancellation; 2 for invalid arguments. Hits may be shown with incomplete
 status and a nonzero exit. No-hit text says only no literal passage was found;
 it cannot prove the persona does not know the answer.
 
-## Delivery and checks after review
+## Implementation and verification
 
 Implement the whole search journey in one small PR, without splitting out new
 storage/worker foundations. Keep functions documented and cohesive. Reuse current
@@ -69,3 +69,10 @@ terminal controls. Include actual module execution in a new connected container,
 saved-input removal and unchanged stored-file hashes. Run canonical checks and
 the bounded offline suite. Windows performance and retrieval-quality benchmarks
 remain unexecuted; no new numerical quality threshold is proposed.
+
+
+Implementation uses cohesive pure matching/rendering functions and immutable
+per-match, coverage and report values, one class per file. CLI argument validation
+precedes the existing saved reader; all rows are checked before limits apply.
+Keep missing-page coverage unknown when total pages are unavailable. No new
+runtime, editor extension, dependency, record format or CI trigger is needed.

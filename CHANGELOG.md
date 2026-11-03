@@ -36,6 +36,10 @@ No version has been released yet.
 
 ### Added
 
+- Read-only search command for saved synthetic TXT/PDF evidence: case-sensitive
+  expressions, bounded exact excerpts/source references, explicit truncation
+  and per-document extraction coverage in readable and JSON reports.
+
 - Review packet proposing read-only literal passage search in saved synthetic
   extraction runs; the search command is not implemented by this documentation change.
 

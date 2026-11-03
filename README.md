@@ -9,13 +9,13 @@ or demonstrated.
 ## Try the first extraction program
 
 Follow the [current extraction guide](docs/try-extraction.md): run the synthetic
-example, inspect saved text/PDF pages and check reference facts. This is an extraction tool,
-not a conversational Soulkiller application yet.
+example, inspect saved text/PDF pages, check reference facts and find source
+passages. This is an extraction tool, not a conversational Soulkiller application yet.
 
 ## Project status
 
 The current runnable tool extracts an explicitly selected synthetic TXT/PDF
-corpus, persists results and checks reference facts against saved evidence.
+corpus, persists results, checks reference facts and searches saved source passages.
 It is an evaluation program, not a persona conversation or application server.
 Python is used for this experiment; the production language, .NET and any
 frontend remain undecided. No model/provider starts automatically.
@@ -48,14 +48,16 @@ one local manager with unauthenticated interlocutor labels. Local versus remote
 operation remains a comparison request. Candidate performance and native Windows packaging have not been tested;
 no production stack is adopted.
 
-The [current extraction guide](docs/try-extraction.md) covers run, show and score:
+The [current extraction guide](docs/try-extraction.md) covers run, show, score and search:
 extract the bilingual example, inspect saved text/pages/errors, then check exact
-reference quote recovery and source locations. Historical implementation steps
+reference quote recovery and source locations, or find a literal expression with
+resolving source excerpts. Historical implementation steps
 and their decisions live in [OpenSpec changes](openspec/changes).
 The [approved evaluation plan](openspec/changes/evaluate-text-pdf-extraction/proposal.md)
 still has Docling, complete benchmark reporting and comparison results pending.
-Retrieval and a first sourced dialogue follow separately; local versus remote
-inference needs comparison before a model or provider is selected.
+Literal source search is available; indexed/semantic retrieval and generated
+dialogue remain separate decisions. Local versus remote inference needs comparison
+before a model or provider is selected.
 
 ## Quality and documentation roadmap
 

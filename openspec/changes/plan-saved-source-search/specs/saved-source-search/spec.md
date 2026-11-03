@@ -1,13 +1,13 @@
 # Search saved source passages
 
-**Status: proposed behavior, pending maintainer review and implementation.**
+**Status: contract approved in PR #25; this change delivers its implementation.**
 This is a read-only experimental source-finding step, not a generated answer.
 
 ## ADDED Requirements
 
 ### Requirement: Search one saved run without side effects
 
-The proposed search command SHALL search only retained extracted text in one
+The search command SHALL search only retained extracted text in one
 explicitly selected saved synthetic run, using saved metadata and existing strict
 integrity checks. It SHALL NOT read original source files, use reference
 annotations as evidence, start extraction, write files or make network/model calls.
