@@ -36,6 +36,9 @@ No version has been released yet.
 
 ### Added
 
+- Review packet proposing read-only literal passage search in saved synthetic
+  extraction runs; the search command is not implemented by this documentation change.
+
 - Read-only score command for saved extraction: exact reference quote recovery,
   independent location correctness, expected outcome agreement and explicit
   incomplete/unannotated evidence, with readable and JSON output.
