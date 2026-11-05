@@ -6,13 +6,14 @@
 - [x] Inventory a concrete local model candidate from official metadata without downloading weights.
 - [x] Prepare user-facing scenarios, scope, data boundary and trial stop conditions.
 - [x] Validate OpenSpec, documentation links, secrets, scope and unchanged LICENSE.
-- [ ] Publish a ready verified bot PR and obtain maintainer scope approval.
+- [x] Publish a ready verified bot PR and obtain maintainer scope approval (PR #27 merged).
 
 ## First implementation PR after approval
 
-- [ ] Deliver the complete ask journey with dedicated synthetic profile/corpus and model doubles.
-- [ ] Test evidence scoping, unknowns/conflicts, attribution, citations, invalid outputs and no-call paths.
-- [ ] Run canonical/offline/coverage gates; update current guide and deliver a ready PR.
+- [x] Deliver the complete ask journey with dedicated synthetic profile/corpus and model doubles.
+- [x] Test evidence scoping, unknowns/conflicts, attribution, citations, invalid outputs and no-call paths.
+- [x] Run canonical/offline/coverage gates and update the current guide.
+- [ ] Publish a ready implementation PR and obtain maintainer review/manual merge.
 
 ## Second implementation PR after first review
 

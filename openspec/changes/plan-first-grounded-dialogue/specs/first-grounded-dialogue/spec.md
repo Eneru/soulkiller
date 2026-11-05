@@ -1,12 +1,12 @@
 # First sourced-answer experiment
 
-**Status: proposed contract; no ask command or real-model trial exists yet.**
+**Status: approved in PR #27; scripted ask is the first implementation. Real-model execution is pending.**
 
 ## ADDED Requirements
 
 ### Requirement: Explicit source-scoped question
 
-The proposed experiment SHALL accept one explicit synthetic persona profile,
+The experiment SHALL accept one explicit synthetic persona profile,
 saved run, question, literal evidence expression and fr/en answer language.
 It SHALL use a dedicated attributed corpus and profile-selected fixture IDs,
 validate saved evidence and disclose source coverage before invoking a model.

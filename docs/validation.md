@@ -165,3 +165,33 @@ Docker CLI; do not claim they were tested unless they were actually exercised.
 
 For observable extraction acceptance, follow [Try extraction](try-extraction.md).
 The existing offline regression lane also executes the real module CLI.
+
+
+## Clean-build package alignment
+
+The hosted PR #27 build stopped before checks because the SQLite development
+package pinned revision 3.45.1-1ubuntu2.8 while the repository selected runtime
+revision 3.45.1-1ubuntu2.9. The matching development/runtime pins now use .9.
+A fresh local build also found that the previous CA certificate revision was
+removed; both stages now pin 20260816ubuntu0.24.04.2. Other package pins were
+checked for availability. A successful cached build does not validate those
+repository dependencies: use a complete cache-free build for this repair.
+
+Inside the rebuilt container, verify Python and the matching runtime packages:
+
+~~~sh
+python --version
+dpkg-query -W ca-certificates libsqlite3-0
+bash tools/checks/check.sh all
+~~~
+
+Use the [dialogue demo](try-dialogue.md) and existing offline extraction procedure
+to verify saved output, readable sources and credential-free regressions. The
+native Python editor configuration remains applicable to the new modules.
+
+
+The publisher's ABA fixture now restores the live index bytes at the swap
+boundary. A Git stat-only refresh can rewrite index metadata before the frozen
+capture even when tracked content is identical. The test deliberately changes
+the index representation first, then checks that only the frozen staged
+content is uploaded. Production index-change refusals are unchanged.
