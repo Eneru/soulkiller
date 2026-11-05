@@ -8,6 +8,9 @@ No version has been released yet.
 
 ### Changed
 
+- Require public artifacts to use approved project reference profiles or synthetic
+  examples, keeping personal configuration shared in chat out of publication.
+
 - Keep README focused on the current usable workflow; historical implementation
   steps remain in OpenSpec.
 
@@ -35,6 +38,10 @@ No version has been released yet.
   pytest discovery; require future component additions to evolve the devcontainer.
 
 ### Added
+
+- Review packet for the first sourced-answer experiment, with local/owned-remote/
+  hosted comparison, a concrete proposed local model and bounded evaluation plan.
+  No dialogue command or model runtime is delivered by this documentation change.
 
 - Read-only search command for saved synthetic TXT/PDF evidence: case-sensitive
   expressions, bounded exact excerpts/source references, explicit truncation
