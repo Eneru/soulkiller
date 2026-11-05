@@ -15,7 +15,7 @@ mean that the proposed search command exists or that its behavior was tested.
 - [x] Add independent behavior/error/CLI tests and retain all-source coverage >=70%.
 - [x] Run the manual examples, unchanged-file checks and canonical/bounded offline gates.
 - [x] Update the current usage guide, README status and CHANGELOG for delivered behavior.
-- [ ] Publish a ready implementation PR and obtain maintainer review/manual merge.
+- [x] Publish a ready implementation PR and obtain maintainer review/manual merge (PR #26).
 
 ## Separate next decision
 

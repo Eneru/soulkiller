@@ -189,7 +189,7 @@ Issue #8 is published but its site implementation has not started.
 ## Current extraction milestone
 
 The [current extraction guide](try-extraction.md) covers a complete synthetic
-run/show/score journey: persistent text/pages/errors and independent exact
+run/show/score/search journey: persistent text/pages/errors and independent exact
 quote/location checks. Historical subdivisions and review records are retained
 in the [OpenSpec changes](../openspec/changes), rather than a running walkthrough.
 
@@ -210,3 +210,13 @@ was reviewed and merged in PR #25. The [current guide](try-extraction.md) now co
 read-only literal search with quoted TXT/PDF excerpts and resolving source
 references. Indexing, semantic retrieval, inference placement and generated
 dialogue remain separate decisions; no final retrieval stack is adopted.
+
+
+### Next proposal for review: first sourced answer
+
+The [inference comparison](research/first-dialogue-inference-comparison.md) compares
+source-PC, user-owned and hosted placement. The
+[dialogue proposal](../openspec/changes/plan-first-grounded-dialogue/proposal.md)
+requests approval for one-turn synthetic questions/citations, then a pinned,
+bounded real local-model trial in two reviewable PRs. It is not implemented.
+Product placement and any remote data/budget approval remain separate.

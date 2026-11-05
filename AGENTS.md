@@ -77,6 +77,11 @@
   before delivery; follow docs/validation.md for devcontainer changes.
 - Do not commit secrets, real personal data or sensitive logs. Use synthetic
   examples and ignored local files.
+- Keep personal hardware, infrastructure, network and account details from chat
+  out of public code, documentation, specifications, issues, PR text and logs.
+  Publish only explicitly approved project reference profiles or synthetic
+  examples. Operator-specific configuration belongs in ignored local files;
+  publishing it requires explicit authorization for that publication.
 - No OmniRoute service or LLM provider must start automatically.
 - Update documentation and CHANGELOG.md to match delivered behavior.
 

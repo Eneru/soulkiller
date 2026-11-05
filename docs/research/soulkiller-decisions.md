@@ -38,6 +38,14 @@ language choice is implied.
 Read the [behavior decision packet](soulkiller-behavior-framing.md) for the latest
 confirmed answers, access comparison and proposed synthetic acceptance examples.
 
+## Inference comparison proposed for review
+
+The [first-dialogue comparison](first-dialogue-inference-comparison.md) contains
+local/owned/hosted tradeoffs and dated hosted compute/token cost examples.
+The [proposed dialogue scope](../../openspec/changes/plan-first-grounded-dialogue/proposal.md)
+requests review of a bounded synthetic local trial. Product placement, any remote
+transmission and a financial budget are still undecided.
+
 ## Choices for review
 
 | ID | Options and tradeoff | Recommendation / evidence status | Decision needed before |
