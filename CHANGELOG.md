@@ -8,6 +8,12 @@ No version has been released yet.
 
 ### Changed
 
+- Stabilize the publisher's frozen-index race regression when Git rewrites
+  index metadata without changing staged content.
+
+- Align SQLite development/runtime pins and refresh the removed CA certificate
+  revision to restore fresh devcontainer builds.
+
 - Require public artifacts to use approved project reference profiles or synthetic
   examples, keeping personal configuration shared in chat out of publication.
 
@@ -38,6 +44,9 @@ No version has been released yet.
   pytest discovery; require future component additions to evolve the devcontainer.
 
 ### Added
+
+- Scripted first sourced-answer demo for the invented Inez profile: scoped saved
+  evidence, explicit uncertainty, validated citations and a manual guide.
 
 - Review packet for the first sourced-answer experiment, with local/owned-remote/
   hosted comparison, a concrete proposed local model and bounded evaluation plan.

@@ -3,9 +3,9 @@
 Source search is usable after merged PR #26. The next visible outcome is asking
 an invented persona a question and reading an answer with inspectable citations.
 
-**This PR is a review packet, not a working dialogue command.** Read the
+**Approved in merged PR #27. The first implementation delivers the scripted ask journey.** Read the
 [local/remote comparison](../../../docs/research/first-dialogue-inference-comparison.md)
-before approving the next development scope. No model was downloaded or executed.
+for the approved local trial plan and separate remote decisions.
 
 ## Proposed first journey
 
