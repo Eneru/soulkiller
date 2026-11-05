@@ -72,7 +72,47 @@ remain visibly partial/incomplete. Score uses saved annotations: older runs may
 contain fewer reference facts, even after the current manifest changes. Extract
 under a new run ID to try the current six-fact example.
 
-## 5. Try the errors
+## 5. Find a source passage
+
+In either the offline container or the ordinary connected editor devcontainer:
+
+~~~sh
+python -m soulkiller_text search --run-id demo-001 --query "lampe bleue"
+python -m soulkiller_text search --run-id demo-001 --query "paper stars"
+python -m soulkiller_text search --run-id demo-001 --query "paper stars" --limit 1 --json
+python -m soulkiller_text search --run-id demo-001 --query "absent phrase"
+~~~
+
+Expect one French PDF match on page 1 for "lampe bleue", two English matches
+(TXT and PDF) for "paper stars", and an explicit no-match message for the absent
+phrase. With limit 1, the JSON marks additional matches rather than claiming an
+exact total. The command reads saved results without extracting again or writing
+an index, cache or query log.
+
+Search is **case-sensitive literal substring matching**: accents and whitespace
+must match too. It does not interpret regular expressions or answer a question.
+A missing expression only means that literal passage was not found in retained
+text. Source order is stable (manifest, physical PDF page, offset), not a relevance
+or truth ranking. Pages and documents are never joined to create a match.
+
+Each hit includes the declared source labels, revision hash, exact quotation
+and up to 80 context code points on each side. Match and excerpt ranges are
+separate, zero-based and end-exclusive in saved TXT or the named PDF page.
+The JSON quote and excerpt resolve by slicing those exact ranges; page numbers
+are one-based. Declared labels do not verify identity or authorship.
+
+Document coverage stays visible even for failed, partial, missing or unfinished
+extractions. A complete schedule can still have invalid files. Missing-page
+coverage is unknown when the PDF total is unavailable; a partial page hit does
+not make the other pages searchable. All saved records must pass integrity
+validation before any trusted results are printed.
+
+Default output is 3 matches; --limit accepts 1..20. --query accepts 1..200 code
+points with nonblank text. These are experimental output guards, not validated
+PC capacity. Invalid arguments fail before opening the run. Text display escapes
+terminal controls; JSON retains exact evidence.
+
+## 6. Try the errors
 
 - Repeat run with demo-001: it refuses to replace the earlier result.
 - Show an unknown ID: it fails without creating a run.
@@ -82,7 +122,9 @@ under a new run ID to try the current six-fact example.
 
 Exit 0 means the schedule completed (inspect individual errors); exit 1 means
 failure/incomplete state; exit 2 means incorrect arguments; exit 130 means
-cancellation. Score uses these same status-based exits: a quality mismatch is
+cancellation. Search uses these same status-based exits: a complete run with no
+matches exits 0, while incomplete or cancelled saved progress keeps its nonzero
+status even if hits are available. Score also uses status-based exits: a quality mismatch is
 reported without making a complete run fail an unapproved quality gate.
 Unexpected stop/storage failure can leave an incomplete folder:
 show labels missing observations unknown instead of claiming completion.
@@ -97,5 +139,4 @@ Existing bounds and no-overwrite rules remain active. No crash/power-loss
 durability, native Windows performance, semantic/reading-order evaluation, parser ranking or full benchmark report
 is claimed. Plain display escapes terminal controls; JSON retains exact text.
 
-Next milestone: retrieval and a first sourced dialogue, after the local/remote
-model comparison. The current tool has no RAG or persona memory.
+Next milestone: compare local/remote inference and specify the first sourced dialogue. The current tool has no RAG or persona memory.

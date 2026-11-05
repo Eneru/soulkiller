@@ -203,10 +203,10 @@ The App publisher has no Issues/subissue or native Development branch-link
 operation. R1-R5/F1-F6 proposals retain their maintainer-review publication rule.
 
 
-### Next proposal for review: find saved source passages
+### Find saved source passages
 
-[plan-saved-source-search](../openspec/changes/plan-saved-source-search/proposal.md)
-proposes one read-only literal-search journey with quoted TXT/PDF passages and
-resolving source references. It is not implemented or approved merely by being
-listed here. After review, one small implementation PR would deliver the command
-and its tests; inference placement and a generated dialogue remain separate decisions.
+The [approved source-search contract](../openspec/changes/plan-saved-source-search/proposal.md)
+was reviewed and merged in PR #25. The [current guide](try-extraction.md) now covers
+read-only literal search with quoted TXT/PDF excerpts and resolving source
+references. Indexing, semantic retrieval, inference placement and generated
+dialogue remain separate decisions; no final retrieval stack is adopted.

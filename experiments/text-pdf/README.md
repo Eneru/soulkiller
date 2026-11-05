@@ -1,8 +1,8 @@
 # TXT/PDF extraction evaluation
 
 This experimental Python program extracts a selected synthetic TXT/PDF corpus,
-persists outcomes and checks independently annotated facts. Start with the
-[current extraction guide](../../docs/try-extraction.md) for run/show/score and
+persists outcomes, checks independently annotated facts and finds literal source passages. Start with the
+[current extraction guide](../../docs/try-extraction.md) for run/show/score/search and
 the bilingual example. No model, account or paid call is needed.
 
 The [approved parent plan](../../openspec/changes/evaluate-text-pdf-extraction/design.md)
@@ -105,8 +105,8 @@ for independently validated responses and offline execution.
 
 ## Remaining evaluation work
 
-The current CLI supplies incremental checkpoints and read-only exact fact/location
-checks. Full benchmark environment/measurement context, reading-order scoring,
+The current CLI supplies incremental checkpoints, read-only exact fact/location
+checks and literal passage search with resolving source excerpts. Full benchmark environment/measurement context, reading-order scoring,
 the native Docling candidate and an actual bounded Linux comparison remain
 pending under the parent plan. No parser ranking, production stack or Windows
 performance conclusion follows from the current synthetic checks.

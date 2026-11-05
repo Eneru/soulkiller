@@ -4,9 +4,9 @@ Extraction is now manually usable and its reference facts can be checked.
 The next useful action is finding a passage without reading every saved document.
 Propose one small search journey before introducing generated answers.
 
-**Status: proposed for maintainer review; no search command is implemented here.**
-PR #24 merge is confirmed. This packet requests approval for the following
-implementation PR; existing extraction/comparison approval does not select it.
+**Status: approved in merged PR #25; implementation proceeds under this contract.**
+PR #24 and PR #25 merges are confirmed. The maintainer explicitly requested the
+implementation after reviewing this packet.
 
 ## What the maintainer will be able to try
 
