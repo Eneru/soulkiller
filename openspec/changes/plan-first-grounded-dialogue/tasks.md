@@ -13,14 +13,15 @@
 - [x] Deliver the complete ask journey with dedicated synthetic profile/corpus and model doubles.
 - [x] Test evidence scoping, unknowns/conflicts, attribution, citations, invalid outputs and no-call paths.
 - [x] Run canonical/offline/coverage gates and update the current guide.
-- [ ] Publish a ready implementation PR and obtain maintainer review/manual merge.
+- [x] Publish a ready implementation PR and obtain maintainer review/manual merge (PR #28).
 
 ## Second implementation PR after first review
 
-- [ ] Integrate the pinned CPU runtime and explicit hash-checked model provisioning in the devcontainer.
-- [ ] Verify server lifecycle/containment, token/output/time limits and applicable dependency/security checks.
-- [ ] Run the bounded local real-model trial; record actual observations and human quality assessment.
-- [ ] Deliver manual real-answer examples, limitations and a ready PR for review/manual merge.
+- [x] Integrate the pinned CPU runtime and explicit hash-checked model provisioning in the devcontainer.
+- [x] Verify server lifecycle/containment, token/output/time limits and applicable dependency/security checks.
+- [x] Run the bounded local real-model trial; record actual observations and human quality assessment.
+- [x] Document the manual workflow and observed [trial results](../../../docs/research/local-model-trial.md).
+- [ ] Obtain maintainer review and manual merge of the local trial PR.
 
 ## Separate decisions
 

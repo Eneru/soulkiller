@@ -195,3 +195,13 @@ boundary. A Git stat-only refresh can rewrite index metadata before the frozen
 capture even when tracked content is identical. The test deliberately changes
 the index representation first, then checks that only the frozen staged
 content is uploaded. Production index-change refusals are unchanged.
+
+## Local dialogue runtime
+
+The Docker build compiles the pinned CPU-only llama.cpp server and runs its
+version command. The editor uses the existing Python, Ruff, mypy, pytest and
+Hadolint integrations for the adapter and image. There is no project C++
+source to configure in the editor. Repository-local hooks and PR CI use the
+same Python and image static gates. Tests use synthetic transport responses,
+without model assets or inference. The manual [offline dialogue trial](try-dialogue.md)
+exercises the real server and weights separately.

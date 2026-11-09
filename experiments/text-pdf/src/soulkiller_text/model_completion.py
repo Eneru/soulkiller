@@ -2,6 +2,8 @@
 
 from dataclasses import dataclass
 
+from .dialogue_constants import DEMO_BACKEND
+
 
 @dataclass(frozen=True)
 class ModelCompletion:
@@ -10,3 +12,4 @@ class ModelCompletion:
     payload: bytes
     finish_reason: str
     requested_tools: bool
+    backend: str = DEMO_BACKEND

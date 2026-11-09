@@ -45,6 +45,10 @@ No version has been released yet.
 
 ### Added
 
+- Add explicit offline Qwen3 generation and verified model provisioning for the
+  synthetic sourced-answer experiment. Document the CPU trial and its observed
+  quality and resource limits.
+
 - Scripted first sourced-answer demo for the invented Inez profile: scoped saved
   evidence, explicit uncertainty, validated citations and a manual guide.
 

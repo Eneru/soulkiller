@@ -23,6 +23,26 @@ RUN curl -fsSL "https://codeload.github.com/SimonKagstrom/kcov/tar.gz/refs/tags/
     && cmake --build /tmp/kcov-build --parallel 2 \
     && cmake --install /tmp/kcov-build
 
+FROM kcov-builder AS llama-builder
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ARG LLAMA_COMMIT=cd959bae99ff4bed22bef2604f45241c09bbb8c8
+RUN curl -fsSL "https://codeload.github.com/ggml-org/llama.cpp/tar.gz/${LLAMA_COMMIT}" -o /tmp/llama.tar.gz \
+    && echo "fbe74146a3cdc00f706773eb233bc4aedb7d8c3c7e2122440e492a99c1ec5a76  /tmp/llama.tar.gz" | sha256sum --check --strict \
+    && tar -xzf /tmp/llama.tar.gz -C /tmp \
+    && cmake -S "/tmp/llama.cpp-${LLAMA_COMMIT}" -B /tmp/llama-build \
+        -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DGGML_NATIVE=OFF \
+        -DGGML_OPENMP=OFF -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=OFF \
+        -DLLAMA_BUILD_APP=OFF -DLLAMA_BUILD_UI=OFF -DLLAMA_USE_PREBUILT_UI=OFF \
+        -DLLAMA_BUILD_COMMIT="${LLAMA_COMMIT}" -DLLAMA_BUILD_NUMBER=0 \
+    && cmake --build /tmp/llama-build --target llama-server --parallel 2 \
+    && install -Dm755 /tmp/llama-build/bin/llama-server /opt/llama/bin/llama-server \
+    && install -Dm644 "/tmp/llama.cpp-${LLAMA_COMMIT}/LICENSE" /opt/llama/share/licenses/llama.cpp/LICENSE \
+    && cp -a "/tmp/llama.cpp-${LLAMA_COMMIT}/licenses/." /opt/llama/share/licenses/llama.cpp/ \
+    && cp -a "/tmp/llama.cpp-${LLAMA_COMMIT}/vendor" /tmp/llama-notices \
+    && find /tmp/llama-notices -type f ! -iname 'license*' -delete \
+    && cp -a /tmp/llama-notices /opt/llama/share/licenses/llama.cpp/vendor
+
 FROM kcov-builder AS python-builder
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -126,6 +146,9 @@ RUN npm ci --prefix /opt/openspec --omit=dev --ignore-scripts --no-audit --no-fu
     && git config --system --add safe.directory /workspaces/soulkiller \
     && mkdir -p /workspaces/soulkiller \
     && chown ubuntu:ubuntu /workspaces/soulkiller
+
+COPY --from=llama-builder /opt/llama /opt/llama
+RUN /opt/llama/bin/llama-server --version
 
 # The Ubuntu image already provides this non-root user (UID/GID 1000).
 USER 1000:1000
