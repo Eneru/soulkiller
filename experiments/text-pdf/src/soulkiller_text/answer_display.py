@@ -4,6 +4,7 @@ import json
 from dataclasses import asdict
 
 from .answer_result import AnswerResult
+from .dialogue_constants import DEMO_BACKEND, NO_BACKEND
 from .extraction_display import safe_display
 
 
@@ -13,12 +14,15 @@ def render_answer(result: AnswerResult, *, as_json: bool) -> str:
         return json.dumps(asdict(result), ensure_ascii=True, allow_nan=False, separators=(",", ":"))
     lines = [
         f"Backend: {result.backend}",
-        "Scripted demo only: no LLM interpretation or measured answer quality.",
         f"Answer status: {result.status}",
         "Response text:",
         result.text,
         "Exact local sources (citation resolution does not prove factual support):",
     ]
+    if result.backend == DEMO_BACKEND:
+        lines.insert(1, "Scripted demo only: no LLM interpretation or measured answer quality.")
+    elif result.backend != NO_BACKEND:
+        lines.insert(1, "Generated local trial response. Inspect the cited source excerpts.")
     for index, source in enumerate(result.sources, start=1):
         if f"S{index}" not in result.citations:
             continue

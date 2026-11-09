@@ -10,15 +10,15 @@ or demonstrated.
 
 Follow the [current extraction guide](docs/try-extraction.md): run the synthetic
 example, inspect saved text/PDF pages, check reference facts and find source
-passages. The [sourced-answer demo](docs/try-dialogue.md) shows a scripted first-person
-answer with citations from a dedicated invented persona corpus.
+passages. The [dialogue walkthrough](docs/try-dialogue.md) starts with a scripted
+answer and exact citations, then reproduces the optional Qwen3 experiment.
 
 ## Project status
 
 The current runnable tool extracts an explicitly selected synthetic TXT/PDF
 corpus, persists results, checks reference facts and searches saved source passages.
-The experimental ask command validates scoped evidence and a scripted answer
-with consultable sources. Real-model dialogue follows in a separate integration.
+The experimental ask command uses scoped evidence and supports one offline Qwen3
+answer with consultable sources. Scripted mode provides predictable examples.
 Python is used for this experiment; the production language, .NET and any
 frontend remain undecided. No model/provider starts automatically.
 

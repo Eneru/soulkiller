@@ -1,6 +1,6 @@
 # First sourced-answer experiment
 
-**Status: approved in PR #27; scripted ask is the first implementation. Real-model execution is pending.**
+**Status: approved in PR #27. Scripted ask merged in PR #28. The local trial records observed model behaviour for review.**
 
 ## ADDED Requirements
 

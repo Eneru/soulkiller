@@ -3,7 +3,7 @@
 import re
 
 from .answer_result import AnswerResult
-from .dialogue_constants import DEMO_BACKEND, MAX_ANSWER_CODE_POINTS, MAX_COMPLETION_BYTES
+from .dialogue_constants import MAX_ANSWER_CODE_POINTS, MAX_COMPLETION_BYTES
 from .dialogue_error import DialogueError
 from .model_completion import ModelCompletion
 from .saved_json import decode_saved
@@ -50,4 +50,4 @@ def accept_completion(
         and len(citations) < 2
     ):
         raise DialogueError("invalid_model_citations")
-    return AnswerResult(status, text, tuple(citations), sources, DEMO_BACKEND)
+    return AnswerResult(status, text, tuple(citations), sources, completion.backend)

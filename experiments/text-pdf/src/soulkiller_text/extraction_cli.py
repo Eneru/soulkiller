@@ -8,12 +8,13 @@ from pathlib import Path
 from .answer_display import render_answer
 from .corpus_error import CorpusError
 from .corpus_fixture import CorpusFixture
-from .dialogue import ask_saved, validate_question
+from .dialogue import Model, ask_saved, validate_question
 from .dialogue_constants import DIALOGUE_CORPUS, PERSONA_ID
 from .dialogue_error import DialogueError
 from .extraction_display import render_saved, render_score
 from .extraction_scoring import score_extraction
 from .fixture_run import FixtureRun
+from .local_model import local_completion
 from .manual_cli_constants import CANCELLED, DEFAULT_CORPUS, FAILURE, SUCCESS
 from .pdf_corpus_fixture import PdfCorpusFixture
 from .run_status import RunStatus
@@ -28,17 +29,18 @@ from .source_search import search_evidence, validate_search
 
 
 def _ask_arguments(child: argparse.ArgumentParser) -> None:
-    """Expose the approved fixed profile and explicit scripted-backend choice."""
+    """Expose the approved fixed profile and explicit backend choice."""
     child.add_argument("--profile", choices=(PERSONA_ID,), required=True)
     child.add_argument("--question", required=True)
     child.add_argument("--evidence-query", required=True)
     child.add_argument("--language", choices=("fr", "en"), required=True)
-    child.add_argument(
+    backend = child.add_mutually_exclusive_group(required=True)
+    backend.add_argument(
         "--demo-case",
         choices=DEMO_CASES,
-        required=True,
         help="Explicit scripted response; no LLM is called.",
     )
+    backend.add_argument("--local-model", action="store_true", help="Run the pinned offline model.")
 
 
 def _arguments(arguments: list[str] | None) -> argparse.Namespace:
@@ -101,16 +103,22 @@ def _announce_evidence(report: SearchReport) -> None:
 
 
 def _ask_text(args: argparse.Namespace) -> str:
-    """Run the fully explicit scripted collaborator and return safe text/JSON presentation."""
+    """Choose the explicit collaborator and return safe text or JSON."""
+    workspace = Path.cwd()
+    model: Model = (
+        partial(local_completion, workspace=workspace)
+        if args.local_model
+        else partial(demo_completion, case=args.demo_case, language=args.language)
+    )
     result = ask_saved(
-        Path.cwd(),
+        workspace,
         args.corpus,
         args.run_id,
         args.profile,
         args.question,
         args.evidence_query,
         args.language,
-        partial(demo_completion, case=args.demo_case, language=args.language),
+        model,
         on_evidence=_announce_evidence,
     )
     return render_answer(result, as_json=args.json)
