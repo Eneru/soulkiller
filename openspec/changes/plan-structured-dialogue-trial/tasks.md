@@ -10,4 +10,4 @@
 - [x] Exercise compatible baseline behavior, invalid IDs, no-match behavior, citations and runtime boundaries using deterministic tests.
 - [x] Run the canonical and offline checks and update the current manual walkthrough.
 - [x] Run the bounded paired trial and record [mechanical and human results](../../../docs/research/structured-dialogue-trial.md).
-- [ ] Obtain maintainer review and manual merge of the implementation PR.
+- [x] Obtain maintainer review and manual merge of the implementation PR (PR #31).
