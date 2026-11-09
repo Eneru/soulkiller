@@ -14,7 +14,7 @@ from .local_server_identity import require_owned_listener
 from .local_server_process import owned_server, require_running
 from .model_completion import ModelCompletion
 
-RESPONSE_SCHEMA = {
+RESPONSE_SCHEMA: dict[str, Any] = {
     "type": "object",
     "properties": {
         "status": {"enum": ["answer", "uncertain", "conflict"]},
@@ -99,7 +99,18 @@ def _checked_completion(fields: dict[str, Any], token_count: int) -> ModelComple
         raise DialogueError("invalid_local_model_content") from None
 
 
-def _generate(tokens: list[int]) -> ModelCompletion:
+def _response_schema(citation_ids: tuple[str, ...]) -> dict[str, Any]:
+    """Apply the optional request-local enum without mutating the baseline schema."""
+    if not citation_ids:
+        return RESPONSE_SCHEMA
+    properties = {
+        **RESPONSE_SCHEMA["properties"],
+        "citations": {"type": "array", "items": {"enum": list(citation_ids)}},
+    }
+    return {**RESPONSE_SCHEMA, "properties": properties}
+
+
+def _generate(tokens: list[int], citation_ids: tuple[str, ...]) -> ModelCompletion:
     """Send one non-streaming, schema-constrained completion using the checked token IDs."""
     started = time.monotonic()
     fields = (
@@ -112,7 +123,7 @@ def _generate(tokens: list[int]) -> ModelCompletion:
                 "seed": SEED,
                 "cache_prompt": False,
                 "stream": False,
-                "json_schema": RESPONSE_SCHEMA,
+                "json_schema": _response_schema(citation_ids),
             },
         )
         or {}
@@ -127,7 +138,9 @@ def _generate(tokens: list[int]) -> ModelCompletion:
     return _checked_completion(fields, len(tokens))
 
 
-def local_completion(messages: tuple[dict[str, str], ...], *, workspace: Path) -> ModelCompletion:
+def local_completion(
+    messages: tuple[dict[str, str], ...], citation_ids: tuple[str, ...] = (), *, workspace: Path
+) -> ModelCompletion:
     """Generate under the offline container limits, releasing the child on every exit."""
     require_local_budget()
     with verified_model(workspace) as descriptor:
@@ -139,6 +152,6 @@ def local_completion(messages: tuple[dict[str, str], ...], *, workspace: Path) -
             tokens = _prompt_tokens(messages)
             require_running(pid)
             require_owned_listener(pid)
-            result = _generate(tokens)
+            result = _generate(tokens, citation_ids)
             require_running(pid)
             return result

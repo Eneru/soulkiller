@@ -13,18 +13,20 @@ from soulkiller_text.local_model_constants import CONTEXT_TOKENS, LOCAL_BACKEND,
 
 
 @pytest.mark.parametrize(
-    ("tokens", "stop_type", "error"),
+    ("tokens", "citation_ids", "stop_type", "error"),
     [
-        ([42, 7], "eos", None),
-        ([42] * CONTEXT_TOKENS, "eos", "local_model_context_exceeded"),
-        ([True], "eos", "invalid_local_model_tokens"),
-        ([42, 7], "limit", "local_model_generation_incomplete"),
+        ([42, 7], (), "eos", None),
+        ([42, 7], ("S1", "S2"), "eos", None),
+        ([42] * CONTEXT_TOKENS, (), "eos", "local_model_context_exceeded"),
+        ([True], (), "eos", "invalid_local_model_tokens"),
+        ([42, 7], (), "limit", "local_model_generation_incomplete"),
     ],
 )
 def test_bounded_trial_uses_checked_tokens_and_reaps_on_failure(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
     tokens: list[int],
+    citation_ids: tuple[str, ...],
     stop_type: str,
     error: str | None,
 ) -> None:
@@ -77,10 +79,13 @@ def test_bounded_trial_uses_checked_tokens_and_reaps_on_failure(
 
     # Act / Assert
     if error is None:
-        assert local_model.local_completion(messages, workspace=tmp_path).backend == LOCAL_BACKEND
+        assert (
+            local_model.local_completion(messages, citation_ids, workspace=tmp_path).backend
+            == LOCAL_BACKEND
+        )
     else:
         with pytest.raises(DialogueError, match=error):
-            local_model.local_completion(messages, workspace=tmp_path)
+            local_model.local_completion(messages, citation_ids, workspace=tmp_path)
 
     assert lifecycle == ["started", "reaped"]
     assert calls[2][1] == {"messages": messages, "chat_template_kwargs": {"enable_thinking": False}}
@@ -95,3 +100,5 @@ def test_bounded_trial_uses_checked_tokens_and_reaps_on_failure(
         assert completion["n_predict"] == 128
         assert completion["cache_prompt"] is False
         assert completion["stream"] is False
+        items = completion["json_schema"]["properties"]["citations"]["items"]
+        assert items == ({"enum": list(citation_ids)} if citation_ids else {"type": "string"})

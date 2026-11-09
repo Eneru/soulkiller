@@ -1,9 +1,9 @@
 # Try a sourced answer from the invented Inez persona
 
 Start with the scripted walkthrough to verify that the dialogue command resolves
-citations to exact saved passages. The optional Qwen3 experiment reproduces a
-known citation rejection. Both modes use the same synthetic evidence. The
-command saves no conversation or persona memory.
+citations to exact saved passages. The optional Qwen3 comparison uses the same
+synthetic evidence to test two citation formats. The command saves no
+conversation or persona memory.
 
 ## 1. Prepare the saved evidence
 
@@ -60,24 +60,32 @@ SHA-256 before making it available under the ignored `.soulkiller-local/models/`
 directory. A repeat verifies the existing file. An invalid existing file stops
 the command so you can inspect it. Model weights are kept outside the image.
 
-Back in the offline terminal, reproduce the French lamp trial:
+Back in the offline terminal, compare the baseline and structured format:
 
 ~~~sh
-python -m soulkiller_text ask --run-id inez-local-001 --profile inez \
-  --question "Quelle lampe gardes-tu ?" --evidence-query "lampe bleue" \
-  --language fr --local-model
+for mode in --local-model --local-model-structured; do
+  python -m soulkiller_text ask --run-id inez-local-001 --profile inez \
+    --question "Quelle lampe gardes-tu ?" --evidence-query "lampe bleue" \
+    --language fr "$mode"
+done
 ~~~
 
-The recorded runs reached `Local model generation` and then returned
-`Dialogue failed: invalid_model_citations`. This sequence means the CPU server
-generated text and the CLI rejected its citations. Use the scripted walkthrough
-above to inspect the evidence for the same question. The
-[local trial results](research/local-model-trial.md) detail the other cases.
+For the baseline, the recorded French and English runs returned
+`invalid_model_citations` with `inline_id_mismatch`. Their prose omitted markers
+for the IDs in the list. In the structured format Soulkiller renders the
+markers from the validated IDs. The recorded French answer was
+`Je garde une lampe bleue. [S1]`, followed by the exact excerpt on PDF page 1.
+
+Use the English and conflict questions from step 2 with the same two model
+flags. Check both colours and whether the answer describes a disagreement
+about one lamp. In the comparison both formats resolved the citations but
+described two lamps. See the [paired trial results](research/structured-dialogue-trial.md)
+for the full matrix.
 
 No eligible match produces explicit uncertainty without starting the server.
-Both modes reject incomplete saved runs and expressions with more than three
+All modes reject incomplete saved runs and expressions with more than three
 matches. Add `--json` for machine-readable results. Evidence counts and local
 timings go to stderr. Run `exit` when finished to close the offline container.
 
-The [OpenSpec change](../openspec/changes/plan-first-grounded-dialogue/proposal.md)
-defines the approved scope.
+The [OpenSpec change](../openspec/changes/plan-structured-dialogue-trial/proposal.md)
+defines the scope of the paired comparison.
