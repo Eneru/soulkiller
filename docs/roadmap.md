@@ -219,7 +219,7 @@ was reviewed and merged in PR #27. The [current guide](try-dialogue.md) covers
 scripted citation inspection and the offline Qwen3 experiment. The
 [trial report](research/local-model-trial.md) records the results from PR #29.
 
-The [proposed paired trial](../openspec/changes/plan-structured-dialogue-trial/proposal.md)
-compares two citation formats with the same model and synthetic cases. The
+The [paired trial](research/structured-dialogue-trial.md) compares two citation
+formats with the same model and synthetic cases. The
 [inference comparison](research/first-dialogue-inference-comparison.md) keeps
 product placement and remote data and budget approval separate.

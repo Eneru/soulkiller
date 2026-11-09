@@ -45,6 +45,9 @@ No version has been released yet.
 
 ### Added
 
+- Add an explicit structured citation mode for the offline Qwen3 experiment and
+  report its citation and grounding results against the original response format.
+
 - Add explicit offline Qwen3 generation and verified model provisioning for the
   synthetic sourced-answer experiment. Document the CPU trial and its observed
   quality and resource limits.

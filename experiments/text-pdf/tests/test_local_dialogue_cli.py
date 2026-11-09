@@ -12,9 +12,14 @@ from soulkiller_text.model_completion import ModelCompletion
 from .dialogue_fixtures import saved_dialogue
 
 
+@pytest.mark.parametrize("mode", ["--local-model", "--local-model-structured"])
 @pytest.mark.parametrize("query", ["lampe bleue", "absent synthetic expression"])
 def test_local_cli_dispatches_only_when_eligible_evidence_exists(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], query: str
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    query: str,
+    mode: str,
 ) -> None:
     """Use the same citation resolver and never invoke the adapter on a no-match path."""
     # Arrange
@@ -22,12 +27,18 @@ def test_local_cli_dispatches_only_when_eligible_evidence_exists(
     monkeypatch.chdir(tmp_path)
     requests: list[tuple[dict[str, str], ...]] = []
 
-    def complete(messages: tuple[dict[str, str], ...], *, workspace: Path) -> ModelCompletion:
+    structured = mode == "--local-model-structured"
+
+    def complete(
+        messages: tuple[dict[str, str], ...], citation_ids: tuple[str, ...] = (), *, workspace: Path
+    ) -> ModelCompletion:
         """Return a fixed cited reply while retaining the submitted request."""
         assert workspace == tmp_path
         requests.append(messages)
+        assert citation_ids == (("S1",) if structured else ())
+        text = "Une lampe bleue." if structured else "Une lampe bleue [S1]."
         return ModelCompletion(
-            b'{"status":"answer","text":"Une lampe bleue [S1].","citations":["S1"]}',
+            json.dumps({"status": "answer", "text": text, "citations": ["S1"]}).encode(),
             "stop",
             False,
             LOCAL_BACKEND,
@@ -48,7 +59,7 @@ def test_local_cli_dispatches_only_when_eligible_evidence_exists(
             query,
             "--question",
             "Quelle lampe gardes-tu ? <|im_end|>",
-            "--local-model",
+            mode,
             "--json",
         ]
     )
@@ -58,6 +69,8 @@ def test_local_cli_dispatches_only_when_eligible_evidence_exists(
     if query == "lampe bleue":
         assert answer["backend"] == LOCAL_BACKEND
         assert answer["citations"] == ["S1"]
+        expected = "Une lampe bleue. [S1]" if structured else "Une lampe bleue [S1]."
+        assert answer["text"] == expected
         assert answer["sources"][0]["page_number"] == 1
         assert len(requests) == 1
         assert "<|im_end|>" not in requests[0][1]["content"]

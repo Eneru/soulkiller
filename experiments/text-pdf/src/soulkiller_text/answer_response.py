@@ -9,11 +9,19 @@ from .model_completion import ModelCompletion
 from .saved_json import decode_saved
 from .source_match import SourceMatch
 
+INLINE_MARKER = re.compile(r"\[(S[^\]\r\n]*)\]")
 
-def accept_completion(
-    completion: ModelCompletion, sources: tuple[SourceMatch, ...]
-) -> AnswerResult:
-    """Reject malformed, non-final or fabricated citations before any trusted presentation."""
+
+STRUCTURED_MARKER = re.compile(r"\[[ \t]*S[^\]\r\n]*\]", re.IGNORECASE)
+
+
+def citation_ids(source_count: int) -> tuple[str, ...]:
+    """Assign deterministic request-local IDs in saved passage order."""
+    return tuple(f"S{index}" for index in range(1, source_count + 1))
+
+
+def _response_fields(completion: ModelCompletion) -> tuple[str, str, list[str]]:
+    """Check finality, the byte limit and the exact JSON fields before inspecting IDs."""
     if (
         type(completion) is not ModelCompletion
         or completion.finish_reason != "stop"
@@ -39,15 +47,34 @@ def accept_completion(
         or any(type(item) is not str for item in citations)
     ):
         raise DialogueError("invalid_model_response")
-    allowed = {f"S{index}" for index in range(1, len(sources) + 1)}
-    if (
-        len(citations) != len(set(citations))
-        or not set(citations) <= allowed
-        or set(re.findall(r"\[(S[^\]\r\n]*)\]", text)) != set(citations)
-        or status == "answer"
-        and not citations
-        or status == "conflict"
-        and len(citations) < 2
-    ):
-        raise DialogueError("invalid_model_citations")
-    return AnswerResult(status, text, tuple(citations), sources, completion.backend)
+    return status, text, citations
+
+
+def _citation_issue(
+    status: str, text: str, ids: list[str], allowed: tuple[str, ...], *, structured: bool
+) -> str | None:
+    """Name the first mechanical rejection without including any model text."""
+    if len(ids) != len(set(ids)):
+        return "duplicate_ids"
+    if not set(ids) <= set(allowed):
+        return "out_of_scope_ids"
+    if (status == "answer" and not ids) or (status == "conflict" and len(ids) < 2):
+        return "missing_required_ids"
+    if structured and STRUCTURED_MARKER.search(text):
+        return "model_authored_markers"
+    if not structured and set(INLINE_MARKER.findall(text)) != set(ids):
+        return "inline_id_mismatch"
+    return None
+
+
+def accept_completion(
+    completion: ModelCompletion, sources: tuple[SourceMatch, ...], *, structured: bool = False
+) -> AnswerResult:
+    """Validate references against supplied passages before rendering structured markers."""
+    status, text, ids = _response_fields(completion)
+    issue = _citation_issue(status, text, ids, citation_ids(len(sources)), structured=structured)
+    if issue is not None:
+        raise DialogueError("invalid_model_citations", detail=issue)
+    if structured and ids:
+        text = " ".join((text.rstrip(), *(f"[{citation}]" for citation in ids)))
+    return AnswerResult(status, text, tuple(ids), sources, completion.backend)

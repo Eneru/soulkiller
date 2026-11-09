@@ -40,7 +40,14 @@ def _ask_arguments(child: argparse.ArgumentParser) -> None:
         choices=DEMO_CASES,
         help="Explicit scripted response; no LLM is called.",
     )
-    backend.add_argument("--local-model", action="store_true", help="Run the pinned offline model.")
+    backend.add_argument(
+        "--local-model", action="store_true", help="Run the baseline offline model."
+    )
+    backend.add_argument(
+        "--local-model-structured",
+        action="store_true",
+        help="Run the offline model with application-rendered citations.",
+    )
 
 
 def _arguments(arguments: list[str] | None) -> argparse.Namespace:
@@ -105,11 +112,12 @@ def _announce_evidence(report: SearchReport) -> None:
 def _ask_text(args: argparse.Namespace) -> str:
     """Choose the explicit collaborator and return safe text or JSON."""
     workspace = Path.cwd()
-    model: Model = (
-        partial(local_completion, workspace=workspace)
-        if args.local_model
-        else partial(demo_completion, case=args.demo_case, language=args.language)
-    )
+    local = partial(local_completion, workspace=workspace)
+    model: Model | None = None
+    if args.local_model:
+        model = local
+    elif not args.local_model_structured:
+        model = partial(demo_completion, case=args.demo_case, language=args.language)
     result = ask_saved(
         workspace,
         args.corpus,
@@ -119,6 +127,7 @@ def _ask_text(args: argparse.Namespace) -> str:
         args.evidence_query,
         args.language,
         model,
+        structured_model=local if args.local_model_structured else None,
         on_evidence=_announce_evidence,
     )
     return render_answer(result, as_json=args.json)
@@ -151,6 +160,8 @@ def main(arguments: list[str] | None = None) -> int:
                 "Offline container required: launch with --network none --memory 3g --cpus 2."
             )
         label = "Dialogue" if args.command == "ask" else "Extraction"
+        if isinstance(error, DialogueError) and error.detail is not None:
+            print(f"Citation check: {error.detail}.", file=sys.stderr)
         print(f"{label} failed: {category}", file=sys.stderr)
         return FAILURE
     except KeyboardInterrupt:
