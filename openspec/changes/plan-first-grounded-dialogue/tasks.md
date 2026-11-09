@@ -21,7 +21,7 @@
 - [x] Verify server lifecycle/containment, token/output/time limits and applicable dependency/security checks.
 - [x] Run the bounded local real-model trial; record actual observations and human quality assessment.
 - [x] Document the manual workflow and observed [trial results](../../../docs/research/local-model-trial.md).
-- [ ] Obtain maintainer review and manual merge of the local trial PR.
+- [x] Obtain maintainer review and manual merge of the local trial PR (PR #29).
 
 ## Separate decisions
 
