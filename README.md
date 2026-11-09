@@ -10,8 +10,8 @@ or demonstrated.
 
 Follow the [current extraction guide](docs/try-extraction.md): run the synthetic
 example, inspect saved text/PDF pages, check reference facts and find source
-passages. The [local dialogue walkthrough](docs/try-dialogue.md) lets you try
-offline generation and inspect citations from a dedicated invented persona corpus.
+passages. The [dialogue walkthrough](docs/try-dialogue.md) starts with a scripted
+answer and exact citations, then reproduces the optional Qwen3 experiment.
 
 ## Project status
 
