@@ -9,7 +9,6 @@ from contextlib import contextmanager
 from .dialogue_error import DialogueError
 from .local_model_constants import (
     CONTEXT_TOKENS,
-    MODEL_ALIAS,
     SERVER_BINARY,
     SERVER_HOST,
     SERVER_PORT,
@@ -17,7 +16,7 @@ from .local_model_constants import (
 )
 
 
-def _command(descriptor: int) -> tuple[str, ...]:
+def _command(descriptor: int, alias: str) -> tuple[str, ...]:
     """Use the inherited verified file, CPU-only, and disable optional surfaces."""
     return (
         SERVER_BINARY,
@@ -28,7 +27,7 @@ def _command(descriptor: int) -> tuple[str, ...]:
         "--port",
         str(SERVER_PORT),
         "--alias",
-        MODEL_ALIAS,
+        alias,
         "--ctx-size",
         str(CONTEXT_TOKENS),
         "--threads",
@@ -59,13 +58,13 @@ def _require_unused_port() -> None:
             raise DialogueError("local_model_endpoint_unavailable") from None
 
 
-def _spawn(descriptor: int) -> int:
+def _spawn(descriptor: int, alias: str) -> int:
     """Preserve the model fd across exec and discard child logs and input.
 
     POSIX spawn clears close-on-exec for its dup2 action even when both fd
     numbers match. Other Python-acquired descriptors remain close-on-exec.
     """
-    command = _command(descriptor)
+    command = _command(descriptor, alias)
     actions = [
         (os.POSIX_SPAWN_DUP2, descriptor, descriptor),
         (os.POSIX_SPAWN_OPEN, 0, "/dev/null", os.O_RDONLY, 0),
@@ -95,10 +94,10 @@ def require_running(pid: int) -> None:
 
 
 @contextmanager
-def owned_server(descriptor: int) -> Iterator[int]:
-    """Start only after the port check and always reap this one direct child."""
+def owned_server(descriptor: int, alias: str) -> Iterator[int]:
+    """Start the verified asset with its fixed alias and always reap the owned child."""
     _require_unused_port()
-    pid = _spawn(descriptor)
+    pid = _spawn(descriptor, alias)
     try:
         yield pid
     finally:

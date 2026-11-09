@@ -2,12 +2,12 @@
 
 - [x] Confirm PR #31 merge and preserve its measured comparison.
 - [x] Verify the candidate's publisher metadata and propose a bounded comparison.
-- [ ] Obtain maintainer approval of the second artifact and comparison scope.
+- [x] Obtain maintainer approval of the second artifact and comparison scope (PR #32).
 
 ## Implementation after approval
 
-- [ ] Reuse asset provisioning and verification for the explicit candidate profile.
-- [ ] Test selector compatibility, artifact failures, no-call paths and runtime identity without weights.
-- [ ] Run the bounded comparison with the existing structured prompt and report observed outcomes.
-- [ ] Run canonical and offline checks and update the current manual guide.
-- [ ] Publish the implementation and measurements for maintainer review.
+- [x] Reuse asset provisioning and verification for the explicit candidate profile.
+- [x] Test selector compatibility, artifact failures, no-call paths and runtime identity without weights.
+- [x] Run the bounded comparison with the existing structured prompt and record [observed outcomes](../../../docs/research/local-model-comparison.md).
+- [x] Run canonical and offline checks and update the current manual guide.
+- [ ] Obtain maintainer review and manual merge of the implementation and measurements.

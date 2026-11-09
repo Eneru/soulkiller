@@ -4,6 +4,14 @@ set -euo pipefail
 umask 077
 
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.."
+if [[ $# -gt 1 ]]; then
+    printf '%s\n' "Usage: bash tools/models/provision-qwen3.sh [qwen3-1.7b|qwen3-4b]" >&2
+    exit 2
+fi
+profile_script=experiments/text-pdf/src/soulkiller_text/local_model_profiles.py
+asset=$(python -I "$profile_script" "${1-qwen3-1.7b}")
+IFS=$'\t' read -r model size digest url <<< "$asset"
+
 for directory in .soulkiller-local .soulkiller-local/models; do
     if [[ -L "$directory" ]]; then
         printf '%s\n' "Model directory must not be a symbolic link." >&2
@@ -12,12 +20,6 @@ for directory in .soulkiller-local .soulkiller-local/models; do
     mkdir -p -- "$directory"
 done
 cd -- .soulkiller-local/models
-
-model=Qwen3-1.7B-Q8_0.gguf
-size=1834426016
-digest=061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a
-revision=90862c4b9d2787eaed51d12237eafdfe7c5f6077
-url="https://huggingface.co/Qwen/Qwen3-1.7B-GGUF/resolve/$revision/$model"
 
 # Check a regular single-link file and publish only the exact pinned content.
 verify() {
