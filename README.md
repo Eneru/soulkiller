@@ -6,17 +6,19 @@ an application that uses LLMs. Its stages, data and expected behavior still need
 to be specified: no "consciousness digitization" capability has been implemented
 or demonstrated.
 
-## Try the first extraction program
+## Try the current experiments
 
 Follow the [current extraction guide](docs/try-extraction.md): run the synthetic
 example, inspect saved text/PDF pages, check reference facts and find source
-passages. This is an extraction tool, not a conversational Soulkiller application yet.
+passages. The [sourced-answer demo](docs/try-dialogue.md) shows a scripted first-person
+answer with citations from a dedicated invented persona corpus.
 
 ## Project status
 
 The current runnable tool extracts an explicitly selected synthetic TXT/PDF
 corpus, persists results, checks reference facts and searches saved source passages.
-It is an evaluation program, not a persona conversation or application server.
+The experimental ask command validates scoped evidence and a scripted answer
+with consultable sources. Real-model dialogue follows in a separate integration.
 Python is used for this experiment; the production language, .NET and any
 frontend remain undecided. No model/provider starts automatically.
 

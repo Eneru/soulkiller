@@ -6,7 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         build-essential=12.10ubuntu1 \
-        ca-certificates=20260816ubuntu0.24.04.1 \
+        ca-certificates=20260816ubuntu0.24.04.2 \
         cmake=3.28.3-1build7 \
         curl=8.5.0-2ubuntu10.16 \
         libcurl4-openssl-dev=8.5.0-2ubuntu10.16 \
@@ -32,7 +32,7 @@ RUN apt-get update \
         libbz2-dev=1.0.8-5.1ubuntu0.1 \
         libffi-dev=3.4.6-1build1 \
         liblzma-dev=5.6.1+really5.4.5-1ubuntu0.4 \
-        libsqlite3-dev=3.45.1-1ubuntu2.8 \
+        libsqlite3-dev=3.45.1-1ubuntu2.9 \
         xz-utils=5.6.1+really5.4.5-1ubuntu0.4 \
         zlib1g-dev=1:1.3.dfsg-3.1ubuntu2.3 \
     && rm -rf /var/lib/apt/lists/*
@@ -55,14 +55,14 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Explicit versions: update in a PR, then rebuild the image.
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        ca-certificates=20260816ubuntu0.24.04.1 \
+        ca-certificates=20260816ubuntu0.24.04.2 \
         curl=8.5.0-2ubuntu10.16 \
         git=1:2.43.0-1ubuntu7.4 \
         libdw1t64=0.190-1.1ubuntu0.1 \
         libbz2-1.0=1.0.8-5.1ubuntu0.1 \
         libffi8=3.4.6-1build1 \
         liblzma5=5.6.1+really5.4.5-1ubuntu0.4 \
-        libsqlite3-0=3.45.1-1ubuntu2.8 \
+        libsqlite3-0=3.45.1-1ubuntu2.9 \
         libssl3t64=3.0.13-0ubuntu3.16 \
         zlib1g=1:1.3.dfsg-3.1ubuntu2.3 \
         ripgrep=14.1.0-1 \

@@ -1,6 +1,6 @@
 ## Status and implementation boundary
 
-Proposed, pending maintainer review. The comparison and artifact inventory are in
+Approved in merged PR #27. The comparison and artifact inventory are in
 [the decision brief](../../../docs/research/first-dialogue-inference-comparison.md).
 This extends the experimental Python CLI, not a production-language decision.
 
@@ -8,7 +8,7 @@ This extends the experimental Python CLI, not a production-language decision.
 
 Use a dedicated invented Inez corpus/profile: the existing mixed example has
 generic subject labels and must not silently become a persona. Explicit fixture
-IDs in a reviewed profile select Inez evidence. Include third-party text and a
+IDs, source revisions and attribution labels in a reviewed profile select Inez evidence. Include third-party text and a
 second-persona marker as negative controls; filenames/ownership are not identity.
 Validate the saved run fully before filtering. No cross-run/persona auto-discovery.
 
@@ -82,3 +82,24 @@ undisclosed, never replaced with fabricated reference-machine measurements.
 Measure raw startup/answer time, token counts and process/container memory scope;
 compare only declared conditions. Owned/hosted remote execution is still blocked
 on its separate endpoint/data/budget approval. No Windows performance claim.
+
+
+## First implementation and build repair
+
+The scripted backend is explicitly selected by a demo case. It exercises the
+same request/citation boundary without interpreting user questions or invoking
+an LLM. Scope validation and coverage disclosure precede invocation. The
+existing Python environment/editor integration covers this tranche.
+The next PR integrates the approved real runtime and explicit provisioning.
+
+PR #27 CI failed during its fresh image build before tests: SQLite development
+and runtime dependency revisions differed. Align both pins to 3.45.1-1ubuntu2.9.
+The subsequent cache-free local attempt exposed a removed CA certificate pin;
+refresh both stages to 20260816ubuntu0.24.04.2. Keep existing CI triggers and
+verify the rebuilt image, not an older cached environment.
+
+
+The final local gate also exposed a timing-dependent publisher test: Git can
+rewrite the live index's stat cache while the working content stays unchanged.
+The ABA fixture restores the actual pre-swap bytes and deliberately exercises
+a representation rewrite. No publisher safety check or production code changes.

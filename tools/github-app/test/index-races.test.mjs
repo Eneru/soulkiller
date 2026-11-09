@@ -5,10 +5,12 @@ import { fixtureWriteFile, fixtureReadFile } from './helpers/filesystem.mjs';
 import { code, publication } from './helpers/synthetic-data.mjs';
 import { createPublicationFixture } from './helpers/publication-fixture.mjs';
 
+/** Verify the frozen upload survives an ABA swap after a benign index rewrite. */
 test('snapshot and uploads derive entries from frozen bytes despite a live-index ABA swap', async (t) => {
   // Arrange
   const f = await createPublicationFixture(t);
   const index = path.join(f.root, '.git/index');
+  await f.git(['update-index', '--index-version', '2']);
   const original = await fixtureReadFile(index);
   const originalReadme = await fixtureReadFile(path.join(f.root, 'README.md'));
   await fixtureWriteFile(path.join(f.root, 'README.md'), 'UNSCANNED SYNTHETIC INDEX B');
@@ -16,14 +18,21 @@ test('snapshot and uploads derive entries from frozen bytes despite a live-index
   const substituted = await fixtureReadFile(index);
   await fixtureWriteFile(path.join(f.root, 'README.md'), originalReadme);
   await fixtureWriteFile(index, original);
+  // Force a benign representation rewrite; a stat-cache refresh can also change these bytes.
+  await f.git(['update-index', '--index-version', '4']);
   let swapped = false;
+  /** Swap only during the frozen read, then restore the actual live bytes captured at that point. */
   f.publisher.command = async (file, args, options) => {
     if (!swapped && file === 'git' && args.includes('--stage') && options.env?.GIT_INDEX_FILE) {
       swapped = true;
+      const beforeSwap = await fixtureReadFile(index);
+      assert.notDeepEqual(beforeSwap, original);
       await fixtureWriteFile(index, substituted);
-      const result = await f.command(file, args, options);
-      await fixtureWriteFile(index, original);
-      return result;
+      try {
+        return await f.command(file, args, options);
+      } finally {
+        await fixtureWriteFile(index, beforeSwap);
+      }
     }
     return f.command(file, args, options);
   };

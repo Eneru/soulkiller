@@ -1,0 +1,70 @@
+{
+  "schema_version": 2,
+  "fixtures": [
+    {
+      "id": "inez-fr",
+      "path": "inez.pdf",
+      "format": "pdf",
+      "language": "fr",
+      "author_label": "Inez",
+      "subject_label": "Inez",
+      "sha256": "8a9a071ff9f400c5e41c5b449dce7969717e7485ef5a6a9de05868e63d6cd7a8",
+      "outcome": "success",
+      "annotations": [
+        {
+          "page_number": 1,
+          "quote": "Je garde une lampe bleue."
+        },
+        {
+          "page_number": 2,
+          "quote": "Je garde une lampe rouge."
+        }
+      ],
+      "page_count": 2
+    },
+    {
+      "id": "inez-en",
+      "path": "inez.txt",
+      "format": "txt",
+      "language": "en",
+      "author_label": "Inez",
+      "subject_label": "Inez",
+      "sha256": "2fb2d961ff6e6ac7f93c78882c74d3477d9914760f4a92f9286f64e9f97f96fb",
+      "outcome": "success",
+      "annotations": []
+    },
+    {
+      "id": "shared-letter",
+      "path": "letter.txt",
+      "format": "txt",
+      "language": "en",
+      "author_label": "Corin",
+      "subject_label": "Corin",
+      "sha256": "f488ed07ea7225e263f4d471b4c6740c1270a52131f34079afcd502fc196c3c3",
+      "outcome": "success",
+      "annotations": []
+    },
+    {
+      "id": "archived-instruction",
+      "path": "instruction.txt",
+      "format": "txt",
+      "language": "en",
+      "author_label": "Archive author",
+      "subject_label": "Inez",
+      "sha256": "201ea4d7b5a9fe5e63c2b6417f6355ce6d9e9140cb6caee50b7c1f4bc6408124",
+      "outcome": "success",
+      "annotations": []
+    },
+    {
+      "id": "other-persona",
+      "path": "other.txt",
+      "format": "txt",
+      "language": "en",
+      "author_label": "Corin",
+      "subject_label": "Corin",
+      "sha256": "378b4340bb91cbb04a8b03b63f15e171035a68b1c01964732eec7dafe188fe2e",
+      "outcome": "success",
+      "annotations": []
+    }
+  ]
+}
