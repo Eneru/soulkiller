@@ -221,7 +221,7 @@ scripted citation inspection and the offline Qwen3 experiment. The
 
 The [paired trial](research/structured-dialogue-trial.md) compares two citation
 formats with the same model and synthetic cases. The
-[proposed model comparison](../openspec/changes/plan-local-model-comparison/proposal.md)
-keeps the structured format and tests a second pinned local artifact. The
+[model comparison](research/local-model-comparison.md) uses that format to test
+two pinned local artifacts. The
 [inference comparison](research/first-dialogue-inference-comparison.md) keeps
 product placement and remote data and budget approval separate.

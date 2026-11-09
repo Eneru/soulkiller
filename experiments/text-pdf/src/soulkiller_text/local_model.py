@@ -8,7 +8,8 @@ from typing import Any
 from .dialogue_error import DialogueError
 from .local_model_asset import verified_model
 from .local_model_budget import local_deadline, require_local_budget
-from .local_model_constants import CONTEXT_TOKENS, LOCAL_BACKEND, MODEL_ALIAS, OUTPUT_TOKENS, SEED
+from .local_model_constants import CONTEXT_TOKENS, OUTPUT_TOKENS, SEED
+from .local_model_profiles import QWEN_1_7B, LocalModelProfile
 from .local_server_http import server_request
 from .local_server_identity import require_owned_listener
 from .local_server_process import owned_server, require_running
@@ -26,7 +27,7 @@ RESPONSE_SCHEMA: dict[str, Any] = {
 }
 
 
-def _wait_ready(pid: int) -> None:
+def _wait_ready(pid: int, alias: str) -> None:
     """Wait under the outer deadline for the owned process and expected model alias."""
     while True:
         require_running(pid)
@@ -43,7 +44,7 @@ def _wait_ready(pid: int) -> None:
         type(entries) is not list
         or len(entries) != 1
         or type(entries[0]) is not dict
-        or entries[0].get("id") != MODEL_ALIAS
+        or entries[0].get("id") != alias
     ):
         raise DialogueError("unexpected_local_model")
 
@@ -76,11 +77,13 @@ def _prompt_tokens(messages: tuple[dict[str, str], ...]) -> list[int]:
     return tokens
 
 
-def _checked_completion(fields: dict[str, Any], token_count: int) -> ModelCompletion:
+def _checked_completion(
+    fields: dict[str, Any], token_count: int, profile: LocalModelProfile
+) -> ModelCompletion:
     """Accept only a complete bounded generation for the selected model and exact input."""
     count, predicted = fields.get("tokens_evaluated"), fields.get("tokens_predicted")
     if (
-        fields.get("model") != MODEL_ALIAS
+        fields.get("model") != profile.alias
         or type(count) is not int
         or count != token_count
         or type(predicted) is not int
@@ -94,7 +97,7 @@ def _checked_completion(fields: dict[str, Any], token_count: int) -> ModelComple
     if type(content) is not str:
         raise DialogueError("invalid_local_model_content")
     try:
-        return ModelCompletion(content.encode(), "stop", False, LOCAL_BACKEND)
+        return ModelCompletion(content.encode(), "stop", False, profile.backend)
     except UnicodeError:
         raise DialogueError("invalid_local_model_content") from None
 
@@ -110,7 +113,9 @@ def _response_schema(citation_ids: tuple[str, ...]) -> dict[str, Any]:
     return {**RESPONSE_SCHEMA, "properties": properties}
 
 
-def _generate(tokens: list[int], citation_ids: tuple[str, ...]) -> ModelCompletion:
+def _generate(
+    tokens: list[int], citation_ids: tuple[str, ...], profile: LocalModelProfile
+) -> ModelCompletion:
     """Send one non-streaming, schema-constrained completion using the checked token IDs."""
     started = time.monotonic()
     fields = (
@@ -135,23 +140,27 @@ def _generate(tokens: list[int], citation_ids: tuple[str, ...]) -> ModelCompleti
             f"{len(tokens)} prompt tokens; {count} output tokens.",
             file=sys.stderr,
         )
-    return _checked_completion(fields, len(tokens))
+    return _checked_completion(fields, len(tokens), profile)
 
 
 def local_completion(
-    messages: tuple[dict[str, str], ...], citation_ids: tuple[str, ...] = (), *, workspace: Path
+    messages: tuple[dict[str, str], ...],
+    citation_ids: tuple[str, ...] = (),
+    *,
+    workspace: Path,
+    profile: LocalModelProfile = QWEN_1_7B,
 ) -> ModelCompletion:
-    """Generate under the offline container limits, releasing the child on every exit."""
+    """Run one verified profile under the offline limits and always release its child."""
     require_local_budget()
-    with verified_model(workspace) as descriptor:
+    with verified_model(workspace, profile) as descriptor:
         starting = time.monotonic()
-        with owned_server(descriptor) as pid, local_deadline():
-            _wait_ready(pid)
+        with owned_server(descriptor, profile.alias) as pid, local_deadline():
+            _wait_ready(pid, profile.alias)
             require_owned_listener(pid)
             print(f"Local model startup: {time.monotonic() - starting:.3f} s.", file=sys.stderr)
             tokens = _prompt_tokens(messages)
             require_running(pid)
             require_owned_listener(pid)
-            result = _generate(tokens, citation_ids)
+            result = _generate(tokens, citation_ids, profile)
             require_running(pid)
             return result

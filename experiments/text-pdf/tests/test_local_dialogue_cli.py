@@ -6,13 +6,13 @@ from pathlib import Path
 import pytest
 
 from soulkiller_text import extraction_cli
-from soulkiller_text.local_model_constants import LOCAL_BACKEND
+from soulkiller_text.local_model_profiles import QWEN_1_7B, QWEN_4B, LocalModelProfile
 from soulkiller_text.model_completion import ModelCompletion
 
 from .dialogue_fixtures import saved_dialogue
 
 
-@pytest.mark.parametrize("mode", ["--local-model", "--local-model-structured"])
+@pytest.mark.parametrize("mode", ["--local-model", "--local-model-structured", "--local-model-4b"])
 @pytest.mark.parametrize("query", ["lampe bleue", "absent synthetic expression"])
 def test_local_cli_dispatches_only_when_eligible_evidence_exists(
     tmp_path: Path,
@@ -27,13 +27,19 @@ def test_local_cli_dispatches_only_when_eligible_evidence_exists(
     monkeypatch.chdir(tmp_path)
     requests: list[tuple[dict[str, str], ...]] = []
 
-    structured = mode == "--local-model-structured"
+    structured = mode != "--local-model"
+    selected = QWEN_4B if mode == "--local-model-4b" else QWEN_1_7B
 
     def complete(
-        messages: tuple[dict[str, str], ...], citation_ids: tuple[str, ...] = (), *, workspace: Path
+        messages: tuple[dict[str, str], ...],
+        citation_ids: tuple[str, ...] = (),
+        *,
+        workspace: Path,
+        profile: LocalModelProfile,
     ) -> ModelCompletion:
         """Return a fixed cited reply while retaining the submitted request."""
         assert workspace == tmp_path
+        assert profile == selected
         requests.append(messages)
         assert citation_ids == (("S1",) if structured else ())
         text = "Une lampe bleue." if structured else "Une lampe bleue [S1]."
@@ -41,7 +47,7 @@ def test_local_cli_dispatches_only_when_eligible_evidence_exists(
             json.dumps({"status": "answer", "text": text, "citations": ["S1"]}).encode(),
             "stop",
             False,
-            LOCAL_BACKEND,
+            selected.backend,
         )
 
     monkeypatch.setattr(extraction_cli, "local_completion", complete)
@@ -67,7 +73,7 @@ def test_local_cli_dispatches_only_when_eligible_evidence_exists(
     # Assert
     assert code == 0
     if query == "lampe bleue":
-        assert answer["backend"] == LOCAL_BACKEND
+        assert answer["backend"] == selected.backend
         assert answer["citations"] == ["S1"]
         expected = "Une lampe bleue. [S1]" if structured else "Une lampe bleue [S1]."
         assert answer["text"] == expected

@@ -45,7 +45,7 @@ colours and citations, ask `De quelle couleur est ta lampe ?` with `lampe`,
 `--language fr` and `--demo-case conflict`. The evidence expression is literal
 and case-sensitive.
 
-## 3. Optional Qwen3 experiment
+## 3. Compare citation formats with Qwen3-1.7B
 
 If the model is absent, run the provisioner from a **connected** Soulkiller
 devcontainer terminal. Both containers share the same Soulkiller folder.
@@ -85,7 +85,34 @@ for the full matrix.
 No eligible match produces explicit uncertainty without starting the server.
 All modes reject incomplete saved runs and expressions with more than three
 matches. Add `--json` for machine-readable results. Evidence counts and local
-timings go to stderr. Run `exit` when finished to close the offline container.
+timings go to stderr.
 
-The [OpenSpec change](../openspec/changes/plan-structured-dialogue-trial/proposal.md)
-defines the scope of the paired comparison.
+## 4. Compare the two models on the conflict
+
+Provision the 4B artifact from a connected Soulkiller devcontainer terminal:
+
+~~~sh
+bash tools/models/provision-qwen3.sh qwen3-4b
+~~~
+
+The candidate needs an additional 2.33 GiB of storage. The provisioner verifies
+the pinned bytes and keeps the 1.7B file available for the comparison. Back in
+the offline terminal from step 1, run:
+
+~~~sh
+for mode in --local-model-structured --local-model-4b; do
+  python -m soulkiller_text ask --run-id inez-local-001 --profile inez \
+    --question "De quelle couleur est ta lampe ?" --evidence-query "lampe" \
+    --language fr "$mode"
+done
+~~~
+
+Check whether each answer explains that the sources disagree on the colour of
+one lamp and shows both passages. A reply that describes two lamps fails this
+case even if its citations resolve. The 4B candidate uses the same structured
+citation contract and resource limits. The
+[model comparison report](research/local-model-comparison.md) records the
+observations. Run `exit` when finished to close the offline container.
+
+The [OpenSpec change](../openspec/changes/plan-local-model-comparison/proposal.md)
+defines the scope of the model comparison.

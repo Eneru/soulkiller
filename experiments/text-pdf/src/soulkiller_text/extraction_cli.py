@@ -15,6 +15,7 @@ from .extraction_display import render_saved, render_score
 from .extraction_scoring import score_extraction
 from .fixture_run import FixtureRun
 from .local_model import local_completion
+from .local_model_profiles import QWEN_1_7B, QWEN_4B
 from .manual_cli_constants import CANCELLED, DEFAULT_CORPUS, FAILURE, SUCCESS
 from .pdf_corpus_fixture import PdfCorpusFixture
 from .run_status import RunStatus
@@ -46,7 +47,12 @@ def _ask_arguments(child: argparse.ArgumentParser) -> None:
     backend.add_argument(
         "--local-model-structured",
         action="store_true",
-        help="Run the offline model with application-rendered citations.",
+        help="Run the offline 1.7B model with application-rendered citations.",
+    )
+    backend.add_argument(
+        "--local-model-4b",
+        action="store_true",
+        help="Run the offline 4B candidate with application-rendered citations.",
     )
 
 
@@ -112,11 +118,13 @@ def _announce_evidence(report: SearchReport) -> None:
 def _ask_text(args: argparse.Namespace) -> str:
     """Choose the explicit collaborator and return safe text or JSON."""
     workspace = Path.cwd()
-    local = partial(local_completion, workspace=workspace)
+    profile = QWEN_4B if args.local_model_4b else QWEN_1_7B
+    local = partial(local_completion, workspace=workspace, profile=profile)
+    structured = args.local_model_structured or args.local_model_4b
     model: Model | None = None
     if args.local_model:
         model = local
-    elif not args.local_model_structured:
+    elif not structured:
         model = partial(demo_completion, case=args.demo_case, language=args.language)
     result = ask_saved(
         workspace,
@@ -127,7 +135,7 @@ def _ask_text(args: argparse.Namespace) -> str:
         args.evidence_query,
         args.language,
         model,
-        structured_model=local if args.local_model_structured else None,
+        structured_model=local if structured else None,
         on_evidence=_announce_evidence,
     )
     return render_answer(result, as_json=args.json)

@@ -9,9 +9,11 @@ import pytest
 
 from soulkiller_text import local_model
 from soulkiller_text.dialogue_error import DialogueError
-from soulkiller_text.local_model_constants import CONTEXT_TOKENS, LOCAL_BACKEND, MODEL_ALIAS
+from soulkiller_text.local_model_constants import CONTEXT_TOKENS
+from soulkiller_text.local_model_profiles import QWEN_1_7B, QWEN_4B, LocalModelProfile
 
 
+@pytest.mark.parametrize("profile", [QWEN_1_7B, QWEN_4B])
 @pytest.mark.parametrize(
     ("tokens", "citation_ids", "stop_type", "error"),
     [
@@ -20,6 +22,8 @@ from soulkiller_text.local_model_constants import CONTEXT_TOKENS, LOCAL_BACKEND,
         ([42] * CONTEXT_TOKENS, (), "eos", "local_model_context_exceeded"),
         ([True], (), "eos", "invalid_local_model_tokens"),
         ([42, 7], (), "limit", "local_model_generation_incomplete"),
+        ([42, 7], ("S1",), "eos", "unexpected_local_model"),
+        ([42, 7], ("S1",), "eos", "invalid_local_model_usage"),
     ],
 )
 def test_bounded_trial_uses_checked_tokens_and_reaps_on_failure(
@@ -29,21 +33,24 @@ def test_bounded_trial_uses_checked_tokens_and_reaps_on_failure(
     citation_ids: tuple[str, ...],
     stop_type: str,
     error: str | None,
+    profile: LocalModelProfile,
 ) -> None:
     """Send the exact token IDs at most once, with cleanup on every outcome."""
     # Arrange
     calls: list[tuple[str, dict[str, Any] | None]] = []
     lifecycle = []
+    other = QWEN_1_7B if profile is QWEN_4B else QWEN_4B
 
     @contextmanager
-    def asset(_path: Path) -> Iterator[int]:
+    def asset(path: Path, requested: LocalModelProfile) -> Iterator[int]:
         """Expose one synthetic model descriptor for the call."""
+        assert (path, requested) == (tmp_path, profile)
         yield 5
 
     @contextmanager
-    def child(descriptor: int) -> Iterator[int]:
+    def child(descriptor: int, alias: str) -> Iterator[int]:
         """Record the lifecycle without starting a real runtime."""
-        assert descriptor == 5
+        assert (descriptor, alias) == (5, profile.alias)
         lifecycle.append("started")
         try:
             yield 123
@@ -55,12 +62,16 @@ def test_bounded_trial_uses_checked_tokens_and_reaps_on_failure(
         calls.append((path, payload))
         replies: dict[str, dict[str, Any]] = {
             "/health": {"status": "ok"},
-            "/v1/models": {"data": [{"id": MODEL_ALIAS}]},
+            "/v1/models": {
+                "data": [
+                    {"id": other.alias if error == "unexpected_local_model" else profile.alias}
+                ]
+            },
             "/apply-template": {"prompt": "prompt<think>\n\n</think>\n\n"},
             "/tokenize": {"tokens": tokens},
             "/completion": {
                 "content": '{"status":"answer","text":"I know [S1].","citations":["S1"]}',
-                "model": MODEL_ALIAS,
+                "model": other.alias if error == "invalid_local_model_usage" else profile.alias,
                 "tokens_evaluated": len(tokens),
                 "tokens_predicted": 17,
                 "stop_type": stop_type,
@@ -80,14 +91,21 @@ def test_bounded_trial_uses_checked_tokens_and_reaps_on_failure(
     # Act / Assert
     if error is None:
         assert (
-            local_model.local_completion(messages, citation_ids, workspace=tmp_path).backend
-            == LOCAL_BACKEND
+            local_model.local_completion(
+                messages, citation_ids, workspace=tmp_path, profile=profile
+            ).backend
+            == profile.backend
         )
     else:
         with pytest.raises(DialogueError, match=error):
-            local_model.local_completion(messages, citation_ids, workspace=tmp_path)
+            local_model.local_completion(
+                messages, citation_ids, workspace=tmp_path, profile=profile
+            )
 
     assert lifecycle == ["started", "reaped"]
+    if error == "unexpected_local_model":
+        assert [path for path, _payload in calls] == ["/health", "/v1/models"]
+        return
     assert calls[2][1] == {"messages": messages, "chat_template_kwargs": {"enable_thinking": False}}
     completion_calls = [payload for path, payload in calls if path == "/completion"]
     if error in ("local_model_context_exceeded", "invalid_local_model_tokens"):

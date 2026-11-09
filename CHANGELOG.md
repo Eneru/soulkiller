@@ -45,6 +45,9 @@ No version has been released yet.
 
 ### Added
 
+- Add an explicit offline Qwen3-4B candidate profile, verified provisioning and
+  a comparison with Qwen3-1.7B on the same structured dialogue cases.
+
 - Add an explicit structured citation mode for the offline Qwen3 experiment and
   report its citation and grounding results against the original response format.
 
