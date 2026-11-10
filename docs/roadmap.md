@@ -225,3 +225,11 @@ formats with the same model and synthetic cases. The
 two pinned local artifacts. The
 [inference comparison](research/first-dialogue-inference-comparison.md) keeps
 product placement and remote data and budget approval separate.
+
+### Compare local and remote inference placement
+
+The [placement trial proposal](../openspec/changes/plan-inference-placement-trial/proposal.md)
+compares the same pinned 4B model locally and on an operator-owned Linux
+worker. The first PR after scope approval would deliver synthetic transport
+tests and a manual walkthrough. A live run and its measurements require
+separate private endpoint approval.

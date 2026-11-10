@@ -45,6 +45,9 @@ No version has been released yet.
 
 ### Added
 
+- Propose a bounded synthetic comparison of local and remote inference using
+  the same pinned 4B model, with separate approval for the live endpoint.
+
 - Add an explicit offline Qwen3-4B candidate profile, verified provisioning and
   a comparison with Qwen3-1.7B on the same structured dialogue cases.
 

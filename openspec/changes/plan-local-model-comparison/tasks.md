@@ -10,4 +10,4 @@
 - [x] Test selector compatibility, artifact failures, no-call paths and runtime identity without weights.
 - [x] Run the bounded comparison with the existing structured prompt and record [observed outcomes](../../../docs/research/local-model-comparison.md).
 - [x] Run canonical and offline checks and update the current manual guide.
-- [ ] Obtain maintainer review and manual merge of the implementation and measurements.
+- [x] Obtain maintainer review and manual merge of the implementation and measurements (PR #33).
