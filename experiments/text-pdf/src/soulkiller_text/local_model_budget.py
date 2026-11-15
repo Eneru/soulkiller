@@ -31,8 +31,11 @@ def _timeout(_number: int, _frame: FrameType | None) -> None:
 
 
 @contextmanager
-def local_deadline() -> Iterator[None]:
+def local_deadline(seconds: int | None = None) -> Iterator[None]:
     """Use Linux's process-wide timer for the single foreground CLI; restore on exit."""
+    duration = MAX_SECONDS if seconds is None else seconds
+    if seconds is not None and (type(seconds) is not int or not 0 < seconds <= MAX_SECONDS):
+        raise DialogueError("local_model_deadline_unavailable")
     try:
         if signal.getitimer(signal.ITIMER_REAL) != (0.0, 0.0):
             raise DialogueError("local_model_deadline_unavailable")
@@ -40,7 +43,7 @@ def local_deadline() -> Iterator[None]:
     except ValueError:
         raise DialogueError("local_model_deadline_unavailable") from None
     try:
-        signal.setitimer(signal.ITIMER_REAL, MAX_SECONDS)
+        signal.setitimer(signal.ITIMER_REAL, duration)
         yield
     finally:
         signal.setitimer(signal.ITIMER_REAL, 0)
