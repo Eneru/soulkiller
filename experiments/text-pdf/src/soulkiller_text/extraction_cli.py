@@ -8,7 +8,7 @@ from pathlib import Path
 from .answer_display import render_answer
 from .corpus_error import CorpusError
 from .corpus_fixture import CorpusFixture
-from .dialogue import Model, ask_saved, validate_question
+from .dialogue import Model, StructuredModel, ask_saved, validate_question
 from .dialogue_constants import DIALOGUE_CORPUS, PERSONA_ID
 from .dialogue_error import DialogueError
 from .extraction_display import render_saved, render_score
@@ -18,6 +18,7 @@ from .local_model import local_completion
 from .local_model_profiles import QWEN_1_7B, QWEN_4B
 from .manual_cli_constants import CANCELLED, DEFAULT_CORPUS, FAILURE, SUCCESS
 from .pdf_corpus_fixture import PdfCorpusFixture
+from .placement_client import approved_prompt, simulate_completion
 from .run_status import RunStatus
 from .run_store_error import RunStoreError
 from .saved_run import run_saved_corpus
@@ -53,6 +54,10 @@ def _ask_arguments(child: argparse.ArgumentParser) -> None:
         "--local-model-4b",
         action="store_true",
         help="Run the offline 4B candidate with application-rendered citations.",
+    )
+
+    backend.add_argument(
+        "--simulate-remote", action="store_true", help="Run the synthetic placement worker."
     )
 
 
@@ -120,11 +125,16 @@ def _ask_text(args: argparse.Namespace) -> str:
     workspace = Path.cwd()
     profile = QWEN_4B if args.local_model_4b else QWEN_1_7B
     local = partial(local_completion, workspace=workspace, profile=profile)
-    structured = args.local_model_structured or args.local_model_4b
+    structured: StructuredModel | None = None
     model: Model | None = None
     if args.local_model:
         model = local
-    elif not structured:
+    elif args.local_model_structured or args.local_model_4b:
+        structured = local
+    elif args.simulate_remote:
+        expected = approved_prompt(args.corpus, args.language, args.evidence_query, args.question)
+        structured = partial(simulate_completion, expected=expected)
+    else:
         model = partial(demo_completion, case=args.demo_case, language=args.language)
     result = ask_saved(
         workspace,
@@ -135,7 +145,7 @@ def _ask_text(args: argparse.Namespace) -> str:
         args.evidence_query,
         args.language,
         model,
-        structured_model=local if structured else None,
+        structured_model=structured,
         on_evidence=_announce_evidence,
     )
     return render_answer(result, as_json=args.json)

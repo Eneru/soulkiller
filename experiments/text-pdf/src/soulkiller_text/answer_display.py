@@ -6,6 +6,7 @@ from dataclasses import asdict
 from .answer_result import AnswerResult
 from .dialogue_constants import DEMO_BACKEND, NO_BACKEND
 from .extraction_display import safe_display
+from .placement_protocol import SIMULATED_BACKEND
 
 
 def render_answer(result: AnswerResult, *, as_json: bool) -> str:
@@ -21,6 +22,8 @@ def render_answer(result: AnswerResult, *, as_json: bool) -> str:
     ]
     if result.backend == DEMO_BACKEND:
         lines.insert(1, "Scripted demo only: no LLM interpretation or measured answer quality.")
+    elif result.backend == SIMULATED_BACKEND:
+        lines.insert(1, "Simulated worker response with locally resolved sources.")
     elif result.backend != NO_BACKEND:
         lines.insert(1, "Generated local trial response. Inspect the cited source excerpts.")
     for index, source in enumerate(result.sources, start=1):
