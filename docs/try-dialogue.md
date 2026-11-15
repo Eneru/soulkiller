@@ -74,6 +74,8 @@ It checks the exact prompt bytes against the reviewed synthetic prompts before
 launching the worker. The response has a 64 KiB cap and the local child has a
 five-second deadline. Real SSH transport and placement measurements are
 follow-up work in the [placement trial](../openspec/changes/plan-inference-placement-trial/proposal.md).
+The separate [real worker smoke test](../openspec/changes/plan-inference-placement-trial/design.md#local-worker-smoke-test)
+records an actual Qwen3-4B generation over local pipes.
 
 ## 4. Compare citation formats with Qwen3-1.7B
 
