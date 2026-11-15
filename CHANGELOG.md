@@ -45,6 +45,9 @@ No version has been released yet.
 
 ### Added
 
+- Add a credential-free dialogue placement simulation with a bounded worker
+  process, exact synthetic prompt checks and source citations resolved locally.
+
 - Propose a bounded synthetic comparison of local and remote inference using
   the same pinned 4B model, with separate approval for the live endpoint.
 

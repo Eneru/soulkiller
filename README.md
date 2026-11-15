@@ -11,7 +11,8 @@ or demonstrated.
 Follow the [current extraction guide](docs/try-extraction.md): run the synthetic
 example, inspect saved text/PDF pages, check reference facts and find source
 passages. The [dialogue walkthrough](docs/try-dialogue.md) starts with a scripted
-answer and exact citations, then reproduces the optional Qwen3 experiment.
+answer and exact citations, then shows a simulated inference worker and the
+optional offline Qwen3 experiment.
 
 ## Project status
 

@@ -1,9 +1,9 @@
 # Try a sourced answer from the invented Inez persona
 
 Start with the scripted walkthrough to verify that the dialogue command resolves
-citations to exact saved passages. The optional Qwen3 comparison uses the same
-synthetic evidence to test two citation formats. The command saves no
-conversation or persona memory.
+citations to exact saved passages. The placement simulation sends the synthetic
+prompt to a separate worker process. The optional Qwen3 comparison runs the
+pinned models offline. The command saves no conversation or persona memory.
 
 ## 1. Prepare the saved evidence
 
@@ -45,7 +45,37 @@ colours and citations, ask `De quelle couleur est ta lampe ?` with `lampe`,
 `--language fr` and `--demo-case conflict`. The evidence expression is literal
 and case-sensitive.
 
-## 3. Compare citation formats with Qwen3-1.7B
+## 3. Try the placement simulation
+
+In the same offline devcontainer, send the approved conflict case to a
+separate simulated worker. Use the run ID you prepared in step 1.
+
+~~~sh
+python -m soulkiller_text ask --run-id inez-local-001 --profile inez \
+  --question "De quelle couleur est ta lampe ?" --evidence-query lampe \
+  --language fr --simulate-remote
+~~~
+
+Expect `Backend: simulated_placement_worker`, one unresolved disagreement
+about the lamp, and two citations resolving to local PDF pages 1 and 2.
+The worker returns a fixed answer. This walkthrough uses pipes and runs with
+Docker networking disabled. It requires only the existing Python devcontainer.
+Check that a no-match case returns uncertainty with `Backend: not_called`.
+
+~~~sh
+python -m soulkiller_text ask --run-id inez-local-001 --profile inez \
+  --question "What do you know about the comet?" --evidence-query unmatched-comet \
+  --language en --simulate-remote
+~~~
+
+The simulation accepts the exact questions and evidence expressions in the
+[trial case list](../experiments/text-pdf/src/soulkiller_text/placement_cases.py).
+It checks the exact prompt bytes against the reviewed synthetic prompts before
+launching the worker. The response has a 64 KiB cap and the local child has a
+five-second deadline. Real SSH transport and placement measurements are
+follow-up work in the [placement trial](../openspec/changes/plan-inference-placement-trial/proposal.md).
+
+## 4. Compare citation formats with Qwen3-1.7B
 
 If the model is absent, run the provisioner from a **connected** Soulkiller
 devcontainer terminal. Both containers share the same Soulkiller folder.
@@ -87,7 +117,7 @@ All modes reject incomplete saved runs and expressions with more than three
 matches. Add `--json` for machine-readable results. Evidence counts and local
 timings go to stderr.
 
-## 4. Compare the two models on the conflict
+## 5. Compare the two models on the conflict
 
 Provision the 4B artifact from a connected Soulkiller devcontainer terminal:
 

@@ -75,7 +75,7 @@ listeners closed at the end of each run. The 4B's repeated contact with the
 cap is an important tradeoff alongside its better grounding on this corpus.
 [Linux cgroup v2 memory accounting](https://docs.kernel.org/admin-guide/cgroup-v2.html#memory-interface-files)
 
-Use the [manual guide](../try-dialogue.md#4-compare-the-two-models-on-the-conflict)
+Use the [manual guide](../try-dialogue.md#5-compare-the-two-models-on-the-conflict)
 to compare the conflict replies. The outcome supports further evaluation of
 the 4B profile under the tested limits. The scope is one synthetic corpus and
 one pass per question.

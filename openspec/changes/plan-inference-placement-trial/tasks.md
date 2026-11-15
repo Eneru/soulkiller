@@ -2,14 +2,20 @@
 
 - [x] Confirm PR #33 merge and use its 4B results to select a comparison control.
 - [x] Prepare the scope, data boundary, acceptance criteria and stop conditions.
-- [ ] Obtain maintainer approval of the implementation scope.
+- [x] Obtain maintainer approval of the implementation scope (PR #34).
 
-## Transport implementation after approval
+## Local worker simulation
 
-- [ ] Add the explicit synthetic-only client/worker transport and verify local mode compatibility.
-- [ ] Cover no-call paths, identity and protocol failures, limits, local citation validation and cleanup using synthetic doubles and a container-local integration test.
-- [ ] Validate new dependencies and editor/CLI/CI checks in the devcontainer, without real endpoint access, credentials or paid requests.
-- [ ] Deliver a short manual synthetic-worker walkthrough and obtain maintainer review.
+- [x] Add the versioned protocol and explicit synthetic-only client and one-shot scripted worker.
+- [x] Test the real subprocess, no-call paths, tampered evidence, output limits, timeout and local citation validation.
+- [x] Verify the conflict and no-match walkthroughs inside the offline devcontainer.
+- [ ] Obtain maintainer review of the simulation.
+
+## SSH transport implementation
+
+- [ ] Add an authenticated SSH transport and a one-shot worker with the pinned offline runtime.
+- [ ] Validate identity failures, deadlines and disconnect cleanup against container-local test doubles.
+- [ ] Validate dependency pins and editor, CLI and CI checks without contacting a real endpoint.
 
 ## Separate live trial after private approval
 
