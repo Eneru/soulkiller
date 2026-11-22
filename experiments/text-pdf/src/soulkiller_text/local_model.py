@@ -2,6 +2,7 @@
 
 import sys
 import time
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
@@ -14,6 +15,8 @@ from .local_server_http import server_request
 from .local_server_identity import require_owned_listener
 from .local_server_process import owned_server, require_running
 from .model_completion import ModelCompletion
+
+type RuntimeObservation = Callable[[str, int, int, int], None]
 
 RESPONSE_SCHEMA: dict[str, Any] = {
     "type": "object",
@@ -114,7 +117,10 @@ def _response_schema(citation_ids: tuple[str, ...]) -> dict[str, Any]:
 
 
 def _generate(
-    tokens: list[int], citation_ids: tuple[str, ...], profile: LocalModelProfile
+    tokens: list[int],
+    citation_ids: tuple[str, ...],
+    profile: LocalModelProfile,
+    observe: RuntimeObservation | None,
 ) -> ModelCompletion:
     """Send one non-streaming, schema-constrained completion using the checked token IDs."""
     started = time.monotonic()
@@ -135,11 +141,14 @@ def _generate(
     )
     count = fields.get("tokens_predicted")
     if type(count) is int and 0 < count <= OUTPUT_TOKENS:
+        elapsed = time.monotonic() - started
         print(
-            f"Local model generation: {time.monotonic() - started:.3f} s; "
+            f"Local model generation: {elapsed:.3f} s; "
             f"{len(tokens)} prompt tokens; {count} output tokens.",
             file=sys.stderr,
         )
+        if observe is not None:
+            observe("generation", round(elapsed * 1000), len(tokens), count)
     return _checked_completion(fields, len(tokens), profile)
 
 
@@ -151,16 +160,32 @@ def local_completion(
     profile: LocalModelProfile = QWEN_1_7B,
 ) -> ModelCompletion:
     """Run one verified profile under the offline limits and always release its child."""
+    with local_deadline():
+        return complete_under_deadline(messages, citation_ids, workspace=workspace, profile=profile)
+
+
+def complete_under_deadline(
+    messages: tuple[dict[str, str], ...],
+    citation_ids: tuple[str, ...],
+    *,
+    workspace: Path,
+    profile: LocalModelProfile,
+    observe: RuntimeObservation | None = None,
+) -> ModelCompletion:
+    """Run the verified child within a caller-owned alarm and reap it on exit."""
     require_local_budget()
     with verified_model(workspace, profile) as descriptor:
         starting = time.monotonic()
-        with owned_server(descriptor, profile.alias) as pid, local_deadline():
+        with owned_server(descriptor, profile.alias) as pid:
             _wait_ready(pid, profile.alias)
             require_owned_listener(pid)
-            print(f"Local model startup: {time.monotonic() - starting:.3f} s.", file=sys.stderr)
+            elapsed = time.monotonic() - starting
+            print(f"Local model startup: {elapsed:.3f} s.", file=sys.stderr)
+            if observe is not None:
+                observe("startup", round(elapsed * 1000), 0, 0)
             tokens = _prompt_tokens(messages)
             require_running(pid)
             require_owned_listener(pid)
-            result = _generate(tokens, citation_ids, profile)
+            result = _generate(tokens, citation_ids, profile, observe)
             require_running(pid)
             return result

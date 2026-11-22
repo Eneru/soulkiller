@@ -9,11 +9,18 @@
 - [x] Add the versioned protocol and explicit synthetic-only client and one-shot scripted worker.
 - [x] Test the real subprocess, no-call paths, tampered evidence, output limits, timeout and local citation validation.
 - [x] Verify the conflict and no-match walkthroughs inside the offline devcontainer.
-- [ ] Obtain maintainer review of the simulation.
+- [x] Obtain maintainer review of the simulation (PR #35).
+
+## Pinned worker runtime
+
+- [x] Add a one-shot worker with pinned offline inference and a deadline covering input, execution and output.
+- [x] Verify request confinement, non-networked inference and child cleanup with credential-free tests.
+- [x] Run the real 4B worker for one synthetic case in the offline devcontainer and resolve the citations.
+- [ ] Obtain maintainer review of the pinned worker.
 
 ## SSH transport implementation
 
-- [ ] Add an authenticated SSH transport and a one-shot worker with the pinned offline runtime.
+- [ ] Add an authenticated SSH client for the one-shot worker.
 - [ ] Validate identity failures, deadlines and disconnect cleanup against container-local test doubles.
 - [ ] Validate dependency pins and editor, CLI and CI checks without contacting a real endpoint.
 

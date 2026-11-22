@@ -97,8 +97,19 @@ def require_running(pid: int) -> None:
 def owned_server(descriptor: int, alias: str) -> Iterator[int]:
     """Start the verified asset with its fixed alias and always reap the owned child."""
     _require_unused_port()
-    pid = _spawn(descriptor, alias)
+    # The Linux timer must not interrupt between spawn and recording the PID,
+    # or between signalling and reaping the owned process.
+    alarms = {signal.SIGALRM}
+    original_mask = signal.pthread_sigmask(signal.SIG_BLOCK, alarms)
+    pid = None
     try:
+        pid = _spawn(descriptor, alias)
+        signal.pthread_sigmask(signal.SIG_SETMASK, original_mask)
         yield pid
     finally:
-        _reap(pid)
+        signal.pthread_sigmask(signal.SIG_BLOCK, alarms)
+        try:
+            if pid is not None:
+                _reap(pid)
+        finally:
+            signal.pthread_sigmask(signal.SIG_SETMASK, original_mask)

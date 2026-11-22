@@ -62,3 +62,34 @@ def test_listener_must_belong_to_expected_process(monkeypatch: pytest.MonkeyPatc
         local_server_identity.require_owned_listener(os.getpid())
         with pytest.raises(DialogueError, match="local_model_endpoint_unavailable"):
             local_server_identity.require_owned_listener(-1)
+
+
+def test_alarm_during_spawn_reaps_child(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Deliver a pending Linux alarm as ownership begins and ensure no child escapes."""
+    import signal
+
+    from soulkiller_text.local_model_budget import local_deadline
+
+    child_pids: list[int] = []
+    spawn = server._spawn
+
+    def spawn_with_pending_alarm(descriptor: int, alias: str) -> int:
+        """Start the real child, then queue an alarm before returning its PID."""
+        pid = spawn(descriptor, alias)
+        child_pids.append(pid)
+        signal.raise_signal(signal.SIGALRM)
+        return pid
+
+    monkeypatch.setattr(server, "SERVER_PORT", 0)
+    monkeypatch.setattr(server, "_command", lambda _descriptor, _alias: ("/usr/bin/sleep", "30"))
+    monkeypatch.setattr(server, "_spawn", spawn_with_pending_alarm)
+    model = tmp_path / "synthetic-model"
+    model.write_bytes(b"test")
+
+    with model.open("rb") as stream, pytest.raises(DialogueError, match="local_model_timeout"):
+        with local_deadline(), server.owned_server(stream.fileno(), QWEN_4B.alias):
+            pytest.fail("the alarm should be raised before yielding")
+
+    assert len(child_pids) == 1
+    with pytest.raises(ChildProcessError):
+        os.waitpid(child_pids[0], os.WNOHANG)

@@ -1,6 +1,7 @@
 """One bounded, canonical JSON frame per stream, terminated by EOF."""
 
 from hashlib import sha256
+from typing import cast
 
 from .dialogue import Messages
 from .dialogue_error import DialogueError
@@ -52,3 +53,17 @@ def read_reply(frame: bytes) -> ModelCompletion:
     except ValueError:
         raise DialogueError(INVALID_REPLY) from None
     return ModelCompletion(payload, "stop", False, SIMULATED_BACKEND)
+
+
+def reviewed_request(frame: bytes) -> tuple[Messages, tuple[str, ...]]:
+    """Decode only the exact versioned bytes whose digest matches a reviewed case."""
+    if not 0 < len(frame) <= FRAME_BYTES:
+        raise DialogueError("unapproved_placement_prompt")
+    digest = sha256(frame).hexdigest()
+    if not any(digest == approved for approved, _ in CASES.values()):
+        raise DialogueError("unapproved_placement_prompt")
+    # The digest binds the complete canonical structure, including field types.
+    fields = decode_saved(frame)
+    messages = tuple(cast(list[dict[str, str]], fields["messages"]))
+    ids = tuple(cast(list[str], fields["citation_ids"]))
+    return messages, ids

@@ -45,6 +45,9 @@ No version has been released yet.
 
 ### Added
 
+- Add a one-shot worker for the pinned offline Qwen3-4B runtime and report
+  generation, startup, token counts and cgroup memory peak in its response.
+
 - Add a credential-free dialogue placement simulation with a bounded worker
   process, exact synthetic prompt checks and source citations resolved locally.
 
